@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Task 2 Essay Structure - All 7 Types</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            font-size: 14px;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+        
+        .paragraph-section {
+            background: #f8f9ff;
+            font-weight: 600;
+            color: #2c3e50;
+            border-left: 4px solid #3498db;
+        }
+        
+        .intro { border-left-color: #e74c3c !important; }
+        .body1 { border-left-color: #f39c12 !important; }
+        .body2 { border-left-color: #27ae60 !important; }
+        .conclusion { border-left-color: #9b59b6 !important; }
+        
+        .sentence-num {
+            background: #34495e;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: center;
+            min-width: 30px;
+            display: inline-block;
+        }
+        
+        .purpose {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .structure {
+            font-style: italic;
+            color: #7f8c8d;
+            background: #ecf0f1;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+        
+        tr:hover {
+            background: #f1f8ff;
+            transform: scale(1.001);
+            transition: all 0.2s ease;
+        }
+        
+        .essay-type {
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            table {
+                font-size: 12px;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 IELTS Task 2 Essay Structure Guide</h1>
+            <p>Complete sentence-by-sentence breakdown for all 7 essay types</p>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #e74c3c;"></div>
+                <span>Introduction</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #f39c12;"></div>
+                <span>Body Para 1</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #27ae60;"></div>
+                <span>Body Para 2</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #9b59b6;"></div>
+                <span>Conclusion</span>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Sentence #</th>
+                        <th>Agree/Disagree</th>
+                        <th>Advantages vs Disadvantages</th>
+                        <th>Problem & Solution</th>
+                        <th>Cause & Solution</th>
+                        <th>Discuss Both Views</th>
+                        <th>Two Questions</th>
+                        <th>Mixed Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Introduction Section -->
+                    <tr>
+                        <td class="paragraph-section intro">INTRODUCTION</td>
+                        <td class="sentence-num">1</td>
+                        <td><div class="purpose">Paraphrase question</div><div class="structure">Use synonyms to restate the prompt</div></td>
+                        <td><div class="purpose">Paraphrase question</div><div class="structure">Restate the topic with different words</div></td>
+                        <td><div class="purpose">Paraphrase topic</div><div class="structure">Introduce the problem in your own words</div></td>
+                        <td><div class="purpose">Paraphrase question</div><div class="structure">Restate the problem using synonyms</div></td>
+                        <td><div class="purpose">Paraphrase question</div><div class="structure">Present both contrasting views</div></td>
+                        <td><div class="purpose">Paraphrase topic</div><div class="structure">Introduce the phenomenon/trend</div></td>
+                        <td><div class="purpose">Paraphrase question</div><div class="structure">Combine elements from the prompt</div></td>
+                    </tr>
+                    <tr>
+                        <td class="paragraph-section intro"></td>
+                        <td class="sentence-num">2</td>
+                        <td><div class="purpose">State your opinion</div><div class="structure">I completely agree/disagree that...</div></td>
+                        <td><div class="purpose">Acknowledge both sides</div><div class="structure">While there are risks/benefits, I believe...</div></td>
+                        <td><div class="purpose">State the issue</div><div class="structure">This affects [impact areas]</div></td>
+                        <td><div class="purpose">Identify core issue</div><div class="structure">This essay will explore reasons and solutions</div></td>
+                        <td><div class="purpose">Acknowledge both</div><div class="structure">Both perspectives have merit</div></td>
+                        <td><div class="purpose">Introduce questions</div><div class="structure">This raises questions about causes and effects</div></td>
+                        <td><div class="purpose">Present stance</div><div class="structure">State your overall position</div></td>
+                    </tr>
+                    <tr>
+                        <td class="paragraph-section intro"></td>
+                        <td class="sentence-num">3</td>
+                        <td><div class="purpose">Outline essay</div><div class="structure">This essay will examine... and discuss...</div></td>
+                        <td><div class="purpose">Outline essay</div><div class="structure">This essay will examine both before concluding</div></td>
+                        <td><div class="purpose">State essay plan</div><div class="structure">This essay will explore problems and solutions</div></td>
+                        <td><div class="purpose">Brief thesis</div><div class="structure">Key causes and solutions will be discussed</div></td>
+                        <td><div class="purpose">State opinion</div><div class="structure">This essay will discuss both and conclude that...</div></td>
+                        <td><div class="purpose">State plan/opinion</div><div class="structure">This essay will explore reasons and argue that...</div></td>
+                        <td><div class="purpose">Outline approach</div><div class="structure">This essay will address multiple aspects</div></td>
+                    </tr>
+                    
+                    <!-- Body Paragraph 1 -->
+                    <tr>
+                        <td class="paragraph-section body1">BODY PARA 1</td>
+                        <td class="sentence-num">4</td>
+                        <td><div class="purpose">Topic sentence</div><div class="structure">One major reason why... is that...</div></td>
+                        <td><div class="purpose">Introduce advantage</div><div class="structure">One key benefit is...</div></td>
+                        <td><div class="purpose">Main problem</div><div class="structure">One major problem is...</div></td>
+                        <td><div class="purpose">Major cause</div><div class="structure">A significant reason is...</div></td>
+                        <td><div class="purpose">First view</div><div class="structure">Some believe that...</div></td>
+                        <td><div class="purpose">Answer Q1</div><div class="structure">One primary reason is...</div></td>
+                        <td><div class="purpose">First main point</div><div class="structure">Firstly,...</div></td>
+                    </tr>
+                    <tr>
+                        <td class="paragraph-section body1"></td>
+                        <td class="sentence-num">5</td>
+                        <td><div class="purpose">Explain idea</div><div class="structure">This means that... / In other words...</div></td>
+                        <td><div class="purpose">Explanation</div><div class="structure">This allows/enables...</div></td>
+                        <td><div class="purpose">Explain issue</div><div class="structure">This occurs because...</div></td>
+                        <td><div class="purpose">Explain cause</div><div class="structure">This happens when...</div></td>
+                        <td><div class="purpose">Explain benefit</div><div class="structure">This encourages/leads to...</div></td>
+                        <td><div class="purpose">Explain reason</div><div class="structure">This is because...</div></td>
+                        <td><div class="purpose">Elaborate</div><div class="structure">This can be seen in...</div></td>
+                    </tr>
+                    <tr>
+                        <td class="paragraph-section body1"></td>
+                        <td class="sentence-num">6</td>
+                        <td><div class="purpose">Example</div><div class="structure">For instance... / A good example is...</div></td>
+                        <td><div class="purpose">Example</div><div class="structure">For instance, platforms like...</div></td>
+                        <td><div class="purpose">Example</div><div class="structure">For example, in many cities...</div></td>
+                        <td><div class="purpose">Example</div><div class="structure">For instance, surveys show...</div></td>
+                        <td><div class="purpose">Example</div><div class="structure">For instance, competitions...</div></td>
+                        <td><div class="purpose">Example</div><div class="structure">For instance, during COVID-19...</div></td>
+                        <td><div class="purpose">Supporting evidence</div><div class="structure">Research shows that...</div></td>
+                    </tr>
+                    <tr>
+                        <td class="paragraph-section body1"></td>
+                        <td class="sentence-num">7</td>
+                        <td><div class="purpose">Concluding sentence</div><div class="structure">Therefore, it is clear that...</div></td>
+                        <td><div class="purpose">Impact/result</div><div class="structure">This allows young people to...</div></td>
+                        <td><div class="purpose">Result</div><div class="structure">As a result...</div></td>
+                        <td><div class="purpose">Secondary cause</div><div class="structure">Additionally, lack of...</div></td>
+                        <td><div class="purpose">Potential downside</div><div class="structure">However, this can lead to...</div></td>
+                        <td><div class="purpose">Another reason</div><div class="structure">Additionally, employees seek...</div></td>
+                        <td><div class="purpose">Link to next point</div><div class="structure">However, this also raises...</div></td>
+                    </tr>
+                    
+                    <!-- Body Paragraph 2 -->
+                    <tr>
+                        <td class="paragraph-section body2">BODY PARA 2</td>
+                        <td class="sentence-num">8</td>
+                        <td><div class="purpose">Topic sentence</div><div class="structure">Another compelling reason is...</div></td>
+                        <td><div class="purpose">Introduce disadvantage</div><div class="structure">On the other hand...</div></td>
+                        <td><div class="purpose">Main solution</div><div class="structure">One effective solution is...</div></td>
+                        <td><div class="purpose">Main solution</div><div class="structure">One viable solution is...</div></td>
+                        <td><div class="purpose">Second view</div><div class="structure">Others argue that...</div></td>
+                        <td><div class="purpose">Answer Q2</div><div class="structure">A major advantage is...</div></td>
+                        <td><div class="purpose">Second main point</div><div class="structure">Secondly,...</div></td>
+                    </tr>
+                    <tr>
+                        <td class="paragraph-section body2"></td>
+                        <td class="sentence-num">9</td>
+                        <td><div class="purpose">Explain idea</div><div class="structure">This suggests that...</div></td>
+                        <td><div class="purpose">Explanation</div><div class="structure">Many young people...</div></td>
+                        <td><div class="purpose">Explain benefit</div><div class="structure">When people have...</div></td>
+                        <td><div class="purpose">Explain solution</div><div class="structure">Educational programs can...</div></td>
+                        <td><div class="purpose">Explain value</div><div class="structure">Teamwork teaches...</div></td>
+                        <td><div class="purpose">Support with detail</div><div class="structure">Workers can tailor...</div></td>
+                        <td><div class="purpose">Explain mechanism</div><div class="structure">This works by...</div></td>
+                    </tr>
+                    <tr>
+                        <td class="paragraph-section body2"></td>
+                        <td class="sentence-num">10</td>
+                        <td><div class="purpose">Example</div><div class="structure">For example... / A recent study...</div></td>
+                        <td><div class="purpose">Example</div><div class="structure">For example, recent studies...</div></td>
+                        <td><div class="purpose">Example</div><div class="structure">Cities like Seoul...</div></td>
+                        <td><div class="purpose">Example</div><div class="structure">For example, Sweden's programs...</div></td>
+                        <td><div class="purpose">Example</div><div class="structure">For example, project-based learning...</div></td>
+                        <td><div class="purpose">Present disadvantage</div><div class="structure">However, remote work can...</div></td>
+                        <td><div class="purpose">Case study</div><div class="structure">A good example is...</div></td>
+                    </tr>
+                    <tr>
+                        <td class="paragraph-section body2"></td>
+                        <td class="sentence-num">11</td>
+                        <td><div class="purpose">Concluding sentence</div><div class="structure">Consequently, this highlights...</div></td>
+                        <td><div class="purpose">Result/concern</div><div class="structure">This can negatively affect...</div></td>
+                        <td><div class="purpose">Additional solution</div><div class="structure">Moreover, governments can...</div></td>
+                        <td><div class="purpose">Another solution</div><div class="structure">Governments can also...</div></td>
+                        <td><div class="purpose">Your view</div><div class="structure">Personally, I believe...</div></td>
+                        <td><div class="purpose">Your view on balance</div><div class="structure">Despite drawbacks, benefits...</div></td>
+                        <td><div class="purpose">Synthesis</div><div class="structure">Therefore, both aspects...</div></td>
+                    </tr>
+                    
+                    <!-- Conclusion -->
+                    <tr>
+                        <td class="paragraph-section conclusion">CONCLUSION</td>
+                        <td class="sentence-num">12</td>
+                        <td><div class="purpose">Restate opinion</div><div class="structure">In conclusion, I strongly believe...</div></td>
+                        <td><div class="purpose">Summarise both sides</div><div class="structure">While there are challenges...</div></td>
+                        <td><div class="purpose">Restate problems/solutions</div><div class="structure">In summary, traffic stems from...</div></td>
+                        <td><div class="purpose">Summarize causes/solutions</div><div class="structure">In conclusion, lack of knowledge...</div></td>
+                        <td><div class="purpose">Summarize views</div><div class="structure">In short, both competition and...</div></td>
+                        <td><div class="purpose">Restate answers</div><div class="structure">In conclusion, remote work is driven by...</div></td>
+                        <td><div class="purpose">Overall summary</div><div class="structure">To conclude,...</div></td>
+                    </tr>
+                    <tr>
+                        <td class="paragraph-section conclusion"></td>
+                        <td class="sentence-num">13</td>
+                        <td><div class="purpose">Summarize points</div><div class="structure">This is because... and also due to...</div></td>
+                        <td><div class="purpose">Final opinion</div><div class="structure">Therefore, I believe benefits outweigh...</div></td>
+                        <td><div class="purpose">Final recommendation</div><div class="structure">Governments must invest...</div></td>
+                        <td><div class="purpose">Final recommendation</div><div class="structure">Educational and infrastructural reforms...</div></td>
+                        <td><div class="purpose">Final opinion</div><div class="structure">A balanced education should...</div></td>
+                        <td><div class="purpose">Final opinion</div><div class="structure">Overall, advantages outweigh...</div></td>
+                        <td><div class="purpose">Final stance</div><div class="structure">It is essential that...</div></td>
+                    </tr>
+                    <tr>
+                        <td class="paragraph-section conclusion"></td>
+                        <td class="sentence-num">14</td>
+                        <td><div class="purpose">Final comment (optional)</div><div class="structure">It is recommended that...</div></td>
+                        <td><div class="purpose">-</div><div class="structure">-</div></td>
+                        <td><div class="purpose">-</div><div class="structure">-</div></td>
+                        <td><div class="purpose">-</div><div class="structure">-</div></td>
+                        <td><div class="purpose">-</div><div class="structure">-</div></td>
+                        <td><div class="purpose">-</div><div class="structure">-</div></td>
+                        <td><div class="purpose">Future outlook (optional)</div><div class="structure">Looking ahead...</div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #007bff;">
+            <h3 style="margin-top: 0; color: #007bff;">📝 How to Use This Table:</h3>
+            <ul style="margin-bottom: 0;">
+                <li><strong>Choose your essay type</strong> based on the question prompt</li>
+                <li><strong>Follow the sentence structure</strong> for each paragraph section</li>
+                <li><strong>Each sentence has a specific purpose</strong> - stick to it for clarity</li>
+                <li><strong>Use the templates</strong> as starting points, then customize with your content</li>
+                <li><strong>Aim for 250-300 words total</strong> across all 4 paragraphs</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

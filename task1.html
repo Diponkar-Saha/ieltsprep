@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Task 1 Band 7-8 Advanced Templates</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 2s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .band-indicator {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 15px;
+            box-shadow: 0 5px 20px rgba(238, 90, 82, 0.4);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .task-type {
+            background: white;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e0e6ed;
+        }
+        
+        .task-type:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        .task-title {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px 30px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .task-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #0abde3);
+        }
+        
+        .template-content {
+            padding: 30px;
+        }
+        
+        .paragraph-section {
+            background: #f8fafc;
+            border-left: 4px solid #4facfe;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .paragraph-header {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            color: #2c3e50;
+            padding: 15px 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .paragraph-content {
+            padding: 20px 25px;
+            background: white;
+        }
+        
+        .template-box {
+            background: #f1f5f9;
+            border: 2px dashed #64748b;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .template-box::before {
+            content: '📝 Template';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #64748b;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .advanced-phrases {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .advanced-phrases h4 {
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .phrase-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        
+        .phrase-item {
+            background: rgba(255,255,255,0.7);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            border-left: 3px solid #fd79a8;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .band-features {
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .band-features h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .feature-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .task-title {
+                font-size: 1.2rem;
+                padding: 15px 20px;
+            }
+            
+            .template-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 IELTS Task 1 Advanced Templates</h1>
+            <p>Band 7-8 Level Writing Structures</p>
+            <div class="band-indicator">TARGET: BAND 7-8</div>
+        </div>
+
+        <div class="band-features">
+            <h3>🌟 Band 7-8 Key Features</h3>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <strong>Complex Data Analysis</strong><br>
+                    Sophisticated comparisons & trends
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎭</div>
+                    <strong>Varied Language</strong><br>
+                    Advanced vocabulary & structures
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔗</div>
+                    <strong>Cohesive Flow</strong><br>
+                    Seamless paragraph connections
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <strong>Precise Grammar</strong><br>
+                    Complex sentences with accuracy
+                </div>
+            </div>
+        </div>
+
+        <!-- Line Graph Template -->
+        <div class="task-type">
+            <div class="task-title">📈 LINE GRAPH - Advanced Template</div>
+            <div class="template-content">
+                <div class="paragraph-section">
+                    <div class="paragraph-header">INTRODUCTION (1 sentence)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            The <span class="highlight">[graph type]</span> delineates/illustrates/depicts the fluctuations in <span class="highlight">[what is measured]</span> across <span class="highlight">[time period]</span>, with data presented for <span class="highlight">[categories/countries]</span>.
+                        </div>
+                        <div class="advanced-phrases">
+                            <h4>🎨 Advanced Introduction Starters:</h4>
+                            <div class="phrase-list">
+                                <div class="phrase-item">The line graph delineates the trajectory of...</div>
+                                <div class="phrase-item">The chart elucidates the variations in...</div>
+                                <div class="phrase-item">The data illustrates the progression of...</div>
+                                <div class="phrase-item">The graph demonstrates the evolution of...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paragraph-section">
+                    <div class="paragraph-header">OVERVIEW (2-3 sentences)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            <strong>Overall perspective:</strong> What stands out prominently is that <span class="highlight">[most significant trend]</span>. Concurrently, <span class="highlight">[second major pattern]</span> emerged as another salient feature, whilst <span class="highlight">[contrasting pattern]</span> remained relatively <span class="highlight">[stable/volatile]</span> throughout the timeframe.
+                        </div>
+                        <div class="advanced-phrases">
+                            <h4>🔍 Sophisticated Overview Language:</h4>
+                            <div class="phrase-list">
+                                <div class="phrase-item">What stands out prominently is...</div>
+                                <div class="phrase-item">A salient feature of the data reveals...</div>
+                                <div class="phrase-item">The most striking aspect is...</div>
+                                <div class="phrase-item">Concurrently, it is evident that...</div>
+                                <div class="phrase-item">Conversely, the data indicates...</div>
+                                <div class="phrase-item">Throughout the period in question...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paragraph-section">
+                    <div class="paragraph-header">BODY PARAGRAPH 1 (4-5 sentences)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            Examining the initial phase of the period (from <span class="highlight">[start year]</span> to <span class="highlight">[mid year]</span>), <span class="highlight">[category A]</span> commenced at <span class="highlight">[figure]</span> before experiencing a <span class="highlight">[type of change]</span> trajectory, culminating at <span class="highlight">[figure]</span>. In stark contrast, <span class="highlight">[category B]</span> exhibited a markedly different pattern, <span class="highlight">[describe movement]</span> from <span class="highlight">[starting point]</span> to reach its <span class="highlight">[peak/trough]</span> of <span class="highlight">[figure]</span> in <span class="highlight">[year]</span>. Subsequently, both categories experienced <span class="highlight">[convergence/divergence]</span>, with the gap between them <span class="highlight">[narrowing/widening]</span> considerably.
+                        </div>
+                        <div class="advanced-phrases">
+                            <h4>📊 Advanced Data Description:</h4>
+                            <div class="phrase-list">
+                                <div class="phrase-item">commenced at... before experiencing</div>
+                                <div class="phrase-item">culminating at a peak/trough of</div>
+                                <div class="phrase-item">exhibited a markedly different pattern</div>
+                                <div class="phrase-item">in stark contrast to</div>
+                                <div class="phrase-item">subsequently underwent fluctuations</div>
+                                <div class="phrase-item">demonstrated considerable volatility</div>
+                                <div class="phrase-item">maintained relative stability</div>
+                                <div class="phrase-item">the trajectory remained consistent</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paragraph-section">
+                    <div class="paragraph-header">BODY PARAGRAPH 2 (4-5 sentences)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            The latter half of the timeframe witnessed <span class="highlight">[describe general trend]</span>. Specifically, <span class="highlight">[category A]</span> underwent a <span class="highlight">[dramatic/gradual]</span> transformation, <span class="highlight">[increasing/decreasing]</span> by approximately <span class="highlight">[amount/percentage]</span> to reach <span class="highlight">[final figure]</span>. Meanwhile, <span class="highlight">[category B]</span> demonstrated <span class="highlight">[stability/volatility]</span>, fluctuating between <span class="highlight">[range]</span> before settling at <span class="highlight">[final figure]</span>. Remarkably, by the end of the period, <span class="highlight">[comparison between categories]</span>, representing a <span class="highlight">[significant/marginal]</span> shift from the initial scenario.
+                        </div>
+                        <div class="advanced-phrases">
+                            <h4>🎯 Advanced Trend Language:</h4>
+                            <div class="phrase-list">
+                                <div class="phrase-item">witnessed a dramatic transformation</div>
+                                <div class="phrase-item">underwent considerable fluctuations</div>
+                                <div class="phrase-item">demonstrated remarkable resilience</div>
+                                <div class="phrase-item">exhibited sustained growth</div>
+                                <div class="phrase-item">experienced precipitous decline</div>
+                                <div class="phrase-item">maintained consistent trajectory</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bar Chart Template -->
+        <div class="task-type">
+            <div class="task-title">📊 BAR CHART - Advanced Template</div>
+            <div class="template-content">
+                <div class="paragraph-section">
+                    <div class="paragraph-header">INTRODUCTION (1 sentence)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            The bar chart meticulously compares <span class="highlight">[what is being measured]</span> across <span class="highlight">[number]</span> distinct <span class="highlight">[categories/regions/years]</span>, providing comprehensive insights into <span class="highlight">[general topic]</span>.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paragraph-section">
+                    <div class="paragraph-header">OVERVIEW (2-3 sentences)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            At first glance, it is immediately apparent that <span class="highlight">[highest category]</span> dominates the data, substantially surpassing all other categories. Conversely, <span class="highlight">[lowest category]</span> registers the most modest figures, whilst the remaining categories demonstrate <span class="highlight">[moderate/varied]</span> levels with <span class="highlight">[notable patterns]</span>.
+                        </div>
+                        <div class="advanced-phrases">
+                            <h4>🔎 Sophisticated Comparison Language:</h4>
+                            <div class="phrase-list">
+                                <div class="phrase-item">dominates the data substantially</div>
+                                <div class="phrase-item">registers the most modest figures</div>
+                                <div class="phrase-item">substantially surpasses all others</div>
+                                <div class="phrase-item">demonstrates remarkable superiority</div>
+                                <div class="phrase-item">exhibits marginal differences</div>
+                                <div class="phrase-item">maintains consistent levels</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paragraph-section">
+                    <div class="paragraph-header">BODY PARAGRAPHS (Group by similarities/differences)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            <strong>High performers:</strong> Leading the rankings decisively, <span class="highlight">[category 1]</span> records an impressive <span class="highlight">[figure]</span>, closely followed by <span class="highlight">[category 2]</span> at <span class="highlight">[figure]</span>. The gap between these frontrunners amounts to <span class="highlight">[difference]</span>, indicating <span class="highlight">[competitive/significant disparity]</span>.<br><br>
+
+                            <strong>Middle-tier categories:</strong> Occupying the intermediate positions, <span class="highlight">[categories]</span> cluster around the <span class="highlight">[range]</span> mark, with minimal variation of approximately <span class="highlight">[small difference]</span> separating them.<br><br>
+
+                            <strong>Lower performers:</strong> At the opposite end of the spectrum, <span class="highlight">[lowest categories]</span> lag considerably behind, registering merely <span class="highlight">[figures]</span> respectively, representing less than <span class="highlight">[percentage]</span> of the leading category's performance.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie Chart Template -->
+        <div class="task-type">
+            <div class="task-title">🥧 PIE CHART - Advanced Template</div>
+            <div class="template-content">
+                <div class="paragraph-section">
+                    <div class="paragraph-header">INTRODUCTION (1 sentence)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            The pie chart/charts provide a comprehensive breakdown of <span class="highlight">[what is measured]</span>, illustrating the proportional distribution across <span class="highlight">[categories]</span> for <span class="highlight">[time/place]</span>.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paragraph-section">
+                    <div class="paragraph-header">OVERVIEW (2-3 sentences)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            The data reveals a pronounced concentration in <span class="highlight">[dominant category]</span>, which commands <span class="highlight">[large percentage]</span> of the total distribution. In sharp contrast, <span class="highlight">[smallest categories]</span> collectively represent a mere <span class="highlight">[small percentage]</span>, whilst the intermediate segments demonstrate <span class="highlight">[relatively balanced/varied]</span> proportions.
+                        </div>
+                        <div class="advanced-phrases">
+                            <h4>📈 Advanced Proportion Language:</h4>
+                            <div class="phrase-list">
+                                <div class="phrase-item">commands the lion's share</div>
+                                <div class="phrase-item">accounts for the bulk of</div>
+                                <div class="phrase-item">represents a negligible proportion</div>
+                                <div class="phrase-item">constitutes the predominant portion</div>
+                                <div class="phrase-item">comprises a substantial segment</div>
+                                <div class="phrase-item">embodies a marginal fraction</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paragraph-section">
+                    <div class="paragraph-header">BODY PARAGRAPHS (Group by size)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            <strong>Dominant segments:</strong> <span class="highlight">[Largest category]</span> emerges as the undisputed leader, encompassing <span class="highlight">[percentage]</span> of the entire distribution. This substantial proportion underscores <span class="highlight">[significance/implication]</span>.<br><br>
+
+                            <strong>Secondary components:</strong> The subsequent categories, namely <span class="highlight">[categories]</span>, collectively account for <span class="highlight">[combined percentage]</span>, with individual contributions of <span class="highlight">[specific percentages]</span> respectively.<br><br>
+
+                            <strong>Minor constituents:</strong> The remaining segments, including <span class="highlight">[smallest categories]</span>, constitute relatively modest portions, ranging from <span class="highlight">[lowest]</span> to <span class="highlight">[highest small percentage]</span>, thereby highlighting their peripheral role in the overall composition.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Template -->
+        <div class="task-type">
+            <div class="task-title">📋 TABLE - Advanced Template</div>
+            <div class="template-content">
+                <div class="paragraph-section">
+                    <div class="paragraph-header">INTRODUCTION (1 sentence)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            The table presents comprehensive data regarding <span class="highlight">[topic]</span> across <span class="highlight">[time periods/categories]</span>, facilitating detailed comparisons between <span class="highlight">[different elements]</span>.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paragraph-section">
+                    <div class="paragraph-header">OVERVIEW (2-3 sentences)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            Overall, the data demonstrates <span class="highlight">[general trend/pattern]</span> across the timeframe/categories examined. Most notably, <span class="highlight">[highest performing category]</span> consistently outperforms its counterparts, whilst <span class="highlight">[lowest category]</span> maintains the most modest levels throughout the period under scrutiny.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paragraph-section">
+                    <div class="paragraph-header">BODY PARAGRAPHS (Organize by rows/columns or time periods)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            <strong>Superior performers:</strong> Examining the data systematically, <span class="highlight">[category/period 1]</span> demonstrates exceptional performance, recording figures of <span class="highlight">[specific data]</span>. Similarly, <span class="highlight">[category 2]</span> exhibits robust results, with values reaching <span class="highlight">[data]</span>.<br><br>
+
+                            <strong>Intermediate levels:</strong> The middle-ranking categories present <span class="highlight">[moderate/varied]</span> performance, with <span class="highlight">[specific examples]</span> registering <span class="highlight">[figures]</span> respectively.<br><br>
+
+                            <strong>Comparative analysis:</strong> When juxtaposing the temporal progression, <span class="highlight">[trend description]</span> becomes evident, with the most significant changes occurring in <span class="highlight">[specific area/time]</span> where values <span class="highlight">[increased/decreased]</span> by <span class="highlight">[amount/percentage]</span>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Process Template -->
+        <div class="task-type">
+            <div class="task-title">⚙️ PROCESS - Advanced Template</div>
+            <div class="template-content">
+                <div class="paragraph-section">
+                    <div class="paragraph-header">INTRODUCTION (1 sentence)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            The diagram meticulously illustrates the intricate process of <span class="highlight">[process name]</span>, delineating the sequential stages from <span class="highlight">[initial stage]</span> through to <span class="highlight">[final outcome]</span>.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paragraph-section">
+                    <div class="paragraph-header">OVERVIEW (2-3 sentences)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            The process encompasses <span class="highlight">[number]</span> distinct phases, commencing with <span class="highlight">[first step]</span> and culminating in <span class="highlight">[final step]</span>. Throughout this transformation, <span class="highlight">[raw materials/input]</span> undergo systematic modifications involving <span class="highlight">[key processes: heating/mixing/filtering etc.]</span> to produce <span class="highlight">[final product]</span>.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paragraph-section">
+                    <div class="paragraph-header">BODY PARAGRAPHS (Describe stages sequentially)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            <strong>Initial stages:</strong> The process commences when <span class="highlight">[raw material]</span> is <span class="highlight">[first action]</span>. Subsequently, this material undergoes <span class="highlight">[second process]</span>, during which <span class="highlight">[specific changes occur]</span>. Following this preliminary treatment, the <span class="highlight">[partially processed material]</span> is then <span class="highlight">[next action]</span>.<br><br>
+
+                            <strong>Intermediate phases:</strong> The process continues as the material is <span class="highlight">[describe mid-stage actions]</span>. During this critical juncture, <span class="highlight">[important transformation]</span> takes place, resulting in <span class="highlight">[intermediate product]</span>. Concurrently, <span class="highlight">[parallel processes if any]</span> occur to ensure <span class="highlight">[quality/efficiency]</span>.<br><br>
+
+                            <strong>Final stages:</strong> In the concluding phases, the <span class="highlight">[near-final product]</span> undergoes <span class="highlight">[final treatments]</span> before being <span class="highlight">[final action: packaged/stored/distributed]</span>. This comprehensive process ultimately yields <span class="highlight">[final product]</span>, ready for <span class="highlight">[end use/consumption]</span>.
+                        </div>
+                        <div class="advanced-phrases">
+                            <h4>🔄 Advanced Process Language:</h4>
+                            <div class="phrase-list">
+                                <div class="phrase-item">The process commences when...</div>
+                                <div class="phrase-item">Subsequently, this undergoes...</div>
+                                <div class="phrase-item">During this critical juncture...</div>
+                                <div class="phrase-item">Concurrently, parallel processes...</div>
+                                <div class="phrase-item">In the concluding phases...</div>
+                                <div class="phrase-item">This transformation ultimately yields...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Template -->
+        <div class="task-type">
+            <div class="task-title">🗺️ MAP - Advanced Template</div>
+            <div class="template-content">
+                <div class="paragraph-section">
+                    <div class="paragraph-header">INTRODUCTION (1 sentence)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            The maps comprehensively depict the transformational changes that occurred in <span class="highlight">[location name]</span> over the period spanning from <span class="highlight">[start year]</span> to <span class="highlight">[end year]</span>, highlighting the area's developmental trajectory.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paragraph-section">
+                    <div class="paragraph-header">OVERVIEW (2-3 sentences)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            The most striking transformation involves the <span class="highlight">[major change]</span>, which fundamentally altered the character of the area. Additionally, significant developments include <span class="highlight">[second major change]</span> and <span class="highlight">[third change]</span>, whilst certain features such as <span class="highlight">[unchanged elements]</span> remained largely unaltered throughout the period.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paragraph-section">
+                    <div class="paragraph-header">BODY PARAGRAPHS (Organize by areas or types of changes)</div>
+                    <div class="paragraph-content">
+                        <div class="template-box">
+                            <strong
