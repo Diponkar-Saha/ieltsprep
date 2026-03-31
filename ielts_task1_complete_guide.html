@@ -1,0 +1,252 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:20px 0;font-family:var(--font-sans)}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.nav-btn{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+.nav-btn.active{background:var(--color-background-info);color:var(--color-text-info);border-color:transparent}
+.panel{display:none}.panel.active{display:block}
+.card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.card-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500;margin-bottom:8px}
+.b-purple{background:#EEEDFE;color:#3C3489}
+.b-teal{background:#E1F5EE;color:#085041}
+.b-amber{background:#FAEEDA;color:#633806}
+.b-coral{background:#FAECE7;color:#4A1B0C}
+.b-blue{background:#E6F1FB;color:#0C447C}
+.b-pink{background:#FBEAF0;color:#72243E}
+.b-green{background:#EAF3DE;color:#27500A}
+.section-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.04em;margin:14px 0 6px}
+.vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.vocab-item{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:8px 10px}
+.vocab-word{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.vocab-def{font-size:11px;color:var(--color-text-secondary);margin-top:2px;line-height:1.5}
+.example-box{background:var(--color-background-primary);border-left:3px solid #7F77DD;border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:var(--color-text-secondary);line-height:1.8;margin-top:8px}
+.example-box strong{color:var(--color-text-primary);font-weight:500}
+.structure-step{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.structure-step:last-child{border-bottom:none}
+.step-num{min-width:22px;height:22px;border-radius:50%;background:var(--color-background-info);color:var(--color-text-info);font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center}
+.step-text{font-size:13px;color:var(--color-text-primary);line-height:1.6}
+.step-sub{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.warn-box{background:#FAEEDA;border-radius:8px;padding:10px 12px;font-size:12px;color:#633806;line-height:1.7;margin-top:8px}
+.tip-box{background:#E1F5EE;border-radius:8px;padding:10px 12px;font-size:12px;color:#085041;line-height:1.7;margin-top:8px}
+@media(max-width:480px){.vocab-grid,.two-col{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+<div class="nav" id="nav"></div>
+<div id="panels"></div>
+</div>
+
+<script>
+const data=[
+{id:'line',label:'Line Graph',badge:'b-blue',
+structure:['Introduction — paraphrase the question + what the graph shows','Overview — mention the most striking trend (biggest rise/fall/overall pattern)','Detail paragraph 1 — describe the highest/most prominent lines','Detail paragraph 2 — compare remaining lines, note crossover points if any'],
+structureSubs:['Never copy the question word for word','2 sentences max. No specific figures here','Include specific data: years + numbers','Mention exceptions or unexpected patterns'],
+keyVocab:[
+{w:'rose sharply',d:'দ্রুত বাড়া — a sharp/steep/dramatic rise'},
+{w:'declined gradually',d:'আস্তে আস্তে কমা — a gradual/steady decline'},
+{w:'remained stable',d:'স্থিতিশীল থাকা — was unchanged/consistent'},
+{w:'fluctuated',d:'ওঠানামা করা — went up and down irregularly'},
+{w:'peaked at',d:'সর্বোচ্চে পৌঁছানো — reached its highest point of'},
+{w:'hit a low of',d:'সর্বনিম্নে নামা — fell to its lowest point of'},
+{w:'levelled off',d:'সমতল হওয়া — steadied / stopped changing'},
+{w:'overtook',d:'ছাড়িয়ে যাওয়া — surpassed / went above'},
+],
+moreVocab:[
+{w:'Adverbs of speed',d:'sharply · steeply · rapidly · gradually · steadily · slightly · marginally'},
+{w:'Nouns',d:'a rise · a fall · a drop · a surge · a decline · a dip · a plateau · a peak'},
+{w:'Verbs',d:'rose · fell · increased · decreased · climbed · plunged · stabilised · levelled off'},
+{w:'Comparing',d:'higher than · lower than · twice as high · at a similar rate · in contrast'},
+],
+example:'The number of internet users <strong>rose sharply</strong> from 10 million in 2000, <strong>peaking at</strong> 85 million in 2015, before <strong>levelling off</strong> at around 80 million by 2020.',
+warn:'Do not describe every single data point. Select key trends only.',
+tip:'Always mention the overall direction (upward/downward/fluctuating) in your Overview paragraph.'},
+
+{id:'bar',label:'Bar Chart',badge:'b-teal',
+structure:['Introduction — paraphrase the task, state what is being compared','Overview — highlight the highest and lowest categories, and any clear pattern','Detail paragraph 1 — compare the top 2–3 categories with specific figures','Detail paragraph 2 — describe lower-ranking categories and any notable contrasts'],
+structureSubs:['Mention the time period if there are multiple time periods','Do NOT give your opinion. Just describe.','Use comparison language (while, whereas, compared to)','Mention unexpected or surprising differences if present'],
+keyVocab:[
+{w:'the highest figure',d:'সর্বোচ্চ সংখ্যা — the largest proportion / the most'},
+{w:'the lowest figure',d:'সর্বনিম্ন সংখ্যা — the smallest / the least'},
+{w:'accounted for',d:'হিস্যা ছিল — made up / represented / constituted'},
+{w:'compared to',d:'তুলনায় — in comparison with / as opposed to'},
+{w:'approximately',d:'আনুমানিক — roughly / around / about'},
+{w:'whereas',d:'অপরদিকে — while / in contrast / however'},
+{w:'significantly more',d:'অনেক বেশি — considerably / substantially more'},
+{w:'marginally higher',d:'সামান্য বেশি — slightly / a little higher than'},
+],
+moreVocab:[
+{w:'Comparison',d:'more than · less than · double · triple · half · a quarter of'},
+{w:'Size words',d:'considerable · substantial · notable · marginal · slight · dramatic'},
+{w:'Position words',d:'ranked first · second highest · at the bottom · in the middle'},
+{w:'Time (if multiple years)',d:'by contrast · over the period · between X and Y · in X year'},
+],
+example:'Men accounted for the <strong>highest figure</strong> at 65%, <strong>compared to</strong> women at 35%. <strong>Approximately</strong> twice as many men participated <strong>whereas</strong> the gap narrowed in later years.',
+warn:'Do not write about every single bar. Group them (high/medium/low) and compare.',
+tip:'If the chart shows two time periods, always compare the same category across both periods.'},
+
+{id:'pie',label:'Pie Chart',badge:'b-amber',
+structure:['Introduction — paraphrase the title, mention what the pie(s) show','Overview — note the largest and smallest segments, and any pattern across charts if 2 pies','Detail paragraph 1 — describe the dominant segments with percentages','Detail paragraph 2 — cover smaller segments, compare across pie charts if there are two'],
+structureSubs:['Do not say "this pie chart shows" — paraphrase it','If 2 pies: compare same category in both','Use "just over/under" for approximate percentages','Total should always equal 100% — mention if something is "the remainder"'],
+keyVocab:[
+{w:'accounted for',d:'হিস্যা ছিল — made up / represented'},
+{w:'the largest share',d:'সর্ববৃহৎ অংশ — the biggest proportion / segment'},
+{w:'the smallest proportion',d:'সবচেয়ে কম অংশ — the least / the minority'},
+{w:'just over / just under',d:'একটু বেশি/কম — slightly above / slightly below'},
+{w:'almost half',d:'প্রায় অর্ধেক — nearly 50% / close to half'},
+{w:'the remainder',d:'বাকি অংশ — the rest / the remaining proportion'},
+{w:'combined',d:'মিলিয়ে — together / in total / jointly'},
+{w:'a significant majority',d:'বড় অংশ — the bulk of / most of'},
+],
+moreVocab:[
+{w:'Fractions',d:'a quarter (25%) · a third (33%) · half (50%) · two thirds (67%)'},
+{w:'Approximations',d:'roughly · approximately · around · nearly · almost · just over'},
+{w:'Comparing two pies',d:'while · whereas · by contrast · in comparison · similarly'},
+{w:'Dominance language',d:'dominated by · led by · the majority was · was primarily made up of'},
+],
+example:'Electricity <strong>accounted for</strong> the <strong>largest share</strong> at <strong>just over</strong> 40%, while gas represented <strong>almost a third</strong> of total energy consumption. Oil and renewables <strong>combined</strong> made up the remainder.',
+warn:'Never use "%" as a standalone figure without context. Say "40% of total energy use".',
+tip:'If given two pie charts, your overview MUST compare them (what changed between the two?).'},
+
+{id:'table',label:'Table',badge:'b-coral',
+structure:['Introduction — paraphrase what the table shows (countries, years, categories)','Overview — identify the highest values, lowest values, and any clear overall pattern','Detail paragraph 1 — describe the rows/columns with the most notable data','Detail paragraph 2 — cover less prominent data, note outliers or exceptions'],
+structureSubs:['Do not describe every cell — select and group data','Choose 4–5 most significant figures to discuss','Group similar data together (e.g. all high-income countries)','Mention the unit of measurement (%, million, km²)'],
+keyVocab:[
+{w:'the highest recorded',d:'সর্বোচ্চ রেকর্ড — the greatest / the maximum'},
+{w:'by a significant margin',d:'উল্লেখযোগ্য ব্যবধানে — by far / considerably more than'},
+{w:'in contrast',d:'বিপরীতে — conversely / on the other hand'},
+{w:'broadly similar',d:'প্রায় একই রকম — comparable / roughly the same'},
+{w:'an exception',d:'ব্যতিক্রম — an anomaly / stood out / notably different'},
+{w:'ranked last',d:'শেষে ছিল — at the bottom / the lowest of all'},
+{w:'the figures for X',d:'X-এর সংখ্যা — the data for / the statistics for'},
+{w:'relatively low',d:'তুলনামূলকভাবে কম — considerably lower / much lower than average'},
+],
+moreVocab:[
+{w:'Data selection',d:'the most notable · worth highlighting · particularly striking · stand out'},
+{w:'Grouping',d:'overall · collectively · as a group · among all · across the board'},
+{w:'Contrast',d:'whereas · while · despite · although · in contrast to · unlike'},
+{w:'Units',d:'million · billion · per capita · per cent · per annum · km² · USD'},
+],
+example:'Japan recorded <strong>the highest figure</strong> at 82 years, <strong>by a significant margin</strong> compared to Nigeria\'s 54 years. <strong>In contrast</strong>, most European nations showed <strong>broadly similar</strong> results, ranging from 75 to 80 years.',
+warn:'Do not try to mention every number in the table. Examiners want selection and comparison.',
+tip:'Always state the unit (years, %, millions) — never write bare numbers.'},
+
+{id:'process',label:'Process Diagram',badge:'b-pink',
+structure:['Introduction — paraphrase the diagram title (e.g. "The diagram illustrates the process by which…")','Overview — state how many stages there are and whether it is linear or cyclical','Detail paragraph 1 — describe the first half of the stages in sequence','Detail paragraph 2 — continue with the remaining stages to completion'],
+structureSubs:['No data/figures here — it\'s about stages and sequence','Mention if it\'s a cycle (returns to the start)','Use sequencing language throughout','Use passive voice as standard for manufacturing processes'],
+keyVocab:[
+{w:'initially / firstly',d:'প্রথমে — at the first stage / to begin with'},
+{w:'subsequently',d:'পরবর্তীতে — then / after this / next'},
+{w:'finally / ultimately',d:'সবশেষে — at the final stage / in the last step'},
+{w:'is converted into',d:'রূপান্তরিত হয় — is transformed into / becomes'},
+{w:'is extracted from',d:'বের করা হয় — is obtained from / is taken from'},
+{w:'is heated / cooled',d:'গরম/ঠান্ডা করা হয় — is treated / processed / exposed to'},
+{w:'involves',d:'জড়িত থাকে — requires / consists of / includes'},
+{w:'a series of stages',d:'ধাপগুলোর একটি ক্রম — a sequence of steps / phases'},
+],
+moreVocab:[
+{w:'Sequencing',d:'first · then · next · after that · following this · subsequently · finally'},
+{w:'Passive voice',d:'is collected · are mixed · is heated · is poured · is transported'},
+{w:'Cycle language',d:'the cycle begins · returns to the start · completes the cycle · is repeated'},
+{w:'Quantity',d:'a small amount · a large quantity · the majority · equal parts'},
+],
+example:'<strong>Initially</strong>, raw limestone is crushed into powder. This material <strong>is subsequently</strong> heated in a kiln, where it <strong>is converted into</strong> clinker. <strong>Finally</strong>, the clinker is ground with gypsum to produce cement.',
+warn:'Do NOT use "I think" or "it seems". Be factual and objective throughout.',
+tip:'Use passive voice ("is heated", "are mixed") for manufacturing processes. Active voice for nature cycles ("water evaporates").'},
+
+{id:'map',label:'Map / Plan',badge:'b-green',
+structure:['Introduction — paraphrase the task (e.g. "The maps compare the layout of X in Y and Z years")','Overview — summarise the biggest overall change (e.g. significant development / modernisation / expansion)','Detail paragraph 1 — describe what was present in the original / past map','Detail paragraph 2 — describe what changed, was added, removed, or relocated in the later map'],
+structureSubs:['Mention the years clearly','Do NOT describe items that did not change','For building plans: describe room layout changes','Compare past vs present throughout — do not just list features'],
+keyVocab:[
+{w:'to the north/south/east/west of',d:'উত্তর/দক্ষিণ/পূর্ব/পশ্চিমে — located north of / situated to the east'},
+{w:'adjacent to',d:'পাশে — next to / alongside / bordering'},
+{w:'was replaced by',d:'প্রতিস্থাপিত হয়েছে — gave way to / was converted into'},
+{w:'was demolished',d:'ভাঙা হয়েছে — was removed / was knocked down / was cleared'},
+{w:'was constructed',d:'নির্মিত হয়েছে — was built / was added / was developed'},
+{w:'remains unchanged',d:'অপরিবর্তিত আছে — is still present / has stayed the same'},
+{w:'was extended',d:'বাড়ানো হয়েছে — was expanded / was enlarged'},
+{w:'in the centre of',d:'কেন্দ্রে — in the middle / at the heart of'},
+],
+moreVocab:[
+{w:'Location',d:'north · south · east · west · central · far · near · opposite · between'},
+{w:'Change verbs',d:'was built · was removed · was relocated · was converted · was expanded · was added'},
+{w:'Comparing time',d:'by [year] · in the original plan · in the later map · over this period · by contrast'},
+{w:'Existence',d:'there was · there were · a new X was introduced · X no longer existed'},
+],
+example:'In 1990, a small farm <strong>was located to the north of</strong> the town centre, <strong>adjacent to</strong> the river. By 2020, this area <strong>had been replaced by</strong> a shopping complex, while the river bridge <strong>remained unchanged</strong>.',
+warn:'Do not say "I can see" or "in the picture". Write formally: "The map shows…"',
+tip:'Use past tense for the old map and past perfect / present for the new one ("had been built", "now stands").'},
+
+{id:'combo',label:'Combination Graph',badge:'b-purple',
+structure:['Introduction — mention BOTH visual types and what they show (e.g. "The bar chart and pie chart illustrate…")','Overview — give one key observation from EACH visual type','Detail paragraph 1 — describe the bar chart (or line graph) data in full','Detail paragraph 2 — describe the pie chart (or table) data, then link them if possible'],
+structureSubs:['Treat each visual separately first, then link them','Do not mix data from both in one sentence unless comparing directly','Some combinations: bar+line, bar+pie, table+pie, two line graphs','Always state clearly which visual you are referring to'],
+keyVocab:[
+{w:'as illustrated in the bar chart',d:'bar chart অনুযায়ী — according to the bar graph / as shown'},
+{w:'turning to the pie chart',d:'pie chart-এ দেখলে — with regard to the pie chart'},
+{w:'this is reflected in',d:'এটি প্রতিফলিত হয় — this corresponds to / is supported by'},
+{w:'taken together',d:'একসাথে দেখলে — overall / when considered collectively'},
+{w:'while the bar chart shows',d:'bar chart দেখায় যখন — whereas / in contrast'},
+{w:'both visuals suggest',d:'উভয় চার্টই বলছে — the data collectively indicates'},
+{w:'the proportion… while the total',d:'অনুপাত… এবং মোট — the share versus the volume'},
+{w:'this is consistent with',d:'এটি সামঞ্জস্যপূর্ণ — this aligns with / supports'},
+],
+moreVocab:[
+{w:'Referring to visuals',d:'"as shown in" · "according to" · "the first chart" · "the second visual"'},
+{w:'Linking data',d:'consequently · this explains why · which accounts for · in line with this'},
+{w:'Contrast across charts',d:'despite this · however · interestingly · by contrast · nevertheless'},
+{w:'Totals vs proportions',d:'in absolute terms · as a proportion of · relative to · per capita'},
+],
+example:'<strong>As illustrated in the bar chart</strong>, sales rose consistently from 2010 to 2020. <strong>Turning to the pie chart</strong>, Europe accounted for the largest share at 45%. <strong>Taken together</strong>, the data suggests Europe drove much of the overall growth.',
+warn:'Do not try to find links that are not there. If the charts are unrelated in topic, treat them separately.',
+tip:'Your overview must contain one point from each chart. Never describe only one visual in the overview.'},
+];
+
+const nav=document.getElementById('nav');
+const panels=document.getElementById('panels');
+
+data.forEach((d,i)=>{
+const btn=document.createElement('button');
+btn.className='nav-btn'+(i===0?' active':'');
+btn.textContent=d.label;
+btn.onclick=()=>{
+document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+btn.classList.add('active');
+document.getElementById('p-'+d.id).classList.add('active');
+};
+nav.appendChild(btn);
+
+const p=document.createElement('div');
+p.className='panel'+(i===0?' active':'');
+p.id='p-'+d.id;
+
+let vocabHTML=d.keyVocab.map(v=>`<div class="vocab-item"><div class="vocab-word">${v.w}</div><div class="vocab-def">${v.d}</div></div>`).join('');
+let moreHTML=d.moreVocab.map(v=>`<div class="vocab-item"><div class="vocab-word">${v.w}</div><div class="vocab-def">${v.d}</div></div>`).join('');
+let structHTML=d.structure.map((s,idx)=>`<div class="structure-step"><div class="step-num">${idx+1}</div><div><div class="step-text">${s}</div><div class="step-sub">${d.structureSubs[idx]||''}</div></div></div>`).join('');
+
+p.innerHTML=`
+<div class="card">
+  <span class="badge ${d.badge}">${d.label}</span>
+  <div class="section-label">Paragraph structure</div>
+  ${structHTML}
+</div>
+<div class="card">
+  <div class="card-title">Key vocabulary — বাংলা মানে সহ</div>
+  <div class="vocab-grid">${vocabHTML}</div>
+</div>
+<div class="card">
+  <div class="card-title">Vocabulary groups</div>
+  <div class="vocab-grid">${moreHTML}</div>
+</div>
+<div class="card">
+  <div class="card-title">Example sentences</div>
+  <div class="example-box">${d.example}</div>
+  <div class="warn-box" style="margin-top:8px">⚠ Common mistake: ${d.warn}</div>
+  <div class="tip-box">Tip: ${d.tip}</div>
+</div>
+`;
+panels.appendChild(p);
+});
+</script>
