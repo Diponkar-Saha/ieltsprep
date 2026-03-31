@@ -1,0 +1,307 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:20px 0;font-family:var(--font-sans)}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.nav-btn{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+.nav-btn.active{background:var(--color-background-info);color:var(--color-text-info);border-color:transparent}
+.panel{display:none}.panel.active{display:block}
+.card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.card-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500}
+.b-blue{background:#E6F1FB;color:#0C447C}
+.b-teal{background:#E1F5EE;color:#085041}
+.b-purple{background:#EEEDFE;color:#3C3489}
+.b-amber{background:#FAEEDA;color:#633806}
+.b-coral{background:#FAECE7;color:#4A1B0C}
+.b-green{background:#EAF3DE;color:#27500A}
+.b-pink{background:#FBEAF0;color:#72243E}
+.b-gray{background:#F1EFE8;color:#444441}
+.band-tag{font-size:10px;padding:2px 7px;border-radius:8px;font-weight:500;background:#EEEDFE;color:#3C3489;white-space:nowrap}
+.para-block{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.para-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);margin-bottom:6px;letter-spacing:.03em}
+.template{font-size:13px;color:var(--color-text-primary);line-height:1.9}
+.template .slot{background:#EEEDFE;color:#3C3489;border-radius:4px;padding:0 4px;font-size:12px;font-weight:500}
+.template .gram{background:#E1F5EE;color:#085041;border-radius:4px;padding:0 4px;font-size:12px;font-weight:500}
+.example{font-size:12px;color:var(--color-text-secondary);line-height:1.8;margin-top:8px;padding-top:8px;border-top:0.5px solid var(--color-border-tertiary)}
+.example strong{color:var(--color-text-primary);font-weight:500}
+.b5{background:#FCEBEB;border-radius:8px;padding:8px 12px;font-size:12px;color:#791F1F;line-height:1.7;margin-bottom:6px}
+.b7{background:#E1F5EE;border-radius:8px;padding:8px 12px;font-size:12px;color:#085041;line-height:1.7}
+.b5::before{content:"Band 5 ";font-weight:500}
+.b7::before{content:"Band 7 ";font-weight:500}
+.grammar-note{font-size:11px;color:var(--color-text-tertiary);margin-top:6px;padding-left:4px;line-height:1.6}
+.full-sample{background:var(--color-background-primary);border:0.5px solid #7F77DD;border-radius:10px;padding:14px 16px;font-size:13px;color:var(--color-text-primary);line-height:2;margin-bottom:10px}
+.full-sample .hl-gram{background:#EEEDFE;color:#3C3489;border-radius:3px;padding:0 3px}
+.full-sample .hl-vocab{background:#E1F5EE;color:#085041;border-radius:3px;padding:0 3px}
+.full-sample .hl-link{background:#FAEEDA;color:#633806;border-radius:3px;padding:0 3px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.leg-item{font-size:11px;display:flex;align-items:center;gap:4px;color:var(--color-text-secondary)}
+.leg-dot{width:10px;height:10px;border-radius:2px}
+</style>
+
+<div class="wrap">
+<div class="nav" id="nav"></div>
+<div id="panels"></div>
+</div>
+
+<script>
+const charts=[
+{
+id:'line',label:'Line Graph',badge:'b-blue',
+paras:[
+{
+label:'Paragraph 1 — Introduction',
+template:'The <span class="slot">line graph</span> <span class="gram">illustrates</span> the <span class="slot">[what is measured]</span> in <span class="slot">[place/context]</span> <span class="gram">over the period from</span> <span class="slot">[start year]</span> <span class="gram">to</span> <span class="slot">[end year]</span>.',
+example:'The line graph <strong>illustrates</strong> the number of international students enrolled in UK universities <strong>over the period from</strong> 2000 to 2020.',
+note:'Grammar used: simple present (illustrates) · noun phrase as subject · prepositional phrase of time'
+},
+{
+label:'Paragraph 2 — Overview (Band 7 essential)',
+template:'<span class="gram">Overall, while</span> <span class="slot">[subject A]</span> <span class="gram">showed a</span> <span class="slot">[general trend]</span>, <span class="slot">[subject B]</span> <span class="gram">experienced</span> <span class="slot">[contrasting trend]</span> <span class="gram">throughout the period</span>.',
+example:'<strong>Overall, while</strong> enrolment from China <strong>showed a</strong> consistent upward trend, students from Germany <strong>experienced</strong> a gradual decline <strong>throughout the period</strong>.',
+note:'Grammar used: adverbial clause of contrast (while) · noun phrases (upward trend, gradual decline) · NO specific figures in overview'
+},
+{
+label:'Paragraph 3 — Detail 1 (highest/most notable line)',
+template:'<span class="gram">Having started at</span> <span class="slot">[figure]</span> <span class="gram">in</span> <span class="slot">[year]</span>, <span class="slot">[subject]</span> <span class="gram">rose steadily before peaking at</span> <span class="slot">[figure]</span> <span class="gram">in</span> <span class="slot">[year]</span>. <span class="gram">By contrast,</span> <span class="slot">[subject B]</span>, <span class="gram">which had remained relatively stable until</span> <span class="slot">[year]</span>, <span class="gram">subsequently</span> <span class="slot">[trend verb]</span>.',
+example:'<strong>Having started at</strong> 50,000 in 2000, Chinese enrolment <strong>rose steadily before peaking at</strong> 220,000 in 2018. <strong>By contrast,</strong> German students, <strong>which had remained relatively stable until</strong> 2010, <strong>subsequently</strong> declined to just 15,000.',
+note:'Grammar used: having + past participle (opener) · non-defining relative clause · By contrast (sentence connector) · adverb (subsequently)'
+},
+{
+label:'Paragraph 4 — Detail 2 (remaining lines)',
+template:'<span class="gram">With regard to</span> <span class="slot">[other subjects]</span>, <span class="slot">[subject C]</span> <span class="gram">fluctuated considerably, ranging from</span> <span class="slot">[low figure]</span> <span class="gram">to</span> <span class="slot">[high figure]</span>, <span class="gram">while</span> <span class="slot">[subject D]</span> <span class="gram">showed a more modest</span> <span class="slot">[increase/decrease]</span>, <span class="gram">ending the period at</span> <span class="slot">[final figure]</span>.',
+example:'<strong>With regard to</strong> other nationalities, Indian enrolment <strong>fluctuated considerably, ranging from</strong> 20,000 to 45,000, <strong>while</strong> students from the US <strong>showed a more modest</strong> increase, <strong>ending the period at</strong> 30,000.',
+note:'Grammar used: with regard to (formal referencing) · ranging from…to (participle) · while (contrast) · ending the period at (participle phrase)'
+}
+],
+b5:'In 2000 it was 50000. Then it went up. In 2010 it went up more. In 2018 it peaked. Then it went down a bit.',
+b7:'Having started at 50,000 in 2000, enrolment rose steadily, peaking at 220,000 in 2018, before declining marginally to 200,000 by 2020.'
+},
+{
+id:'bar',label:'Bar Chart',badge:'b-teal',
+paras:[
+{
+label:'Paragraph 1 — Introduction',
+template:'The <span class="slot">bar chart</span> <span class="gram">compares</span> <span class="slot">[what]</span> <span class="gram">across</span> <span class="slot">[categories]</span> <span class="gram">in</span> <span class="slot">[year/time]</span>.',
+example:'The bar chart <strong>compares</strong> the average monthly expenditure on five categories of goods <strong>across</strong> four European countries <strong>in</strong> 2015.',
+note:'Grammar used: simple present (compares) · noun phrase (average monthly expenditure) · prepositional phrases'
+},
+{
+label:'Paragraph 2 — Overview',
+template:'<span class="gram">Overall,</span> <span class="slot">[country/category A]</span> <span class="gram">recorded the highest figures across most categories, while</span> <span class="slot">[country/category B]</span> <span class="gram">consistently spent the least.</span>',
+example:'<strong>Overall,</strong> Germany <strong>recorded the highest figures across most categories, while</strong> Spain <strong>consistently spent the least</strong>, particularly on food and clothing.',
+note:'Grammar used: superlative (the highest) · adverb (consistently) · particularly (emphasis adverb) · while (contrast clause)'
+},
+{
+label:'Paragraph 3 — Detail 1',
+template:'<span class="gram">In terms of</span> <span class="slot">[top category]</span>, <span class="slot">[subject]</span> <span class="gram">accounted for the largest share at</span> <span class="slot">[figure]</span>, <span class="gram">which was</span> <span class="slot">[X times]</span> <span class="gram">more than</span> <span class="slot">[lowest subject]</span> <span class="gram">at</span> <span class="slot">[figure]</span>.',
+example:'<strong>In terms of</strong> food spending, Germany <strong>accounted for the largest share at</strong> €500, <strong>which was</strong> roughly <strong>twice as much as</strong> Spain <strong>at</strong> only €250.',
+note:'Grammar used: in terms of (formal topic shift) · non-defining relative clause (which was) · twice as much as (ratio comparison)'
+},
+{
+label:'Paragraph 4 — Detail 2',
+template:'<span class="gram">By contrast,</span> <span class="slot">[subject]</span> <span class="gram">and</span> <span class="slot">[subject]</span> <span class="gram">showed broadly similar patterns, with both spending approximately</span> <span class="slot">[figure]</span> <span class="gram">on</span> <span class="slot">[category]</span>. <span class="gram">Notably,</span> <span class="slot">[subject]</span> <span class="gram">was the only country where</span> <span class="slot">[observation]</span>.',
+example:'<strong>By contrast,</strong> France and Italy <strong>showed broadly similar patterns, with both spending approximately</strong> €350 <strong>on</strong> housing. <strong>Notably,</strong> Italy <strong>was the only country where</strong> leisure spending exceeded food expenditure.',
+note:'Grammar used: with both (absolute phrase) · Notably (sentence adverb) · relative clause with where · comparison (exceeded)'
+}
+],
+b5:'Germany spent the most. Spain spent the least. France spent medium amount. Italy also spent medium.',
+b7:'Germany recorded the highest figures across most categories, spending roughly twice as much as Spain on food, which accounted for the largest discrepancy between the two nations.'
+},
+{
+id:'pie',label:'Pie Chart',badge:'b-amber',
+paras:[
+{
+label:'Paragraph 1 — Introduction',
+template:'The <span class="slot">pie chart(s)</span> <span class="gram">illustrate(s) the proportion of</span> <span class="slot">[what]</span> <span class="gram">attributed to</span> <span class="slot">[categories]</span> <span class="gram">in</span> <span class="slot">[year(s)]</span>.',
+example:'The two pie charts <strong>illustrate the proportion of</strong> household energy consumption <strong>attributed to</strong> six different sources <strong>in</strong> 2000 and 2020.',
+note:'Grammar used: illustrate the proportion of (formal verb phrase) · attributed to (past participle phrase) · six different sources (noun phrase)'
+},
+{
+label:'Paragraph 2 — Overview (2 pie charts)',
+template:'<span class="gram">Overall,</span> <span class="slot">[category A]</span> <span class="gram">remained the dominant source throughout both years, although</span> <span class="slot">[category B]</span> <span class="gram">saw a notable increase in its share over the period.</span>',
+example:'<strong>Overall,</strong> oil <strong>remained the dominant source throughout both years, although</strong> renewable energy <strong>saw a notable increase in its share over the period.</strong>',
+note:'Grammar used: remained + adjective (linking verb) · although (concessive clause) · noun phrase (a notable increase in its share)'
+},
+{
+label:'Paragraph 3 — Detail 1 (largest segments)',
+template:'<span class="gram">In</span> <span class="slot">[year]</span>, <span class="slot">[category A]</span> <span class="gram">accounted for</span> <span class="slot">[%]</span> <span class="gram">of the total, making it the single largest category.</span> <span class="slot">[Category B]</span> <span class="gram">represented</span> <span class="slot">[%]</span>, <span class="gram">with</span> <span class="slot">[category C]</span> <span class="gram">and</span> <span class="slot">[category D]</span> <span class="gram">together comprising</span> <span class="slot">[combined %]</span>.',
+example:'<strong>In</strong> 2000, oil <strong>accounted for</strong> 42% <strong>of the total, making it the single largest category.</strong> Gas <strong>represented</strong> 25%, <strong>with</strong> coal <strong>and</strong> nuclear <strong>together comprising</strong> a further 28%.',
+note:'Grammar used: making it (participle result clause) · with…together comprising (absolute phrase) · a further (quantity adverb)'
+},
+{
+label:'Paragraph 4 — Detail 2 (comparison across years)',
+template:'<span class="gram">By</span> <span class="slot">[year 2]</span>, <span class="slot">[category A]</span> <span class="gram">had fallen to</span> <span class="slot">[%]</span>, <span class="gram">while</span> <span class="slot">[growing category]</span> <span class="gram">had more than doubled its share, rising from</span> <span class="slot">[%]</span> <span class="gram">to</span> <span class="slot">[%]</span>. <span class="slot">[Category]</span>, <span class="gram">which had previously been negligible, emerged as</span> <span class="slot">[figure/observation]</span>.',
+example:'<strong>By</strong> 2020, oil <strong>had fallen to</strong> 30%, <strong>while</strong> renewables <strong>had more than doubled their share, rising from</strong> 5% <strong>to</strong> 12%. Solar power, <strong>which had previously been negligible, emerged as</strong> the fastest-growing source.',
+note:'Grammar used: past perfect (had fallen, had doubled) · rising from…to (participle of result) · non-defining relative clause (which had previously been)'
+}
+],
+b5:'Oil was 42%. Gas was 25%. Coal was 15%. Nuclear was 13%. In 2020 oil went down. Renewables went up.',
+b7:'By 2020, oil had fallen to 30%, while renewables had more than doubled their share, rising from 5% to 12%, making them the fastest-growing energy source over the period.'
+},
+{
+id:'table',label:'Table',badge:'b-coral',
+paras:[
+{
+label:'Paragraph 1 — Introduction',
+template:'The table <span class="gram">presents data on</span> <span class="slot">[what]</span> <span class="gram">for</span> <span class="slot">[number]</span> <span class="slot">[categories/countries]</span> <span class="gram">in</span> <span class="slot">[year]</span>.',
+example:'The table <strong>presents data on</strong> the average life expectancy, birth rate and GDP per capita <strong>for</strong> six countries <strong>in</strong> 2019.',
+note:'Grammar used: presents data on (formal verb phrase) · list noun phrase (life expectancy, birth rate, GDP) · prepositional phrase'
+},
+{
+label:'Paragraph 2 — Overview',
+template:'<span class="gram">Overall,</span> <span class="slot">[country/category]</span> <span class="gram">recorded the highest values across the majority of indicators, whereas</span> <span class="slot">[lowest]</span> <span class="gram">consistently produced the lowest figures.</span>',
+example:'<strong>Overall,</strong> Japan <strong>recorded the highest values across the majority of indicators, whereas</strong> Nigeria <strong>consistently produced the lowest figures</strong> in almost every category.',
+note:'Grammar used: across the majority of (prepositional phrase) · whereas (formal contrast conjunction) · consistently (adverb of frequency)'
+},
+{
+label:'Paragraph 3 — Detail 1 (select top data)',
+template:'<span class="gram">In terms of</span> <span class="slot">[indicator 1]</span>, <span class="slot">[subject]</span> <span class="gram">recorded the highest figure at</span> <span class="slot">[data]</span>, <span class="gram">which was considerably higher than</span> <span class="slot">[subject]</span> <span class="gram">at</span> <span class="slot">[data]</span>. <span class="gram">A similar pattern was evident in</span> <span class="slot">[indicator 2]</span>, <span class="gram">where</span> <span class="slot">[subject]</span> <span class="gram">again led with</span> <span class="slot">[data]</span>.',
+example:'<strong>In terms of</strong> life expectancy, Japan <strong>recorded the highest figure at</strong> 84 years, <strong>which was considerably higher than</strong> Nigeria <strong>at</strong> just 54 years. <strong>A similar pattern was evident in</strong> GDP per capita, <strong>where</strong> Japan <strong>again led with</strong> $40,000.',
+note:'Grammar used: non-defining relative clause (which was) · A similar pattern was evident (passive-style construction) · where (relative clause for place/context)'
+},
+{
+label:'Paragraph 4 — Detail 2 (remaining data + outlier)',
+template:'<span class="slot">[Subject A]</span> <span class="gram">and</span> <span class="slot">[Subject B]</span> <span class="gram">showed broadly comparable figures for</span> <span class="slot">[indicator]</span>, <span class="gram">at</span> <span class="slot">[data]</span> <span class="gram">and</span> <span class="slot">[data]</span> <span class="gram">respectively. Notably,</span> <span class="slot">[subject]</span> <span class="gram">stood out as an exception, with</span> <span class="slot">[observation]</span>.',
+example:'France and Germany <strong>showed broadly comparable figures for</strong> birth rate, <strong>at</strong> 11.2 <strong>and</strong> 9.8 per thousand <strong>respectively. Notably,</strong> India <strong>stood out as an exception, with</strong> a birth rate nearly three times higher than the European average.',
+note:'Grammar used: respectively (paired comparison adverb) · Notably (sentence adverb) · stood out as (idiomatic) · with + noun phrase (absolute phrase)'
+}
+],
+b5:'Japan had the highest life expectancy. Nigeria had the lowest. Japan also had high GDP. Nigeria had low GDP.',
+b7:'Japan recorded the highest figures across all three indicators, with a life expectancy of 84 years and a GDP of $40,000 — figures that were considerably higher than any other country in the table.'
+},
+{
+id:'process',label:'Process Diagram',badge:'b-pink',
+paras:[
+{
+label:'Paragraph 1 — Introduction',
+template:'The diagram <span class="gram">illustrates the process by which</span> <span class="slot">[product/thing]</span> <span class="gram">is</span> <span class="slot">[produced/created/formed]</span>.',
+example:'The diagram <strong>illustrates the process by which</strong> cement <strong>is</strong> manufactured from raw limestone and clay.',
+note:'Grammar used: the process by which (formal relative clause) · simple present passive (is manufactured) · from (material preposition)'
+},
+{
+label:'Paragraph 2 — Overview',
+template:'<span class="gram">Overall, the process involves</span> <span class="slot">[number]</span> <span class="gram">distinct stages, beginning with</span> <span class="slot">[first stage]</span> <span class="gram">and culminating in</span> <span class="slot">[final output]</span>. <span class="gram">It is a</span> <span class="slot">[linear/cyclical]</span> <span class="gram">process that requires</span> <span class="slot">[key observation]</span>.',
+example:'<strong>Overall, the process involves</strong> six <strong>distinct stages, beginning with</strong> the crushing of raw materials <strong>and culminating in</strong> the packaging of the finished cement. <strong>It is a</strong> linear <strong>process that requires</strong> significant heat at multiple stages.',
+note:'Grammar used: beginning with…culminating in (paired participles) · that requires (defining relative clause) · It is a…process (cleft-style)'
+},
+{
+label:'Paragraph 3 — Stages 1 to halfway',
+template:'<span class="gram">Initially,</span> <span class="slot">[materials]</span> <span class="gram">are</span> <span class="slot">[processed]</span>. <span class="gram">This mixture is subsequently</span> <span class="slot">[next process]</span>, <span class="gram">after which it</span> <span class="slot">[next stage]</span>. <span class="gram">At this point,</span> <span class="slot">[material]</span> <span class="gram">is</span> <span class="slot">[processed]</span> <span class="gram">at temperatures of approximately</span> <span class="slot">[temp]</span>.',
+example:'<strong>Initially,</strong> limestone and clay <strong>are</strong> crushed into a fine powder. <strong>This mixture is subsequently</strong> combined with water to form a paste, <strong>after which it</strong> is fed into a rotating kiln. <strong>At this point,</strong> the paste <strong>is</strong> heated <strong>at temperatures of approximately</strong> 1,450°C.',
+note:'Grammar used: Initially (sequence adverb) · present passive throughout · after which (formal sequence connector) · At this point (stage marker)'
+},
+{
+label:'Paragraph 4 — Remaining stages',
+template:'<span class="gram">Once</span> <span class="slot">[stage]</span> <span class="gram">has been completed,</span> <span class="slot">[product]</span> <span class="gram">is</span> <span class="slot">[processed]</span> <span class="gram">to produce</span> <span class="slot">[output]</span>. <span class="gram">This</span> <span class="slot">[material]</span> <span class="gram">is then</span> <span class="slot">[final stage]</span>, <span class="gram">resulting in</span> <span class="slot">[final product]</span> <span class="gram">that is ready for</span> <span class="slot">[use]</span>.',
+example:'<strong>Once</strong> the heating stage <strong>has been completed,</strong> clinker <strong>is</strong> ground <strong>to produce</strong> a coarse powder. <strong>This</strong> material <strong>is then</strong> mixed with gypsum, <strong>resulting in</strong> the finished cement <strong>that is ready for</strong> use in construction.',
+note:'Grammar used: Once…has been completed (present perfect passive in time clause) · to produce (infinitive of purpose) · resulting in (present participle of result)'
+}
+],
+b5:'First the limestone is crushed. Then it is mixed. Then it goes to the kiln. Then it is cooled. Then it is the final product.',
+b7:'Once the heating stage has been completed, the material is ground and combined with gypsum, resulting in finished cement that is ready for commercial use.'
+},
+{
+id:'map',label:'Map / Plan',badge:'b-green',
+paras:[
+{
+label:'Paragraph 1 — Introduction',
+template:'The maps <span class="gram">compare the layout of</span> <span class="slot">[place]</span> <span class="gram">in</span> <span class="slot">[year 1]</span> <span class="gram">and</span> <span class="slot">[year 2]</span>, <span class="gram">illustrating the changes that occurred over this</span> <span class="slot">[X]</span><span class="gram">-year period.</span>',
+example:'The maps <strong>compare the layout of</strong> Greenfield town <strong>in</strong> 1990 <strong>and</strong> 2020, <strong>illustrating the changes that occurred over this</strong> 30<strong>-year period.</strong>',
+note:'Grammar used: compare (active) · illustrating (present participle = reason/result) · that occurred (defining relative clause)'
+},
+{
+label:'Paragraph 2 — Overview',
+template:'<span class="gram">Overall, the town underwent significant development over the period, with</span> <span class="slot">[major change 1]</span> <span class="gram">and</span> <span class="slot">[major change 2]</span>. <span class="gram">Despite these changes,</span> <span class="slot">[unchanged feature]</span> <span class="gram">remained in its original position.</span>',
+example:'<strong>Overall, the town underwent significant development over the period, with</strong> several new residential areas added to the north <strong>and</strong> the industrial zone relocated to the east. <strong>Despite these changes,</strong> the central park <strong>remained in its original position.</strong>',
+note:'Grammar used: underwent (strong irregular past verb) · with + noun phrase (absolute clause) · Despite these changes (concessive phrase)'
+},
+{
+label:'Paragraph 3 — Original map (what was there)',
+template:'<span class="gram">In</span> <span class="slot">[year 1]</span>, <span class="slot">[feature]</span> <span class="gram">was situated</span> <span class="slot">[location]</span>, <span class="gram">adjacent to</span> <span class="slot">[feature]</span>. <span class="gram">To the</span> <span class="slot">[direction]</span><span class="gram">, a</span> <span class="slot">[feature]</span> <span class="gram">occupied much of the</span> <span class="slot">[area]</span>, <span class="gram">while the</span> <span class="slot">[direction]</span> <span class="gram">of the town was largely undeveloped.</span>',
+example:'<strong>In</strong> 1990, a farmhouse <strong>was situated</strong> to the north of the high street, <strong>adjacent to</strong> open fields. <strong>To the</strong> west, a factory <strong>occupied much of the</strong> riverside area, <strong>while the</strong> south <strong>of the town was largely undeveloped.</strong>',
+note:'Grammar used: was situated (past passive) · adjacent to (formal preposition) · occupied (strong past verb) · while (contrast clause) · largely (adverb of degree)'
+},
+{
+label:'Paragraph 4 — Changed map',
+template:'<span class="gram">By</span> <span class="slot">[year 2]</span>, <span class="slot">[feature]</span> <span class="gram">had been replaced by</span> <span class="slot">[new feature]</span>, <span class="gram">and the former</span> <span class="slot">[old feature]</span> <span class="gram">had been converted into</span> <span class="slot">[new use]</span>. <span class="gram">A new</span> <span class="slot">[feature]</span> <span class="gram">had been constructed to the</span> <span class="slot">[direction]</span>, <span class="gram">while</span> <span class="slot">[unchanged feature]</span> <span class="gram">remained</span> <span class="slot">[description]</span>.',
+example:'<strong>By</strong> 2020, the farmhouse <strong>had been replaced by</strong> a supermarket, <strong>and the former</strong> factory <strong>had been converted into</strong> a leisure centre. <strong>A new</strong> ring road <strong>had been constructed to the</strong> south, <strong>while</strong> the high street <strong>remained</strong> the commercial hub of the town.',
+note:'Grammar used: past perfect passive throughout (had been replaced/converted/constructed) · former (formal adjective for old use) · while (contrast) · remained (stative verb)'
+}
+],
+b5:'In 1990 there was a farm. In 2020 the farm is gone. Now there is a supermarket. The factory became a leisure centre. A road was built.',
+b7:'By 2020, the farmhouse had been replaced by a supermarket, and the former factory had been converted into a leisure centre, transforming the northern area of the town entirely.'
+},
+{
+id:'combo',label:'Combination',badge:'b-purple',
+paras:[
+{
+label:'Paragraph 1 — Introduction (name both visuals)',
+template:'The <span class="slot">bar chart</span> <span class="gram">and</span> <span class="slot">pie chart</span> <span class="gram">provide information about</span> <span class="slot">[what bar shows]</span> <span class="gram">and</span> <span class="slot">[what pie shows]</span> <span class="gram">respectively.</span>',
+example:'The bar chart <strong>and</strong> pie chart <strong>provide information about</strong> the total number of tourists visiting five countries <strong>and</strong> the breakdown of visitor nationalities for the most popular destination <strong>respectively.</strong>',
+note:'Grammar used: provide information about (formal verb phrase) · respectively (paired reference adverb) · breakdown of (noun phrase)'
+},
+{
+label:'Paragraph 2 — Overview (one point per visual)',
+template:'<span class="gram">Overall,</span> <span class="slot">[country/category]</span> <span class="gram">attracted the greatest number of visitors, as illustrated in the bar chart, while the pie chart reveals that</span> <span class="slot">[dominant category]</span> <span class="gram">accounted for the largest proportion of tourists.</span>',
+example:'<strong>Overall,</strong> France <strong>attracted the greatest number of visitors, as illustrated in the bar chart, while the pie chart reveals that</strong> European tourists <strong>accounted for the largest proportion</strong> of visitors to that country.',
+note:'Grammar used: as illustrated in (reduced relative clause) · while (contrast across visuals) · reveals that (reporting verb + noun clause)'
+},
+{
+label:'Paragraph 3 — Bar chart in full',
+template:'<span class="gram">Turning first to the bar chart,</span> <span class="slot">[top subject]</span> <span class="gram">recorded the highest figure at</span> <span class="slot">[data]</span>, <span class="gram">which was</span> <span class="slot">[comparison]</span> <span class="gram">more than</span> <span class="slot">[second subject]</span> <span class="gram">at</span> <span class="slot">[data]</span>. <span class="slot">[Other subjects]</span> <span class="gram">showed broadly similar levels, ranging from</span> <span class="slot">[low]</span> <span class="gram">to</span> <span class="slot">[high]</span>.',
+example:'<strong>Turning first to the bar chart,</strong> France <strong>recorded the highest figure at</strong> 85 million visitors, <strong>which was</strong> notably <strong>more than</strong> Spain <strong>at</strong> 65 million. The remaining countries <strong>showed broadly similar levels, ranging from</strong> 20 million to 30 million.',
+note:'Grammar used: Turning first to (discourse marker for transition) · non-defining relative clause (which was) · ranging from…to (absolute participle phrase)'
+},
+{
+label:'Paragraph 4 — Pie chart + link',
+template:'<span class="gram">With regard to the pie chart,</span> <span class="slot">[dominant segment]</span> <span class="gram">accounted for</span> <span class="slot">[%]</span>, <span class="gram">with</span> <span class="slot">[second]</span> <span class="gram">representing a further</span> <span class="slot">[%]</span>. <span class="gram">Taken together, these two findings suggest that</span> <span class="slot">[linked observation]</span>.',
+example:'<strong>With regard to the pie chart,</strong> Europeans <strong>accounted for</strong> 55% of visitors to France, <strong>with</strong> North Americans <strong>representing a further</strong> 22%. <strong>Taken together, these two findings suggest that</strong> France\'s dominance in tourism is driven primarily by regional visitors.',
+note:'Grammar used: With regard to (formal transition) · a further (quantity phrase) · Taken together (discourse adverb) · suggest that (reporting verb + noun clause for inference)'
+}
+],
+b5:'France had the most tourists. The pie chart shows Europeans were 55%. North Americans were 22%. France is the most popular.',
+b7:'Taken together, the two charts suggest that France\'s position as the leading tourist destination is driven primarily by European visitors, who accounted for over half of all arrivals.'
+}
+];
+
+const nav=document.getElementById('nav');
+const panels=document.getElementById('panels');
+
+charts.forEach((c,i)=>{
+const btn=document.createElement('button');
+btn.className='nav-btn'+(i===0?' active':'');
+btn.textContent=c.label;
+btn.onclick=()=>{
+document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+btn.classList.add('active');
+document.getElementById('p-'+c.id).classList.add('active');
+};
+nav.appendChild(btn);
+
+const p=document.createElement('div');
+p.className='panel'+(i===0?' active':'');
+p.id='p-'+c.id;
+
+let html='';
+
+c.paras.forEach(para=>{
+html+=`<div class="para-block">
+<div class="para-label">${para.label}</div>
+<div class="template">${para.template}</div>
+<div class="example">${para.example}</div>
+<div class="grammar-note">${para.note}</div>
+</div>`;
+});
+
+html+=`<div class="card">
+<div class="card-title">Band 5 vs Band 7 — same data, different writing</div>
+<div class="b5">${c.b5}</div>
+<div class="b7">${c.b7}</div>
+</div>`;
+
+p.innerHTML=html;
+panels.appendChild(p);
+});
+</script>

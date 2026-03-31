@@ -1,0 +1,233 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:20px 0;font-family:var(--font-sans)}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.nav-btn{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+.nav-btn.active{background:var(--color-background-info);color:var(--color-text-info);border-color:transparent}
+.panel{display:none}.panel.active{display:block}
+.card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.card-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px}
+.sec-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.04em;margin:14px 0 6px}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500;margin-bottom:8px}
+.b-blue{background:#E6F1FB;color:#0C447C}
+.b-teal{background:#E1F5EE;color:#085041}
+.b-purple{background:#EEEDFE;color:#3C3489}
+.b-amber{background:#FAEEDA;color:#633806}
+.b-coral{background:#FAECE7;color:#4A1B0C}
+.b-green{background:#EAF3DE;color:#27500A}
+.b-pink{background:#FBEAF0;color:#72243E}
+.b-gray{background:#F1EFE8;color:#444441}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.ex-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:10px 12px}
+.ex-label{font-size:11px;color:var(--color-text-tertiary);margin-bottom:3px}
+.ex-wrong{font-size:12px;color:#A32D2D;line-height:1.6}
+.ex-right{font-size:12px;color:#0F6E56;line-height:1.6;font-weight:500}
+.ex-neutral{font-size:12px;color:var(--color-text-primary);line-height:1.6}
+.formula{background:var(--color-background-primary);border-left:3px solid #7F77DD;border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:var(--color-text-secondary);line-height:1.9;margin-bottom:8px}
+.formula strong{color:var(--color-text-primary);font-weight:500}
+.formula em{color:#3C3489;font-style:normal;font-weight:500}
+.warn{background:#FCEBEB;border-radius:8px;padding:8px 12px;font-size:12px;color:#791F1F;line-height:1.7;margin-top:6px}
+.tip{background:#E1F5EE;border-radius:8px;padding:8px 12px;font-size:12px;color:#085041;line-height:1.7;margin-top:6px}
+.pattern-list{list-style:none}
+.pattern-list li{padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;color:var(--color-text-primary);line-height:1.6}
+.pattern-list li:last-child{border-bottom:none}
+.pattern-list li span{display:block;font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.band-pill{display:inline-block;font-size:10px;padding:1px 6px;border-radius:8px;background:#EEEDFE;color:#3C3489;margin-left:6px;font-weight:500}
+@media(max-width:480px){.row{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+<div class="nav" id="nav"></div>
+<div id="panels"></div>
+</div>
+
+<script>
+const topics=[
+{
+id:'tense',label:'Tenses',badge:'b-blue',
+intro:'Task 1-এ tense নির্ভর করে chart-এর ধরনের উপর। ভুল tense = band drop।',
+sections:[
+{title:'কোন chart-এ কোন tense',items:[
+{f:'Past data (e.g. 1990–2020)',ex:'The number of cars <em>rose</em> between 1990 and 2000.',note:'Simple past — নির্দিষ্ট সময় শেষ হলে'},
+{f:'Present / no time given',ex:'The chart <em>shows</em> that oil <em>accounts for</em> the largest share.',note:'Simple present — সাধারণ সত্য বোঝাতে'},
+{f:'Map comparing two times',ex:'By 2020, the farm <em>had been replaced</em> by a shopping centre.',note:'Past perfect — আগের পরিবর্তন বোঝাতে'},
+{f:'Future projection',ex:'The population <em>is predicted to reach</em> 10 million by 2050.',note:'is predicted/expected/projected to'},
+{f:'Process diagram',ex:'The material <em>is heated</em> and then <em>is cooled</em>.',note:'Simple present passive — always'},
+]},
+{title:'Common tense mistakes',wrongs:[
+{w:'The number of users rised in 2010.',r:'The number of users rose in 2010.',note:'rise → rose (irregular)'},
+{w:'In 2020, sales are increased.',r:'In 2020, sales increased.',note:'No auxiliary "are" with simple past'},
+{w:'The map show the changes.',r:'The map shows the changes.',note:'3rd person singular needs -s'},
+]}
+]
+},
+{
+id:'passive',label:'Passive Voice',badge:'b-teal',
+intro:'Process diagram-এ passive voice আবশ্যিক। অন্য charts-এও ব্যবহার করলে grammatical range বাড়ে।',
+sections:[
+{title:'Passive voice formula',items:[
+{f:'Subject + is/are + past participle',ex:'The limestone <em>is crushed</em> into powder.',note:'Present passive — process diagrams'},
+{f:'Subject + was/were + past participle',ex:'The farm <em>was demolished</em> in 2005.',note:'Past passive — map/change'},
+{f:'Subject + is/are + being + past participle',ex:'The water <em>is being filtered</em> through a membrane.',note:'Present continuous passive'},
+{f:'Subject + has been + past participle',ex:'A new road <em>has been constructed</em> to the north.',note:'Present perfect passive — map'},
+{f:'Modal + be + past participle',ex:'The mixture <em>can be separated</em> into components.',note:'Modal passive — process'},
+]},
+{title:'Process diagram verbs (passive)',wrongs:[
+{w:'Workers heat the material first.',r:'The material is heated first.',note:'In process — prefer passive, not active'},
+{w:'They mix it with water.',r:'It is mixed with water.',note:'Avoid "they/workers/people" — use passive'},
+{w:'The factory produces cement.',r:'Cement is produced in the factory.',note:'Put the object first as subject'},
+]}
+]
+},
+{
+id:'comparison',label:'Comparison',badge:'b-purple',
+intro:'Bar chart, table, pie chart — সব জায়গায় comparison structures লাগে। এটি Task 1-এর সবচেয়ে গুরুত্বপূর্ণ grammar area।',
+sections:[
+{title:'Comparison structures',items:[
+{f:'Comparative adjective: -er than / more … than',ex:'Japan\'s GDP was <em>higher than</em> Brazil\'s in 2010.',note:'Short adj: faster, higher, lower, greater'},
+{f:'Superlative: the -est / the most …',ex:'China recorded <em>the highest</em> figure at 80%.',note:'Use for the single top/bottom value'},
+{f:'As … as (equal comparison)',ex:'The UK consumed <em>twice as much</em> energy as France.',note:'twice/three times as much/many as'},
+{f:'While / whereas (contrast)',ex:'Men accounted for 65%, <em>while</em> women made up only 35%.',note:'Same sentence, contrasting two things'},
+{f:'Compared to / in comparison with',ex:'<em>Compared to</em> 1990, sales tripled by 2010.',note:'Starts a sentence or clause'},
+{f:'By contrast / In contrast',ex:'Oil use declined. <em>By contrast</em>, renewable energy soared.',note:'Starts a new sentence'},
+]},
+{title:'Common comparison mistakes',wrongs:[
+{w:'Japan is more higher than China.',r:'Japan is higher than China.',note:'Never "more" + -er together'},
+{w:'The highest figure is Germany with 45%.',r:'Germany recorded the highest figure at 45%.',note:'Use "at" not "with" for data figures'},
+{w:'Sales increased more than double.',r:'Sales more than doubled. / Sales increased by over 100%.',note:'Correct phrasing for doubling'},
+]}
+]
+},
+{
+id:'noun',label:'Noun Phrases',badge:'b-amber',
+intro:'Strong noun phrases make writing more formal and academic. "There was an increase" বলার চেয়ে noun phrase use করা বেশি band-friendly।',
+sections:[
+{title:'Noun phrase structures',items:[
+{f:'Article + adjective + noun',ex:'<em>A significant rise</em> was recorded in 2010.',note:'a/an/the + adj + rise/fall/increase/drop'},
+{f:'Noun + preposition phrase',ex:'<em>An increase of 20%</em> was observed.',note:'noun + of + figure'},
+{f:'Noun + in + subject',ex:'<em>A sharp decline in oil consumption</em> occurred after 2015.',note:'noun + in + what changed'},
+{f:'There was/were + noun phrase',ex:'<em>There was a gradual improvement</em> in literacy rates.',note:'Formal alternative to "X improved"'},
+{f:'Witnessed / saw / experienced',ex:'The sector <em>witnessed a dramatic surge</em> in demand.',note:'Academic verbs for change'},
+]},
+{title:'Noun phrase adjectives (size + speed)',wrongs:[
+{w:'Sales went up a lot quickly.',r:'There was a rapid and substantial increase in sales.',note:'Avoid "a lot", "quickly" — use noun phrases'},
+{w:'It dropped very much.',r:'A considerable drop was recorded.',note:'"Very much" is informal — use noun phrase'},
+{w:'Numbers went up and down.',r:'The figures fluctuated considerably.',note:'Avoid vague verb phrases'},
+]}
+]
+},
+{
+id:'relative',label:'Relative Clauses',badge:'b-coral',
+intro:'Relative clauses দিয়ে দুটো idea এক sentence-এ লেখা যায়। এটি grammatical range বাড়ায় এবং Band 7+ পেতে সাহায্য করে।',
+sections:[
+{title:'Relative clause structures',items:[
+{f:'which + verb (non-defining)',ex:'Oil, <em>which accounted for 40%</em>, was the dominant fuel.',note:'Commas required — adds extra info'},
+{f:'which + verb (defining)',ex:'The sector <em>which grew fastest</em> was technology.',note:'No commas — identifies which one'},
+{f:'where (place)',ex:'Countries <em>where the rate was highest</em> were in Asia.',note:'Use where for locations/places'},
+{f:'whose (possession)',ex:'Industries <em>whose output declined</em> included manufacturing.',note:'Whose = of which (formal)'},
+{f:'Reduced relative clause (-ing)',ex:'The bar <em>representing the UK</em> was the tallest.',note:'Remove "which was" → just use -ing'},
+]},
+{title:'Relative clause mistakes',wrongs:[
+{w:'Oil which it accounted for 40% was highest.',r:'Oil, which accounted for 40%, was the highest.',note:'Never repeat the subject pronoun (it/they)'},
+{w:'The country which population grew most was India.',r:'The country whose population grew most was India.',note:'Use whose for possession, not which'},
+{w:'Sales, that rose sharply, peaked in 2015.',r:'Sales, which rose sharply, peaked in 2015.',note:'Non-defining clauses use which, not that'},
+]}
+]
+},
+{
+id:'participle',label:'Participle Phrases',badge:'b-green',
+intro:'Participle phrases দিয়ে variety আনা যায়। দুটো sentence এক করতে এবং formal writing-এ এটি খুব কার্যকর।',
+sections:[
+{title:'Participle phrase structures',items:[
+{f:'Present participle (-ing) — simultaneous',ex:'<em>Rising steadily throughout the period</em>, oil prices peaked in 2008.',note:'Subject of main clause = subject of participle'},
+{f:'Past participle (-ed) — passive meaning',ex:'<em>Measured in billions</em>, the figures reveal global growth.',note:'Replaces a passive relative clause'},
+{f:'-ing after "with"',ex:'<em>With consumption doubling</em> between 2000 and 2010, demand surged.',note:'With + noun + -ing = cause/accompaniment'},
+{f:'Having + past participle (earlier action)',ex:'<em>Having peaked in 2005</em>, sales gradually declined thereafter.',note:'Shows an earlier completed action'},
+]},
+{title:'Participle phrase mistakes',wrongs:[
+{w:'Rising sharply, the government increased taxes.',r:'Rising sharply, prices led to government intervention.',note:'Dangling participle — subject must match'},
+{w:'The data showing that sales increased.',r:'The data shows that sales increased.',note:'-ing alone cannot be the main verb'},
+]}
+]
+},
+{
+id:'adverbial',label:'Adverbial Clauses',badge:'b-pink',
+intro:'Adverbial clauses দিয়ে time, reason, contrast express করা যায়। এগুলো Task 1-এ sentence variety বাড়ায়।',
+sections:[
+{title:'Adverbial clause types',items:[
+{f:'Time: while / as / when / after / before',ex:'<em>While oil consumption rose</em>, gas use remained stable.',note:'Simultaneous or sequential events'},
+{f:'Contrast: although / even though / despite',ex:'<em>Although prices fell</em>, demand did not increase significantly.',note:'Unexpected contrast between two facts'},
+{f:'Result: so … that / such … that',ex:'Sales rose <em>so sharply that</em> they doubled within five years.',note:'Shows a consequence or result'},
+{f:'Condition: if / provided that',ex:'<em>If current trends continue</em>, output will reach 50 million by 2030.',note:'For future projections only'},
+]},
+{title:'Connector mistakes',wrongs:[
+{w:'Despite sales fell, profits rose.',r:'Despite falling sales, profits rose.',note:'Despite + noun/-ing, NOT despite + clause'},
+{w:'Although but the figures declined.',r:'Although the figures declined, output was stable.',note:'Never use although AND but together'},
+{w:'While sales increased. Gas declined.',r:'While sales increased, gas declined.',note:'While clause needs a main clause — not a full stop'},
+]}
+]
+},
+{
+id:'variety',label:'Sentence Variety',badge:'b-gray',
+intro:'Examiners reward "wide range of structures". একই structure বারবার লিখলে Band 5–6 আটকে যাবে। এই patterns মিক্স করো।',
+sections:[
+{title:'7 structures to mix in one essay',items:[
+{f:'1. Simple sentence',ex:'Oil consumption rose sharply in 2010.',note:'Clear, direct — use occasionally'},
+{f:'2. Compound (and/but/while)',ex:'Sales increased, <em>while</em> costs remained stable.',note:'Two equal ideas joined'},
+{f:'3. Complex (subordinate clause)',ex:'<em>Although production fell</em>, exports continued to grow.',note:'One main + one subordinate clause'},
+{f:'4. Noun phrase as subject',ex:'<em>A dramatic rise in demand</em> was recorded in 2015.',note:'Nominalisation — very academic'},
+{f:'5. Passive construction',ex:'The farm <em>was converted into</em> a residential area.',note:'Especially for maps and processes'},
+{f:'6. Relative clause',ex:'Japan, <em>which recorded the highest figure</em>, led the region.',note:'Adds information within sentence'},
+{f:'7. Participle phrase opener',ex:'<em>Having peaked in 2000</em>, sales steadily declined thereafter.',note:'Shows time relationship elegantly'},
+]},
+{title:'Band level by structure range',wrongs:[
+{w:'Band 5: "Sales went up. Then it went down. Then it went up again."',r:'Band 7: "Having peaked in 2000, sales declined, before recovering gradually over the following decade."',note:'Same information — very different band score'},
+]}
+]
+},
+];
+
+const nav=document.getElementById('nav');
+const panels=document.getElementById('panels');
+
+topics.forEach((t,i)=>{
+const btn=document.createElement('button');
+btn.className='nav-btn'+(i===0?' active':'');
+btn.textContent=t.label;
+btn.onclick=()=>{
+document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+btn.classList.add('active');
+document.getElementById('p-'+t.id).classList.add('active');
+};
+nav.appendChild(btn);
+
+const p=document.createElement('div');
+p.className='panel'+(i===0?' active':'');
+p.id='p-'+t.id;
+
+let html=`<div class="card"><span class="badge ${t.badge}">${t.label}</span><div style="font-size:13px;color:var(--color-text-secondary);line-height:1.7;margin-top:4px">${t.intro}</div></div>`;
+
+t.sections.forEach(s=>{
+html+=`<div class="card"><div class="card-title">${s.title}</div>`;
+if(s.items){
+s.items.forEach(item=>{
+html+=`<div class="formula"><em>${item.f}</em><br>${item.ex}<br><strong style="font-size:11px;color:var(--color-text-tertiary)">${item.note}</strong></div>`;
+});
+}
+if(s.wrongs){
+s.wrongs.forEach(w=>{
+html+=`<div class="row">
+<div class="ex-card"><div class="ex-label" style="color:#A32D2D">Wrong</div><div class="ex-wrong">${w.w}</div></div>
+<div class="ex-card"><div class="ex-label" style="color:#0F6E56">Correct</div><div class="ex-right">${w.r}</div></div>
+</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-bottom:8px;padding:0 2px">${w.note}</div>`;
+});
+}
+html+=`</div>`;
+});
+
+p.innerHTML=html;
+panels.appendChild(p);
+});
+</script>
