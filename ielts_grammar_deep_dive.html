@@ -1,0 +1,876 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:20px 0;font-family:var(--font-sans)}
+.top-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.nav-btn{font-size:12px;padding:5px 11px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+.nav-btn.active{background:var(--color-background-info);color:var(--color-text-info);border-color:transparent}
+.sub-nav{display:flex;flex-wrap:wrap;gap:5px;padding:10px 12px;background:var(--color-background-secondary);border-radius:10px;border:0.5px solid var(--color-border-tertiary);margin-bottom:14px}
+.sub-btn{font-size:11px;padding:4px 10px;border-radius:14px;border:0.5px solid var(--color-border-tertiary);background:transparent;color:var(--color-text-tertiary);cursor:pointer;transition:all .15s}
+.sub-btn.active{background:var(--color-background-primary);color:var(--color-text-primary);border-color:var(--color-border-secondary)}
+.content-area{display:block}
+.card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.card-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px}
+.rule-box{background:var(--color-background-primary);border-left:3px solid #7F77DD;border-radius:0 8px 8px 0;padding:11px 14px;margin-bottom:8px;font-size:13px;color:var(--color-text-primary);line-height:1.9}
+.rule-box .bn{font-size:12px;color:#3C3489;font-weight:500;display:block;margin-bottom:3px}
+.rule-box .en{font-size:13px;color:var(--color-text-primary);line-height:1.8}
+.formula-box{background:#EEEDFE;border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:13px;color:#26215C;line-height:1.9;font-weight:500}
+.slot{background:rgba(127,119,221,0.2);border-radius:4px;padding:1px 5px;font-size:12px;font-weight:500;color:#3C3489}
+.gram{background:rgba(29,158,117,0.15);border-radius:4px;padding:1px 5px;font-size:12px;font-weight:500;color:#0F6E56}
+.ex-block{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:10px 13px;margin-bottom:7px}
+.ex-label{font-size:10px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.04em;margin-bottom:4px}
+.ex-text{font-size:13px;color:var(--color-text-primary);line-height:1.9}
+.ex-text .hl{background:#E1F5EE;color:#085041;border-radius:3px;padding:0 3px;font-weight:500}
+.ex-text .hl2{background:#EEEDFE;color:#3C3489;border-radius:3px;padding:0 3px;font-weight:500}
+.ex-note{font-size:11px;color:var(--color-text-tertiary);margin-top:4px;line-height:1.6}
+.b5{background:#FCEBEB;border-radius:8px;padding:8px 12px;font-size:12px;color:#791F1F;line-height:1.7;margin-bottom:5px}
+.b7{background:#E1F5EE;border-radius:8px;padding:8px 12px;font-size:12px;color:#085041;line-height:1.7}
+.b5::before{content:"✗ Band 5 — ";font-weight:500}
+.b7::before{content:"✓ Band 7 — ";font-weight:500}
+.warn{background:#FCEBEB;border-radius:8px;padding:8px 12px;font-size:12px;color:#791F1F;line-height:1.7;margin-top:6px}
+.tip{background:#E1F5EE;border-radius:8px;padding:8px 12px;font-size:12px;color:#085041;line-height:1.7;margin-top:6px}
+.mistake-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.m-wrong{background:#FCEBEB;border-radius:8px;padding:9px 12px;font-size:12px;color:#791F1F;line-height:1.7}
+.m-right{background:#E1F5EE;border-radius:8px;padding:9px 12px;font-size:12px;color:#085041;line-height:1.7}
+.m-wrong::before{content:"✗ Wrong  ";font-weight:500}
+.m-right::before{content:"✓ Right  ";font-weight:500}
+.m-note{font-size:11px;color:var(--color-text-tertiary);margin-bottom:8px;padding:0 2px;line-height:1.5}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500;margin-bottom:8px}
+.b-purple{background:#EEEDFE;color:#3C3489}
+.b-teal{background:#E1F5EE;color:#085041}
+.b-blue{background:#E6F1FB;color:#0C447C}
+.b-amber{background:#FAEEDA;color:#633806}
+.b-coral{background:#FAECE7;color:#4A1B0C}
+.b-green{background:#EAF3DE;color:#27500A}
+.b-pink{background:#FBEAF0;color:#72243E}
+.b-gray{background:#F1EFE8;color:#444441}
+@media(max-width:500px){.mistake-row{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+<div class="top-nav" id="topnav"></div>
+<div class="sub-nav" id="subnav"></div>
+<div class="content-area" id="content"></div>
+</div>
+
+<script>
+const data=[
+{
+id:'modal',label:'Modal Verbs',badge:'b-teal',
+subs:[
+{
+label:'কী ও কেন',
+content:`
+<div class="card">
+<span class="badge b-teal">Modal Verbs — মূল ধারণা</span>
+<div class="rule-box">
+<span class="bn">বাংলায় সহজ ব্যাখ্যা</span>
+<span class="en">Modal verbs হলো "helping verbs" যেগুলো বলে দেয় কোনো কিছু কতটা <strong>নিশ্চিত</strong>, কতটা <strong>সম্ভব</strong>, কতটা <strong>জরুরি</strong>, বা কতটা <strong>উচিত</strong>।<br><br>
+"Governments help poor people." → সরল statement, boring<br>
+"Governments <strong>must</strong> help poor people." → obligation, strong<br>
+"Governments <strong>could</strong> help poor people." → possibility, weaker<br>
+"Governments <strong>should have helped</strong> poor people." → past regret/criticism<br><br>
+IELTS-এ একই idea বিভিন্ন modals দিয়ে express করলে grammatical range বাড়ে।</span>
+</div>
+</div>
+<div class="card">
+<div class="card-title">9টি modal — meaning ও task 2 use</div>
+<div class="ex-block">
+<div class="ex-label">WILL — 100% certainty (future)</div>
+<div class="ex-text">Formula: <span class="gram">will + base verb</span><br>
+এর মানে: এটা ঘটবেই / আমি নিশ্চিত<br>
+• Continued deforestation <span class="hl">will inevitably lead to</span> irreversible biodiversity loss.<br>
+• If nothing changes, inequality <span class="hl">will continue to widen</span> for decades to come.<br>
+• Urbanisation <span class="hl">will place</span> enormous strain on existing infrastructure.</div>
+<div class="ex-note">Task 2 use: strong predictions, certain consequences — use in conclusion and body para consequences.</div>
+</div>
+<div class="ex-block">
+<div class="ex-label">MUST — strong obligation / logical necessity</div>
+<div class="ex-text">Formula: <span class="gram">must + base verb</span><br>
+এর মানে: এটা করাই লাগবে / এটাই একমাত্র উপায়<br>
+• Governments <span class="hl">must prioritise</span> renewable energy investment if emissions targets are to be met.<br>
+• Policymakers <span class="hl">must address</span> the root causes of poverty, not merely its symptoms.<br>
+• Education systems <span class="hl">must adapt</span> to the demands of the digital economy.</div>
+<div class="ex-note">Task 2 use: strong recommendations in solution paragraphs. More forceful than "should".</div>
+</div>
+<div class="ex-block">
+<div class="ex-label">SHOULD — recommendation / weak obligation</div>
+<div class="ex-text">Formula: <span class="gram">should + base verb</span><br>
+এর মানে: এটা করা উচিত (কিন্তু জোর কম)<br>
+• Individuals <span class="hl">should take</span> greater personal responsibility for their environmental impact.<br>
+• Schools <span class="hl">should incorporate</span> financial literacy into the national curriculum.<br>
+• Employers <span class="hl">should be required to</span> provide mental health support for all staff.</div>
+<div class="ex-note">"Should be required to" = passive modal — more formal than plain "should".</div>
+</div>
+<div class="ex-block">
+<div class="ex-label">MAY — real possibility (formal)</div>
+<div class="ex-text">Formula: <span class="gram">may + base verb</span><br>
+এর মানে: হতে পারে — এটা possible (might-এর চেয়ে formal)<br>
+• Excessive screen time <span class="hl">may contribute to</span> declining attention spans in adolescents.<br>
+• Such policies <span class="hl">may face</span> considerable resistance from commercial interests.<br>
+• This approach <span class="hl">may not be</span> sufficient to address the scale of the problem.</div>
+<div class="ex-note">Use for hedged claims where you're not 100% certain. Academic writing loves hedging.</div>
+</div>
+<div class="ex-block">
+<div class="ex-label">MIGHT — weaker possibility / speculation</div>
+<div class="ex-text">Formula: <span class="gram">might + base verb</span><br>
+এর মানে: হয়তো হতে পারে — কম নিশ্চিত<br>
+• A reduction in working hours <span class="hl">might lead to</span> increased productivity, though evidence is mixed.<br>
+• Without intervention, the situation <span class="hl">might deteriorate</span> further over the coming decade.<br>
+• This policy <span class="hl">might not succeed</span> without public awareness campaigns.</div>
+<div class="ex-note">Might = more speculative than may. Good for exploring uncertain consequences.</div>
+</div>
+<div class="ex-block">
+<div class="ex-label">COULD — possibility OR past ability</div>
+<div class="ex-text">Formula: <span class="gram">could + base verb</span><br>
+এর মানে: পারে / পারত — possibility or ability<br>
+• Technology <span class="hl">could play</span> a transformative role in bridging the educational divide.<br>
+• Resources currently wasted on bureaucracy <span class="hl">could be redirected</span> to frontline services.<br>
+• Greater investment in public transport <span class="hl">could reduce</span> car dependency significantly.</div>
+<div class="ex-note">Could = possibility or hypothetical ability. Very common in solution paragraphs.</div>
+</div>
+<div class="ex-block">
+<div class="ex-label">WOULD — hypothetical / conditional result</div>
+<div class="ex-text">Formula: <span class="gram">would + base verb</span> (always in conditional sentences)<br>
+এর মানে: হত / হবে (যদি কিছু হয়)<br>
+• If tuition fees were abolished, universities <span class="hl">would struggle to</span> maintain academic standards.<br>
+• A four-day working week <span class="hl">would benefit</span> employee wellbeing considerably.<br>
+• This approach <span class="hl">would not only</span> reduce costs but also improve efficiency.</div>
+<div class="ex-note">Would always appears in the result clause of 2nd and 3rd conditionals.</div>
+</div>
+<div class="ex-block">
+<div class="ex-label">OUGHT TO — moral obligation (formal)</div>
+<div class="ex-text">Formula: <span class="gram">ought to + base verb</span><br>
+এর মানে: নৈতিকভাবে করা উচিত (should-এর formal version)<br>
+• Wealthier nations <span class="hl">ought to</span> bear greater financial responsibility for addressing climate change.<br>
+• Corporations <span class="hl">ought to</span> be held accountable for their environmental impact.<br>
+• Society <span class="hl">ought not to</span> place excessive value on material wealth.</div>
+<div class="ex-note">Ought to = slightly more moral/ethical tone than should. Good for argument paragraphs.</div>
+</div>
+<div class="ex-block">
+<div class="ex-label">NEED TO — necessity (less formal than must)</div>
+<div class="ex-text">Formula: <span class="gram">need to + base verb</span><br>
+এর মানে: দরকার আছে<br>
+• Governments <span class="hl">need to</span> address housing shortages before they reach crisis point.<br>
+• Young people <span class="hl">need to</span> develop critical thinking skills to navigate a complex information landscape.<br>
+• The international community <span class="hl">needs to</span> adopt a unified approach to cybersecurity.</div>
+<div class="ex-note">Need to = slightly less formal than must. Fine for body paragraphs.</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Modal Perfect — past situations (এটা বেশিরভাগ students skip করে)</div>
+<div class="rule-box">
+<span class="bn">Rule: Modal + have + past participle</span>
+<span class="en">এগুলো দিয়ে অতীতের পরিস্থিতি সম্পর্কে judgment দেওয়া হয় — "তখন এটা করা উচিত ছিল কিন্তু হয়নি।"</span>
+</div>
+<div class="ex-block">
+<div class="ex-text">
+• Governments <span class="hl">should have acted</span> more decisively when early warning signs of the crisis emerged.<br>
+• The obesity epidemic <span class="hl">could have been prevented</span> had schools introduced nutritional education earlier.<br>
+• Stricter regulations <span class="hl">might have reduced</span> the scale of the financial crisis.<br>
+• Without international cooperation, the recovery <span class="hl">would have taken</span> far longer.<br>
+• Policymakers <span class="hl">must have been aware of</span> the risks, yet chose to ignore them.
+</div>
+</div>
+<div class="warn">Common mistake: "Governments should acted" — must লিখতে হবে "should HAVE acted" — have বাদ দেওয়া যাবে না।</div>
+</div>
+<div class="card">
+<div class="card-title">Common mistakes</div>
+<div class="mistake-row"><div class="m-wrong">Governments must to invest in education.</div><div class="m-right">Governments must invest in education.</div></div>
+<div class="m-note">Rule: modal-এর পরে সরাসরি base verb — "to" বসে না।</div>
+<div class="mistake-row"><div class="m-wrong">This policy could reduces poverty.</div><div class="m-right">This policy could reduce poverty.</div></div>
+<div class="m-note">Rule: modal-এর পরে verb-এ কখনো -s/-ed/-ing হয় না।</div>
+<div class="mistake-row"><div class="m-wrong">They should have study harder.</div><div class="m-right">They should have studied harder.</div></div>
+<div class="m-note">Rule: should have + past participle (studied, not study).</div>
+<div class="mistake-row"><div class="m-wrong">It would be better if we will invest more.</div><div class="m-right">It would be better if we invested more.</div></div>
+<div class="m-note">Rule: would…if → if clause uses past simple, not will.</div>
+</div>`
+},
+{
+label:'Certainty Scale',
+content:`<div class="card">
+<div class="card-title">Certainty scale — 100% থেকে 0%</div>
+<div class="rule-box"><span class="bn">একই idea বিভিন্ন certainty level-এ express করো</span><span class="en">IELTS examiners দেখে তুমি কি শুধু "will" use করছ, নাকি variety আছে। নিচের scale দিয়ে practice করো।</span></div>
+<div class="ex-block"><div class="ex-label">100% — Will / Is certain to / Is bound to</div><div class="ex-text">• Technology <span class="hl">will transform</span> the labour market beyond recognition.<br>• This trend <span class="hl">is certain to</span> accelerate unless governments intervene.<br>• Continued inaction <span class="hl">is bound to</span> exacerbate the housing crisis.</div></div>
+<div class="ex-block"><div class="ex-label">80% — Is likely to / Is expected to / Is predicted to</div><div class="ex-text">• Urban populations <span class="hl">are likely to</span> double within the next three decades.<br>• The global temperature <span class="hl">is predicted to</span> rise by 2°C before 2100.<br>• Automation <span class="hl">is expected to</span> displace millions of low-skilled workers.</div></div>
+<div class="ex-block"><div class="ex-label">60% — May / Could potentially / Has the potential to</div><div class="ex-text">• Universal basic income <span class="hl">may reduce</span> economic insecurity among the poorest citizens.<br>• Such policies <span class="hl">could potentially</span> reduce carbon emissions by 20%.<br>• Education reform <span class="hl">has the potential to</span> transform social mobility.</div></div>
+<div class="ex-block"><div class="ex-label">40% — Might / Could conceivably / Is possible that</div><div class="ex-text">• A four-day working week <span class="hl">might increase</span> productivity, though evidence is inconclusive.<br>• It <span class="hl">is possible that</span> automation will create as many jobs as it destroys.<br>• This approach <span class="hl">could conceivably</span> address inequality, but only in the long term.</div></div>
+<div class="ex-block"><div class="ex-label">Band 7 tip: hedge with "though / albeit / while"</div><div class="ex-text">• Technology <span class="hl">may reduce</span> unemployment, <span class="hl2">though the evidence remains inconclusive</span>.<br>• This policy <span class="hl">could succeed</span>, <span class="hl2">albeit only under very specific economic conditions</span>.<br>• Renewable energy <span class="hl">might</span> eventually replace fossil fuels, <span class="hl2">while significant investment barriers remain</span>.</div></div>
+</div>`
+}
+]
+},
+{
+id:'noun',label:'Noun Clauses',badge:'b-blue',
+subs:[
+{
+label:'কী ও কেন',
+content:`<div class="card">
+<span class="badge b-blue">Noun Clauses — মূল ধারণা</span>
+<div class="rule-box">
+<span class="bn">বাংলায় সহজ ব্যাখ্যা</span>
+<span class="en">Noun clause হলো একটি পুরো clause যেটা একটি noun-এর মতো কাজ করে — sentence-এ subject, object বা complement হিসেবে বসে।<br><br>
+"I believe <strong>this</strong>." → this = noun (object)<br>
+"I believe <strong>that education reduces poverty</strong>." → that-clause = noun clause (object)<br><br>
+এটা শেখার দরকার কারণ noun clause দিয়ে academic, impersonal sentences তৈরি হয় যা "I think" avoid করে।</span>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Type 1: That-clause — সবচেয়ে common</div>
+<div class="rule-box"><span class="bn">Formula: reporting verb + that + subject + verb</span><span class="en">এই structure-এ "that" clause টা object হিসেবে কাজ করে।</span></div>
+<div class="ex-block"><div class="ex-label">Impersonal "It" + that-clause (এটা Band 7-এর signature)</div>
+<div class="ex-text">
+Formula: <span class="gram">It is + adjective/past participle + that + clause</span><br><br>
+• <span class="hl">It is widely argued that</span> access to quality education is the single most effective tool for reducing poverty.<br>
+• <span class="hl">It is evident that</span> the current healthcare system is ill-equipped to handle an ageing population.<br>
+• <span class="hl">It is broadly accepted that</span> climate change poses an existential threat to future generations.<br>
+• <span class="hl">It has been suggested that</span> a four-day working week could increase employee productivity.<br>
+• <span class="hl">It cannot be denied that</span> globalisation has widened the gap between rich and poor nations.<br>
+• <span class="hl">It is increasingly recognised that</span> mental health deserves the same attention as physical health.
+</div>
+<div class="ex-note">Useful phrases: It is argued / suggested / claimed / acknowledged / recognised / clear / evident / undeniable / worth noting that</div>
+</div>
+<div class="ex-block"><div class="ex-label">Reporting verbs + that-clause</div>
+<div class="ex-text">
+• Research <span class="hl">suggests that</span> children who read regularly develop superior critical thinking skills.<br>
+• Studies <span class="hl">have demonstrated that</span> access to green spaces significantly improves mental wellbeing.<br>
+• Evidence <span class="hl">indicates that</span> income inequality is a key driver of social unrest.<br>
+• Many economists <span class="hl">contend that</span> free trade ultimately benefits all participating nations.<br>
+• Critics <span class="hl">argue that</span> such policies disproportionately burden lower-income households.
+</div>
+<div class="ex-note">Reporting verbs: suggests / demonstrates / indicates / reveals / confirms / shows / implies / contends / argues / maintains</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Type 2: "The fact that" — subject হিসেবে</div>
+<div class="rule-box"><span class="bn">Formula: The fact that + clause + main verb</span><span class="en">এটা argument কে fact হিসেবে present করে — তোমার opinion কে objective observation-এর মতো দেখায়।</span></div>
+<div class="ex-block"><div class="ex-text">
+• <span class="hl">The fact that</span> youth unemployment has risen sharply <span class="hl">suggests that</span> curricula are failing to meet labour market demands.<br>
+• <span class="hl">The fact that</span> many developed nations face demographic crises <span class="hl">highlights the urgency of</span> pension reform.<br>
+• <span class="hl">The fact that</span> social media companies have avoided regulation <span class="hl">demonstrates that</span> legislation has not kept pace with technology.<br>
+• <span class="hl">The fact that</span> millions lack access to clean water <span class="hl">is a damning indictment of</span> international aid priorities.
+</div></div>
+</div>
+<div class="card">
+<div class="card-title">Type 3: Wh-clauses (what/whether/how/why) as subject</div>
+<div class="rule-box"><span class="bn">Formula: What/Whether/How + subject + verb + main verb</span><span class="en">এটা introduction এবং conclusion-এ খুব powerful opener।</span></div>
+<div class="ex-block"><div class="ex-text">
+• <span class="hl">What is clear is that</span> governments can no longer afford to delay action on climate change.<br>
+• <span class="hl">What matters most is not</span> the speed of economic growth but its equitable distribution.<br>
+• <span class="hl">Whether technology enriches or impoverishes human relationships</span> remains a matter of genuine debate.<br>
+• <span class="hl">Whether this trend is reversible</span> depends largely on the policy decisions made in the next decade.<br>
+• <span class="hl">How effectively these measures will be implemented</span> remains to be seen.<br>
+• <span class="hl">Why governments consistently fail to act</span> on long-term environmental risks is a question that deserves serious scrutiny.
+</div></div>
+<div class="warn">Common mistake: "What is clear that governments must act." → Wrong! "What is clear IS THAT" — দুটো verb দরকার।</div>
+</div>
+<div class="card">
+<div class="card-title">Common mistakes</div>
+<div class="mistake-row"><div class="m-wrong">It is important that governments will invest in education.</div><div class="m-right">It is important that governments invest in education.</div></div>
+<div class="m-note">Rule: "It is important/essential/vital/crucial that" এর পরে subjunctive — bare infinitive (invest, not will invest / invests).</div>
+<div class="mistake-row"><div class="m-wrong">Whether or not technology is good, it depends on the person.</div><div class="m-right">Whether technology is beneficial depends largely on how consciously it is used.</div></div>
+<div class="m-note">Rule: whether-clause as subject takes a singular main verb (depends, not "it depends").</div>
+<div class="mistake-row"><div class="m-wrong">The fact of that poverty is rising is concerning.</div><div class="m-right">The fact that poverty is rising is deeply concerning.</div></div>
+<div class="m-note">Rule: "The fact THAT" — not "The fact of that". No "of" here.</div>
+</div>`
+},
+{
+label:'Reporting Verbs',
+content:`<div class="card">
+<div class="card-title">Reporting verbs — variety দিয়ে use করো</div>
+<div class="rule-box"><span class="bn">একই "says/thinks" বারবার লিখলে Band 5। নিচের verbs দিয়ে variety আনো।</span><span class="en">প্রতিটির nuance আলাদা — সঠিকটা choose করো।</span></div>
+<div class="ex-block"><div class="ex-label">Neutral reporting</div><div class="ex-text">states · reports · notes · observes · finds · records</div></div>
+<div class="ex-block"><div class="ex-label">Strong assertion</div><div class="ex-text">argues · contends · maintains · insists · asserts · emphasises</div></div>
+<div class="ex-block"><div class="ex-label">Tentative / hedged</div><div class="ex-text">suggests · implies · indicates · proposes · speculates · hypothesises</div></div>
+<div class="ex-block"><div class="ex-label">Agreement / proof</div><div class="ex-text">demonstrates · confirms · establishes · proves · verifies · supports</div></div>
+<div class="ex-block"><div class="ex-label">Disagreement / questioning</div><div class="ex-text">challenges · disputes · questions · refutes · contradicts · undermines</div></div>
+<div class="ex-block"><div class="ex-label">Examples in sentences</div><div class="ex-text">
+• Research <span class="hl">demonstrates that</span> early childhood intervention has lasting developmental benefits.<br>
+• Critics <span class="hl">contend that</span> austerity measures disproportionately harm the most vulnerable.<br>
+• The data <span class="hl">suggests that</span> investment in public transport reduces private car use significantly.<br>
+• Some economists <span class="hl">challenge the assumption that</span> economic growth automatically reduces inequality.
+</div></div>
+</div>`
+}
+]
+},
+{
+id:'adv',label:'Adverbial Clauses',badge:'b-amber',
+subs:[
+{
+label:'কী ও কেন',
+content:`<div class="card">
+<span class="badge b-amber">Adverbial Clauses — মূল ধারণা</span>
+<div class="rule-box">
+<span class="bn">বাংলায় সহজ ব্যাখ্যা</span>
+<span class="en">Adverbial clause একটি dependent clause যেটা বলে <strong>কখন, কেন, কীভাবে, কতটা, কী শর্তে</strong> কিছু ঘটে।<br><br>
+"Governments invest in education. Literacy improves." → দুটো আলাদা boring sentence<br>
+"<strong>When governments invest in education</strong>, literacy rates demonstrably improve." → একটি complex, linked sentence<br><br>
+Task 2-এ adverbial clauses দিয়ে logical flow তৈরি হয় এবং coherence বাড়ে।</span>
+</div>
+</div>
+<div class="card">
+<div class="card-title">7 ধরনের adverbial clause</div>
+<div class="ex-block"><div class="ex-label">1. TIME — কখন? (when/while/as/once/until/by the time/whenever)</div>
+<div class="ex-text">
+• <span class="hl">Once a child falls behind in literacy</span>, it becomes increasingly difficult to close the gap in later years.<br>
+• <span class="hl">While economic growth remains important</span>, it must not come at the expense of environmental sustainability.<br>
+• <span class="hl">By the time governments take meaningful action</span>, certain environmental damage may already be irreversible.<br>
+• <span class="hl">Whenever economic pressures intensify</span>, arts and cultural funding is typically among the first to be cut.<br>
+• <span class="hl">Until sustainable energy becomes economically competitive</span>, developing nations will continue to rely on fossil fuels.
+</div></div>
+<div class="ex-block"><div class="ex-label">2. REASON — কেন? (because/since/as/given that/in view of the fact that)</div>
+<div class="ex-text">
+• <span class="hl">Since access to the internet has become a prerequisite for employment</span>, digital literacy must now be treated as a basic educational right.<br>
+• <span class="hl">Given that the global population is projected to reach ten billion by 2050</span>, food security must be treated as a matter of international priority.<br>
+• <span class="hl">As the evidence overwhelmingly supports the link between exercise and mental health</span>, schools should allocate more time to physical activity.<br>
+• <span class="hl">In view of the fact that social media companies profit from user data</span>, stronger privacy regulations are clearly warranted.
+</div>
+<div class="ex-note">Upgrade: "because" → "since" / "given that" / "in view of the fact that" — much more academic.</div>
+</div>
+<div class="ex-block"><div class="ex-label">3. CONTRAST — বিপরীত (although/even though/while/whilst/whereas)</div>
+<div class="ex-text">
+• <span class="hl">Although free university education promotes equality of opportunity</span>, it places an unsustainable burden on government finances.<br>
+• <span class="hl">Even though social media connects people across distances</span>, it has simultaneously been linked to increased loneliness.<br>
+• <span class="hl">Whilst economic globalisation has lifted millions out of poverty</span>, it has also contributed to the erosion of local industries.<br>
+• <span class="hl">Whereas urban residents enjoy a wide range of public services</span>, those in rural areas often lack access to basic healthcare.
+</div></div>
+<div class="ex-block"><div class="ex-label">4. CONCESSION — আংশিক স্বীকার (despite the fact that/even if/however much)</div>
+<div class="ex-text">
+• <span class="hl">Despite the fact that many countries have signed international climate agreements</span>, carbon emissions continue to rise globally.<br>
+• <span class="hl">Even if governments introduce stricter regulations</span>, enforcement remains a significant challenge in many developing nations.<br>
+• <span class="hl">However compelling the economic arguments may be</span>, they cannot justify the human cost of unchecked inequality.
+</div></div>
+<div class="ex-block"><div class="ex-label">5. PURPOSE — কী উদ্দেশ্যে? (so that/in order that/in order to/so as to)</div>
+<div class="ex-text">
+• Governments must reform the tax system <span class="hl">in order to</span> reduce the widening wealth gap.<br>
+• Schools should incorporate coding into the curriculum <span class="hl">so that</span> students are prepared for careers in the digital economy.<br>
+• Greater transparency is needed <span class="hl">so as to</span> restore public trust in political institutions.<br>
+• International agreements must be legally binding <span class="hl">in order that</span> signatories are held accountable.
+</div>
+<div class="ex-note">Upgrade: plain "to" → "in order to" / "so as to" — significantly more formal.</div>
+</div>
+<div class="ex-block"><div class="ex-label">6. RESULT — ফলাফল (so…that/such…that/with the result that/thereby)</div>
+<div class="ex-text">
+• The demand for housing has outpaced supply, <span class="hl">with the result that</span> home ownership has become unattainable for most young adults.<br>
+• The gap between rich and poor has widened <span class="hl">so dramatically that</span> social mobility has effectively stalled in many nations.<br>
+• Corporations have lobbied against regulation, <span class="hl">thereby</span> delaying meaningful climate action by several decades.<br>
+• The policy was implemented <span class="hl">in such a way that</span> it disproportionately benefited those who needed it least.
+</div></div>
+<div class="ex-block"><div class="ex-label">7. CONDITION — শর্ত (if/unless/provided that/as long as/on condition that)</div>
+<div class="ex-text">
+• <span class="hl">Unless governments take immediate action</span>, the window for meaningful climate intervention will close permanently.<br>
+• Technology can bridge the educational divide, <span class="hl">provided that</span> adequate infrastructure investment accompanies it.<br>
+• Free movement of labour benefits host economies, <span class="hl">as long as</span> appropriate social support systems are in place.<br>
+• The policy will succeed <span class="hl">on condition that</span> all stakeholders commit to its implementation in good faith.
+</div></div>
+</div>
+<div class="card">
+<div class="card-title">Common mistakes</div>
+<div class="mistake-row"><div class="m-wrong">Despite the government invested money, poverty increased.</div><div class="m-right">Despite the government's investment, poverty increased. / Although the government invested money, poverty increased.</div></div>
+<div class="m-note">Rule: "Despite" + noun/gerund (NOT + clause). Use "Although" for a clause.</div>
+<div class="mistake-row"><div class="m-wrong">Although the problem is serious, but we can solve it.</div><div class="m-right">Although the problem is serious, we can solve it.</div></div>
+<div class="m-note">Rule: "Although" এবং "but" একসাথে কখনো না — একটা choose করো।</div>
+<div class="mistake-row"><div class="m-wrong">Because of poverty is increasing, governments must act.</div><div class="m-right">Because poverty is increasing, governments must act. / Because of rising poverty, governments must act.</div></div>
+<div class="m-note">Rule: "Because of" + noun. "Because" + clause. দুটো mix করা যাবে না।</div>
+</div>`
+},
+{
+label:'Upgrade শব্দ',
+content:`<div class="card">
+<div class="card-title">Conjunction upgrades — Band 5 → Band 7</div>
+<div class="ex-block"><div class="ex-label">BECAUSE → upgrade করো</div><div class="ex-text">
+✗ Because climate change is a problem, governments must act.<br>
+✓ <span class="hl">Given that</span> climate change poses an existential threat, governments must act without delay.<br>
+✓ <span class="hl">Since</span> the scientific consensus on climate change is overwhelming, inaction is morally indefensible.<br>
+✓ <span class="hl">In view of the fact that</span> emissions continue to rise, urgent intervention is essential.
+</div></div>
+<div class="ex-block"><div class="ex-label">BUT → upgrade করো</div><div class="ex-text">
+✗ Technology is useful but it can be harmful.<br>
+✓ <span class="hl">While</span> technology offers undeniable benefits, it also presents significant social risks.<br>
+✓ <span class="hl">Although</span> technology has transformed communication, it has simultaneously contributed to social isolation.<br>
+✓ <span class="hl">Whilst</span> the economic benefits of automation are clear, the human cost demands serious consideration.
+</div></div>
+<div class="ex-block"><div class="ex-label">SO → upgrade করো</div><div class="ex-text">
+✗ There are many problems so governments should act.<br>
+✓ <span class="hl">In order to</span> address these challenges, governments must act decisively and without delay.<br>
+✓ The problems are severe, <span class="hl">with the result that</span> immediate intervention is no longer optional.<br>
+✓ Governments must act <span class="hl">so as to</span> prevent the situation from deteriorating further.
+</div></div>
+<div class="ex-block"><div class="ex-label">IF → upgrade করো</div><div class="ex-text">
+✗ If we don't do anything, things will get worse.<br>
+✓ <span class="hl">Unless</span> decisive action is taken, the consequences will be both severe and irreversible.<br>
+✓ <span class="hl">Provided that</span> adequate funding accompanies these reforms, meaningful change is achievable.<br>
+✓ <span class="hl">On condition that</span> all nations commit to the agreement, the targets are within reach.
+</div></div>
+</div>`
+}
+]
+},
+{
+id:'relative',label:'Relative Clauses',badge:'b-coral',
+subs:[
+{
+label:'কী ও কেন',
+content:`<div class="card">
+<span class="badge b-coral">Relative Clauses — মূল ধারণা</span>
+<div class="rule-box">
+<span class="bn">বাংলায় সহজ ব্যাখ্যা</span>
+<span class="en">Relative clause হলো একটি clause যেটা একটি noun সম্পর্কে extra information দেয়।<br><br>
+"The policy failed." + "The policy was introduced in 2010." → দুটো বলার দরকার নেই<br>
+"The policy <strong>that was introduced in 2010</strong> failed." → একটি elegant sentence<br><br>
+দুই ধরনের relative clause:<br>
+<strong>Defining</strong> — কোন noun সেটা identify করে (কোনো comma নেই)<br>
+<strong>Non-defining</strong> — extra information যোগ করে (comma দরকার)</span>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Defining vs Non-defining — পার্থক্য বোঝো</div>
+<div class="ex-block"><div class="ex-label">DEFINING — কোনটা সেটা বলে (no comma)</div>
+<div class="ex-text">
+• Policies <span class="hl">that fail to address the root causes of poverty</span> will never produce lasting change.<br>
+<span class="ex-note">→ "যেসব policies root causes address করে না" — সেগুলো identify করছে</span><br><br>
+• Students <span class="hl">who lack access to digital devices</span> are placed at a significant disadvantage.<br>
+• Countries <span class="hl">where income inequality is greatest</span> tend to experience the highest rates of social unrest.<br>
+• Companies <span class="hl">whose operations generate significant carbon emissions</span> should face financial penalties.<br>
+• The approach <span class="hl">that has proven most effective</span> involves combining legislation with public awareness campaigns.
+</div></div>
+<div class="ex-block"><div class="ex-label">NON-DEFINING — extra information (comma দরকার)</div>
+<div class="ex-text">
+• Social media<span class="hl">, which has transformed the way people communicate,</span> has also been linked to rising mental health concerns.<br>
+<span class="ex-note">→ Social media = already identified. The clause just adds information.</span><br><br>
+• Finland<span class="hl">, where education is consistently ranked among the best in the world,</span> invests heavily in teacher training.<br>
+• Universal basic income<span class="hl">, which has been trialled in several countries,</span> remains a deeply contested policy proposal.<br>
+• Young adults<span class="hl">, who represent the future workforce,</span> deserve greater investment in vocational training.
+</div></div>
+<div class="warn">Critical rule: Non-defining clause-এ "that" কখনো use করা যাবে না — শুধু "which" বা "who".<br>✗ Social media, that has changed communication... → Wrong<br>✓ Social media, which has changed communication... → Correct</div>
+</div>
+<div class="card">
+<div class="card-title">5 relative pronouns — কোনটা কখন</div>
+<div class="ex-block"><div class="ex-label">WHO — people-এর জন্য</div><div class="ex-text">
+• People <span class="hl">who live in poverty</span> are disproportionately affected by cuts to public services.<br>
+• Leaders <span class="hl">who prioritise short-term popularity</span> over long-term policy rarely achieve meaningful change.
+</div></div>
+<div class="ex-block"><div class="ex-label">WHICH — things/ideas-এর জন্য</div><div class="ex-text">
+• Automation<span class="hl">, which is transforming the global economy,</span> presents both opportunities and significant risks.<br>
+• The proposal<span class="hl">, which was widely criticised,</span> was ultimately withdrawn by the government.
+</div></div>
+<div class="ex-block"><div class="ex-label">WHOSE — possession (people AND things)</div><div class="ex-text">
+• Countries <span class="hl">whose economies depend heavily on tourism</span> were among the hardest hit by the pandemic.<br>
+• Industries <span class="hl">whose carbon footprint exceeds acceptable limits</span> should face proportionate financial penalties.
+</div></div>
+<div class="ex-block"><div class="ex-label">WHERE — places/situations</div><div class="ex-text">
+• Nations <span class="hl">where healthcare is privatised</span> tend to have higher rates of preventable illness.<br>
+• Situations <span class="hl">where individual rights conflict with collective wellbeing</span> require careful legislative balancing.
+</div></div>
+<div class="ex-block"><div class="ex-label">PREPOSITION + WHICH (formal — Band 7+)</div><div class="ex-text">
+• This is a problem <span class="hl">for which</span> no simple solution exists.<br>
+• The extent <span class="hl">to which</span> technology affects productivity remains an open question.<br>
+• The conditions <span class="hl">under which</span> migrant workers are employed must be subject to far stricter regulation.<br>
+• The assumptions <span class="hl">on which</span> this policy is based deserve serious scrutiny.
+</div>
+<div class="ex-note">Upgrade: "...a problem which there is no simple solution for" → "...a problem for which no simple solution exists"</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Reduced relative clause — compact ও academic</div>
+<div class="rule-box"><span class="bn">Rule: "which is/are/was/were" বাদ দিয়ে সরাসরি participle বসাও</span><span class="en">এটা sentence কে shorter ও more formal করে।</span></div>
+<div class="ex-block"><div class="ex-text">
+✗ Resources which are allocated to military spending could be redirected to education.<br>
+✓ Resources <span class="hl">allocated to military spending</span> could be redirected to education.<br><br>
+✗ Policies which are designed to incentivise renewable energy have proven effective.<br>
+✓ Policies <span class="hl">designed to incentivise renewable energy</span> have proven highly effective.<br><br>
+✗ Governments which are facing significant budget deficits are reluctant to increase spending.<br>
+✓ Governments <span class="hl">facing significant budget deficits</span> are often reluctant to increase public spending.<br><br>
+✗ The millions of people who are living in extreme poverty deserve greater attention.<br>
+✓ The millions <span class="hl">living in extreme poverty</span> deserve far greater attention from policymakers.
+</div></div>
+<div class="card">
+<div class="card-title">Common mistakes</div>
+<div class="mistake-row"><div class="m-wrong">The policy which it was introduced in 2010 failed.</div><div class="m-right">The policy that was introduced in 2010 failed.</div></div>
+<div class="m-note">Rule: relative clause-এ subject pronoun (it/they/he) repeat করা যাবে না।</div>
+<div class="mistake-row"><div class="m-wrong">The country that its GDP is highest is the USA.</div><div class="m-right">The country whose GDP is highest is the USA.</div></div>
+<div class="m-note">Rule: possession বোঝাতে "whose" — "that its" বলা যায় না।</div>
+<div class="mistake-row"><div class="m-wrong">Climate change, that affects the whole world, is urgent.</div><div class="m-right">Climate change, which affects the whole world, is an urgent global challenge.</div></div>
+<div class="m-note">Rule: Non-defining clause-এ "that" কখনো না — only "which" or "who".</div>
+</div>
+</div>`
+},
+{label:'Band 7 examples',content:`<div class="card">
+<div class="card-title">Complete Band 7 sentences with relative clauses</div>
+<div class="ex-block"><div class="ex-text">Social media<span class="hl">, which has fundamentally transformed the way people communicate,</span> has simultaneously been linked to a measurable increase in anxiety and depression, particularly among adolescents.</div></div>
+<div class="ex-block"><div class="ex-text">Policies <span class="hl">that fail to address the structural root causes of poverty</span> will never produce lasting change, regardless of how generously they are funded.</div></div>
+<div class="ex-block"><div class="ex-text">The extent <span class="hl">to which</span> automation will displace human workers remains one of the most pressing questions facing policymakers in the coming decade.</div></div>
+<div class="ex-block"><div class="ex-text">Countries <span class="hl">whose economies depend heavily on fossil fuel exports</span> face particularly challenging transitions to sustainable energy models.</div></div>
+<div class="ex-block"><div class="ex-text">Resources currently <span class="hl">allocated to inefficient bureaucratic processes</span> could be redirected to frontline public services, yielding significant improvements in outcomes.</div></div>
+<div class="ex-block"><div class="ex-text">Universal basic income<span class="hl">, which has been piloted in Finland, Canada, and Kenya,</span> represents one of the most radical — and contested — proposals in contemporary economic policy.</div></div>
+<div class="b5">Technology changes how people communicate. It also causes mental health problems. This is especially true for young people.</div>
+<div class="b7">Technology<span class="hl">, which has transformed communication beyond recognition,</span> has simultaneously generated significant mental health concerns, particularly among adolescents <span class="hl">whose formative social experiences are increasingly mediated by screens.</span></div>
+</div>`}
+]
+},
+{
+id:'participle',label:'Participle Phrases',badge:'b-green',
+subs:[
+{
+label:'কী ও কেন',
+content:`<div class="card">
+<span class="badge b-green">Participle Phrases — মূল ধারণা</span>
+<div class="rule-box">
+<span class="bn">বাংলায় সহজ ব্যাখ্যা</span>
+<span class="en">Participle phrase হলো একটি verb form (-ing বা -ed) দিয়ে তৈরি phrase যেটা noun বা pronoun-কে modify করে — কিন্তু নিজেই একটি পূর্ণ sentence নয়।<br><br>
+দুটো sentence: "The government recognised the problem." + "It acted immediately."<br>
+Participle দিয়ে: "<strong>Recognising the problem</strong>, the government acted immediately."<br><br>
+কেন শিখবে? Participle phrases sentence-কে compact করে এবং variety আনে। Band 7+ এর hallmark।</span>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Type 1: Present participle (-ing) — একসাথে বা ফলে</div>
+<div class="rule-box"><span class="bn">Rule: -ing phrase-এর subject = main clause-এর subject — এটা না মিললে "dangling participle" error হয়।</span></div>
+<div class="ex-block"><div class="ex-label">Sentence opener (simultaneous action বা reason)</div><div class="ex-text">
+• <span class="hl">Recognising the long-term consequences of inaction,</span> several governments have begun implementing ambitious climate policies.<br>
+• <span class="hl">Acknowledging the complexity of the issue,</span> this essay will examine all relevant perspectives before reaching a conclusion.<br>
+• <span class="hl">Drawing on evidence from multiple disciplines,</span> researchers have concluded that inequality is the primary driver of social instability.<br>
+• <span class="hl">Understanding the link between education and economic growth,</span> policymakers have prioritised investment in schools.
+</div></div>
+<div class="ex-block"><div class="ex-label">Sentence ender (consequence or additional detail)</div><div class="ex-text">
+• Corporations have lobbied against environmental regulation, <span class="hl">thereby perpetuating a cycle of short-term profit at the expense of long-term sustainability.</span><br>
+• The gap between rich and poor continues to widen, <span class="hl">placing ever-greater strain on public services and social cohesion.</span><br>
+• Governments have failed to invest in renewable energy, <span class="hl">leaving future generations to bear the consequences of today's inaction.</span><br>
+• Social media companies profit from user data, <span class="hl">raising serious questions about privacy and consent.</span>
+</div></div>
+<div class="ex-block"><div class="ex-label">Middle of sentence (non-defining detail)</div><div class="ex-text">
+• Many young people, <span class="hl">struggling to afford housing in major cities,</span> are forced to delay key life milestones such as marriage and parenthood.<br>
+• Governments, <span class="hl">facing intense electoral pressure,</span> frequently prioritise short-term popularity over long-term policy effectiveness.
+</div></div>
+</div>
+<div class="card">
+<div class="card-title">Type 2: Past participle (-ed) — passive meaning</div>
+<div class="rule-box"><span class="bn">Rule: Past participle phrase = passive relative clause-এর shortened version।</span></div>
+<div class="ex-block"><div class="ex-text">
+• <span class="hl">Driven by rapid technological advancement,</span> the global economy is undergoing a fundamental structural transformation.<br>
+• <span class="hl">Faced with rising unemployment,</span> many governments have resorted to short-term stimulus packages.<br>
+• <span class="hl">Supported by robust empirical evidence,</span> this argument represents one of the strongest cases for educational reform.<br>
+• <span class="hl">Compelled by electoral pressure,</span> politicians frequently prioritise short-term popularity over long-term effectiveness.<br>
+• <span class="hl">Shaped by decades of underinvestment,</span> the public health system is ill-equipped to handle an ageing population.
+</div></div>
+</div>
+<div class="card">
+<div class="card-title">Type 3: Perfect participle (Having + past participle)</div>
+<div class="rule-box"><span class="bn">Rule: "Having + past participle" — আগে একটি action শেষ হয়েছে, তারপর main clause-এর action।</span></div>
+<div class="ex-block"><div class="ex-text">
+• <span class="hl">Having examined both perspectives,</span> it is clear that the benefits of globalisation are distributed highly unequally.<br>
+• <span class="hl">Having failed to meet previous emissions targets,</span> the government faces considerable scepticism regarding its latest commitments.<br>
+• <span class="hl">Having invested heavily in renewable energy infrastructure,</span> Denmark now generates the majority of its electricity from wind power.<br>
+• <span class="hl">Having considered the arguments on both sides,</span> I believe the disadvantages of social media ultimately outweigh the benefits.<br>
+• <span class="hl">Having risen steadily for three decades,</span> income inequality now poses a serious threat to social cohesion in many developed nations.
+</div>
+<div class="tip">"Having + past participle" is the PERFECT conclusion opener. Use it every time.</div>
+</div>
+<div class="card">
+<div class="card-title">Type 4: "With" absolute phrase</div>
+<div class="rule-box"><span class="bn">Formula: With + noun + present/past participle — context বা cause express করে।</span></div>
+<div class="ex-block"><div class="ex-text">
+• <span class="hl">With inequality continuing to widen,</span> the prospect of genuine social mobility is increasingly remote.<br>
+• <span class="hl">With the global population projected to reach ten billion,</span> food production methods must undergo radical transformation.<br>
+• <span class="hl">With public trust in government declining,</span> the legitimacy of democratic institutions is under increasing strain.<br>
+• <span class="hl">With so much evidence supporting this conclusion,</span> policymakers have little justification for further delay.
+</div></div>
+<div class="card">
+<div class="card-title">Dangling participle — সবচেয়ে বড় mistake</div>
+<div class="warn">Participle phrase-এর subject এবং main clause-এর subject একই হতে হবে।</div>
+<div class="mistake-row"><div class="m-wrong">Rising sharply, the government increased taxes.<br><span style="font-size:11px">(সরকার কি বাড়ছে? না — taxes বাড়ছে)</span></div><div class="m-right">Rising sharply, prices prompted the government to increase taxes.<br><span style="font-size:11px">(prices বাড়ছে — prices-ই subject)</span></div></div>
+<div class="m-note">Fix: subject মেলাও অথবা sentence restructure করো।</div>
+<div class="mistake-row"><div class="m-wrong">Having studied the data, the conclusion is clear.</div><div class="m-right">Having studied the data, researchers concluded that the trend is unmistakable.</div></div>
+<div class="m-note">The conclusion hasn't studied anything — a person/researcher has. Subject must be the one doing the action.</div>
+</div>
+</div>`
+},
+{label:'Band 7 examples',content:`<div class="card">
+<div class="card-title">Full Band 7 essay sentences with participles</div>
+<div class="ex-block"><div class="ex-text"><span class="hl">Recognising the scale of the climate emergency,</span> several progressive governments have implemented legally binding emissions targets — a response that, while imperfect, represents a significant step in the right direction.</div></div>
+<div class="ex-block"><div class="ex-text"><span class="hl">Driven by a combination of economic insecurity and technological disruption,</span> social inequality has reached levels that were, until recently, considered unimaginable in developed nations.</div></div>
+<div class="ex-block"><div class="ex-text">The education system continues to fail disadvantaged students, <span class="hl">perpetuating cycles of poverty that stretch across generations</span> and undermining the very principles of meritocracy on which modern society claims to be founded.</div></div>
+<div class="ex-block"><div class="ex-text"><span class="hl">Having considered the arguments on both sides of this debate,</span> it is my considered view that the long-term disadvantages of unregulated social media use substantially outweigh the undeniable benefits it provides.</div></div>
+<div class="ex-block"><div class="ex-text"><span class="hl">With public confidence in political institutions declining,</span> the burden on civil society to hold governments accountable has never been heavier.</div></div>
+<div class="b5">The government knows about the problem. It is taking action now. This is a good thing.</div>
+<div class="b7"><span class="hl">Recognising the urgency of the situation,</span> the government has finally begun to take meaningful action — a development that, <span class="hl">long overdue,</span> is nonetheless to be welcomed.</div>
+</div>`}
+]
+},
+{
+id:'inversion',label:'Inversion & Emphasis',badge:'b-pink',
+subs:[
+{
+label:'কী ও কেন',
+content:`<div class="card">
+<span class="badge b-pink">Inversion & Emphasis — মূল ধারণা</span>
+<div class="rule-box">
+<span class="bn">বাংলায় সহজ ব্যাখ্যা</span>
+<span class="en">Normal English word order: Subject + Auxiliary + Verb<br>
+"Governments <strong>have never</strong> faced such a challenge."<br><br>
+Inversion = auxiliary আগে আসে, subject পরে:<br>
+"<strong>Never have</strong> governments faced such a complex challenge."<br><br>
+কেন ব্যবহার করবে?<br>
+১. Emphasis তৈরি করতে — dramatic effect<br>
+২. Grammatical range দেখাতে — Band 7.5+ signature<br>
+৩. Monotonous sentence rhythm ভাঙতে<br><br>
+Rule: প্রতি essay-তে ১–২টা maximum — বেশি হলে unnatural লাগে।</span>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Type 1: Negative inversion (Never / Rarely / Seldom / Hardly / Scarcely)</div>
+<div class="rule-box"><span class="bn">Formula: Negative word + auxiliary + subject + main verb</span></div>
+<div class="ex-block"><div class="ex-text">
+• <span class="hl">Never before has</span> humanity faced a challenge as complex and far-reaching as climate change.<br>
+• <span class="hl">Rarely does</span> a single policy intervention address the multiple dimensions of a social problem simultaneously.<br>
+• <span class="hl">Seldom has</span> the international community demonstrated the unity of purpose required to confront a truly global crisis.<br>
+• <span class="hl">Hardly had</span> the policy been introduced <span class="hl">when</span> critics began raising serious concerns about its effectiveness.<br>
+• <span class="hl">Scarcely had</span> the government announced the reforms <span class="hl">before</span> opposition from vested interests began to mount.
+</div>
+<div class="ex-note">Step-by-step: "Governments have never faced this before" → "Never HAVE governments faced this before" → auxiliary (have) moves before subject (governments).</div>
+</div>
+<div class="ex-block"><div class="ex-label">Under no circumstances / On no account / In no way / At no time</div><div class="ex-text">
+• <span class="hl">Under no circumstances should</span> short-term economic considerations take precedence over planetary health.<br>
+• <span class="hl">On no account</span> can governments justify the continued subsidisation of fossil fuels in an era of climate emergency.<br>
+• <span class="hl">In no way</span> does this policy address the fundamental structural causes of inequality.<br>
+• <span class="hl">At no time</span> in modern history has the need for global cooperation been more acute.
+</div></div>
+</div>
+<div class="card">
+<div class="card-title">Type 2: Only + inversion</div>
+<div class="rule-box"><span class="bn">Formula: Only when/if/by/through + clause/phrase + auxiliary + subject + verb</span><span class="en">এটা conclusion-এ সবচেয়ে powerful — condition-কে emphasise করে।</span></div>
+<div class="ex-block"><div class="ex-text">
+• <span class="hl">Only when governments treat education as a national priority</span> will social mobility become a genuine reality.<br>
+• <span class="hl">Only by addressing the root causes of poverty</span> can policymakers hope to break the cycle of deprivation.<br>
+• <span class="hl">Only through sustained international cooperation</span> can the most pressing environmental challenges be resolved.<br>
+• <span class="hl">Only if individuals take greater personal responsibility</span> will collective efforts to combat climate change succeed.<br>
+• <span class="hl">Only once the structural barriers have been dismantled</span> will true equality of opportunity become achievable.
+</div></div>
+</div>
+<div class="card">
+<div class="card-title">Type 3: Cleft sentences (It is…that/who)</div>
+<div class="rule-box"><span class="bn">Formula: It is/was + focused element + that/who + rest of sentence</span><span class="en">পুরো sentence-কে "split" করে — focus যেখানে দিতে চাও সেখানে দেওয়া যায়।</span></div>
+<div class="ex-block"><div class="ex-text">
+• <span class="hl">It is governments, not individuals,</span> that bear the primary responsibility for addressing systemic inequality.<br>
+• <span class="hl">It is the quality of teaching, rather than class size,</span> that most significantly determines educational outcomes.<br>
+• <span class="hl">It is precisely this unwillingness to invest in long-term solutions</span> that has allowed the housing crisis to reach its current severity.<br>
+• <span class="hl">It was the failure to regulate financial institutions adequately</span> that ultimately precipitated the 2008 crisis.<br>
+• <span class="hl">It is not wealth, but access to opportunity,</span> that defines whether a society is truly just.
+</div></div>
+</div>
+<div class="card">
+<div class="card-title">Type 4: Fronted adverbials</div>
+<div class="rule-box"><span class="bn">Formula: Adverb/phrase কে sentence-এর শুরুতে নিয়ে আসো + comma + main clause</span></div>
+<div class="ex-block"><div class="ex-text">
+• <span class="hl">Crucially,</span> this approach treats the symptom rather than the underlying cause of the problem.<br>
+• <span class="hl">Perhaps most significantly,</span> the policy fails to account for regional variation in economic conditions.<br>
+• <span class="hl">At the heart of this debate</span> lies a fundamental tension between individual freedom and collective responsibility.<br>
+• <span class="hl">Central to this argument</span> is the assumption that economic growth automatically reduces inequality — an assumption that deserves scrutiny.<br>
+• <span class="hl">Of particular concern</span> is the disproportionate impact of these policies on the most vulnerable members of society.
+</div>
+<div class="tip">"At the heart of this debate lies…" এবং "Of particular concern is…" — এই দুটো structure মুখস্থ করো এবং প্রতি essay-তে একটা use করো।</div>
+</div>
+<div class="card">
+<div class="card-title">Common mistakes with inversion</div>
+<div class="mistake-row"><div class="m-wrong">Never governments have faced this before.</div><div class="m-right">Never have governments faced this before.</div></div>
+<div class="m-note">Rule: negative word → auxiliary → subject → main verb. Subject cannot come first.</div>
+<div class="mistake-row"><div class="m-wrong">Only when the problem is solved, things will improve.</div><div class="m-right">Only when the problem is solved will things improve.</div></div>
+<div class="m-note">Rule: "Only when" triggers inversion in the MAIN clause — "will" comes before "things".</div>
+<div class="mistake-row"><div class="m-wrong">It is education that it reduces poverty.</div><div class="m-right">It is education that reduces poverty.</div></div>
+<div class="m-note">Rule: cleft sentence-এ "that" এর পরে subject repeat করো না।</div>
+</div>`
+},
+{label:'Band 7 essay use',content:`<div class="card">
+<div class="card-title">Inversion-এ full essay sentences — কোথায় use করবে</div>
+<div class="ex-block"><div class="ex-label">Introduction-এ (dramatic opening)</div><div class="ex-text">
+<span class="hl">Never before has</span> humanity been confronted with a challenge as simultaneously urgent, complex, and far-reaching as the threat posed by accelerating climate change — and never before has the cost of inaction been so clearly understood.
+</div></div>
+<div class="ex-block"><div class="ex-label">Body paragraph opening</div><div class="ex-text">
+<span class="hl">It is governments, not market forces,</span> that bear the primary moral responsibility for ensuring that the benefits of economic growth are equitably distributed across all sections of society.
+</div></div>
+<div class="ex-block"><div class="ex-label">Counter-argument paragraph</div><div class="ex-text">
+<span class="hl">Under no circumstances should</span> economic efficiency be used as a justification for dismantling the social safety net that protects the most vulnerable members of society from destitution.
+</div></div>
+<div class="ex-block"><div class="ex-label">Conclusion (most powerful position)</div><div class="ex-text">
+<span class="hl">Only by addressing the structural root causes of inequality</span> — rather than merely treating its most visible symptoms — can policymakers hope to build a society in which opportunity is genuinely available to all, regardless of background or circumstance.
+</div></div>
+<div class="b5">Governments need to fix inequality. They should address the causes. This is the only way things will improve.</div>
+<div class="b7"><span class="hl">Only by dismantling the structural barriers that perpetuate inequality</span>, rather than addressing its surface manifestations, <span class="hl">can governments hope to build</span> a society in which opportunity is genuinely accessible to all citizens.</div>
+</div>`}
+]
+},
+{
+id:'cohesion',label:'Coherence & Cohesion',badge:'b-gray',
+subs:[
+{
+label:'কী ও কেন',
+content:`<div class="card">
+<span class="badge b-gray">Coherence & Cohesion — মূল ধারণা</span>
+<div class="rule-box">
+<span class="bn">বাংলায় সহজ ব্যাখ্যা</span>
+<span class="en"><strong>Coherence</strong> = তোমার ideas কি logical order-এ আছে? Reader কি সহজে follow করতে পারছে?<br>
+<strong>Cohesion</strong> = sentences ও paragraphs কি smoothly connected? একটা থেকে আরেকটায় কি natural flow আছে?<br><br>
+এটা IELTS Writing-এর 25% marks। শুধু linking words মুখস্থ করলে হবে না — তিনটা জিনিস একসাথে দরকার:<br>
+১. Connectors ও linking words (variety সহ)<br>
+২. Reference words (this, these, such, the former)<br>
+৩. Known→New principle (paragraph flow)</span>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Part 1: Sentence connectors — variety আবশ্যিক</div>
+<div class="ex-block"><div class="ex-label">ADDING — আরো information যোগ করতে</div><div class="ex-text">
+Band 5 (avoid overusing): Also · And · In addition<br><br>
+Band 7 (use these):<br>
+• <span class="hl">Furthermore,</span> access to quality healthcare remains deeply unequal across different income groups.<br>
+• <span class="hl">Moreover,</span> the long-term economic costs of inaction far outweigh the short-term savings.<br>
+• <span class="hl">What is more,</span> the environmental damage caused by fossil fuels is largely irreversible.<br>
+• <span class="hl">A further point worth noting is that</span> technology has transformed not only how we work but also how we socialise.
+</div></div>
+<div class="ex-block"><div class="ex-label">CONTRASTING — বিপরীত idea</div><div class="ex-text">
+Band 5: But · However · On the other hand<br><br>
+Band 7:<br>
+• <span class="hl">Nevertheless,</span> the economic argument in favour of free trade remains compelling.<br>
+• <span class="hl">Nonetheless,</span> critics argue that the policy fails to protect the most vulnerable.<br>
+• <span class="hl">That said,</span> it would be premature to dismiss the potential benefits entirely.<br>
+• <span class="hl">By contrast,</span> Scandinavian nations have demonstrated that high taxation need not inhibit growth.<br>
+• <span class="hl">Conversely,</span> excessive regulation may stifle the innovation that drives economic progress.
+</div></div>
+<div class="ex-block"><div class="ex-label">CONCEDING — অপর পক্ষকে স্বীকার করতে</div><div class="ex-text">
+• <span class="hl">Admittedly,</span> the cost of renewable energy infrastructure is considerable in the short term.<br>
+• <span class="hl">It must be acknowledged that</span> complete economic equality may be neither achievable nor desirable.<br>
+• <span class="hl">It is true that</span> some degree of inequality may incentivise innovation and entrepreneurship.<br>
+• <span class="hl">Granted,</span> the implementation of such policies presents significant practical challenges.
+</div></div>
+<div class="ex-block"><div class="ex-label">EXEMPLIFYING — উদাহরণ দিতে</div><div class="ex-text">
+Band 5: For example · For instance<br><br>
+Band 7:<br>
+• <span class="hl">To illustrate,</span> Finland's education system — frequently ranked the world's best — prioritises teacher training above all else.<br>
+• <span class="hl">A case in point is</span> Denmark, which has successfully combined high taxation with strong economic performance.<br>
+• <span class="hl">This is exemplified by</span> the rapid expansion of solar energy in Germany over the past decade.<br>
+• <span class="hl">Evidence of this can be seen in</span> the dramatic reduction in child mortality rates following targeted healthcare investment.
+</div></div>
+<div class="ex-block"><div class="ex-label">EMPHASISING — জোর দিতে</div><div class="ex-text">
+• <span class="hl">Indeed,</span> the scale of the challenge should not be underestimated.<br>
+• <span class="hl">In fact,</span> the situation is considerably more complex than it first appears.<br>
+• <span class="hl">Crucially,</span> this approach addresses the root cause rather than the symptom.<br>
+• <span class="hl">It is worth noting that</span> the most successful economies are not necessarily the least regulated.<br>
+• <span class="hl">Above all,</span> any effective solution must prioritise the needs of the most vulnerable.
+</div></div>
+<div class="ex-block"><div class="ex-label">CONCLUDING — উপসংহার দিতে</div><div class="ex-text">
+Band 5: In conclusion · To sum up<br><br>
+Band 7:<br>
+• <span class="hl">On balance,</span> the advantages of globalisation appear to outweigh its considerable disadvantages.<br>
+• <span class="hl">All things considered,</span> a nuanced approach that combines regulation with incentive appears most likely to succeed.<br>
+• <span class="hl">Ultimately,</span> the success of any policy depends not only on its design but also on its implementation.<br>
+• <span class="hl">In the final analysis,</span> the evidence points overwhelmingly to the need for systemic rather than superficial reform.
+</div></div>
+</div>`,
+},
+{
+label:'Reference & Flow',
+content:`<div class="card">
+<div class="card-title">Part 2: Reference words — repetition এড়াও</div>
+<div class="rule-box"><span class="bn">একই word বারবার repeat করা Band 5। Reference words দিয়ে elegant করো।</span></div>
+<div class="ex-block"><div class="ex-label">THIS / THESE + noun (সবচেয়ে important technique)</div><div class="ex-text">
+• Social media addiction has become a serious concern. <span class="hl">This phenomenon</span> is particularly prevalent among adolescents.<br>
+• Governments have proposed a range of solutions. <span class="hl">These measures,</span> however, have yet to be effectively implemented.<br>
+• Climate change poses an existential threat. <span class="hl">This challenge</span> demands an unprecedented level of international cooperation.<br>
+• Many young people are choosing to live alone. <span class="hl">This trend</span> reflects broader shifts in social values and economic conditions.
+</div>
+<div class="ex-note">Rule: never just "this" alone — always "this + noun" (this phenomenon / this trend / this challenge / this development)</div>
+</div>
+<div class="ex-block"><div class="ex-label">SUCH / SUCH + noun</div><div class="ex-text">
+• Some economists advocate for a universal basic income. <span class="hl">Such a policy</span> would require significant restructuring of existing welfare systems.<br>
+• Governments must introduce stricter regulations. <span class="hl">Such measures,</span> if properly enforced, could yield significant environmental benefits.<br>
+• The problem demands urgent attention. <span class="hl">Such urgency</span> is rarely seen in the context of long-term policy planning.
+</div></div>
+<div class="ex-block"><div class="ex-label">THE FORMER / THE LATTER (two items)</div><div class="ex-text">
+• Both economic growth and environmental sustainability are critical goals. <span class="hl">The former</span> drives prosperity, while <span class="hl">the latter</span> ensures it remains viable in the long term.<br>
+• Free trade and protectionism represent contrasting approaches. <span class="hl">The former</span> promotes efficiency; <span class="hl">the latter</span> prioritises domestic industry.<br>
+• Education and healthcare are both essential public services. <span class="hl">The former</span> prevents poverty; <span class="hl">the latter</span> addresses its consequences.
+</div></div>
+<div class="ex-block"><div class="ex-label">Synonyms — same idea, different words</div><div class="ex-text">
+Instead of repeating "problem" → <span class="hl">issue · challenge · concern · difficulty · crisis · dilemma</span><br>
+Instead of repeating "increase" → <span class="hl">rise · surge · escalation · growth · expansion · upsurge</span><br>
+Instead of repeating "show" → <span class="hl">demonstrate · indicate · suggest · reveal · highlight · illustrate</span><br>
+Instead of repeating "important" → <span class="hl">crucial · vital · essential · significant · paramount · indispensable</span>
+</div></div>
+</div>
+<div class="card">
+<div class="card-title">Part 3: Known → New principle — paragraph flow</div>
+<div class="rule-box"><span class="bn">Rule: প্রতিটি sentence-এর শেষ idea → পরের sentence-এর শুরুতে pick up করো।</span><span class="en">এটাই coherence-এর আসল রহস্য। শুধু linking words যোগ করলে হয় না।</span></div>
+<div class="ex-block"><div class="ex-label">Poor paragraph (ideas are disconnected)</div><div class="ex-text" style="color:#791F1F">
+Education improves job prospects. Poverty is a global issue. Governments spend money on defence. Technology changes quickly. Young people need support.
+</div></div>
+<div class="ex-block"><div class="ex-label">Good paragraph (each sentence builds on the previous)</div><div class="ex-text">
+Education improves job prospects, thereby enabling individuals to escape poverty. <span class="hl">This reduction in poverty</span> has broader societal benefits, including lower crime rates and improved public health. <span class="hl">Such outcomes</span> represent a compelling case for sustained government investment in the education sector. <span class="hl">This investment,</span> however, must be strategically targeted to ensure that it reaches those who need it most.
+</div>
+<div class="ex-note">Notice: education → poverty → poverty reduction → societal outcomes → investment. Each sentence picks up the last key word.</div>
+</div>
+<div class="card">
+<div class="card-title">Paragraph structure — Band 7 template</div>
+<div class="ex-block"><div class="ex-text">
+<span class="hl2">Topic sentence:</span> State the main point of the paragraph clearly.<br>
+<span class="hl2">Explanation:</span> Explain why / how this is true (use "This is because…" / "The reason for this is…")<br>
+<span class="hl2">Evidence/Example:</span> Support with specific example (use "For instance…" / "A case in point is…")<br>
+<span class="hl2">Analysis:</span> Explain what the example shows (use "This demonstrates…" / "This suggests that…")<br>
+<span class="hl2">Link (optional):</span> Connect to next paragraph or the essay's main argument.
+</div></div>
+<div class="ex-block"><div class="ex-label">Full Band 7 paragraph (all 5 elements)</div><div class="ex-text">
+<span class="hl2">Topic:</span> The most significant advantage of universal healthcare is its capacity to reduce inequality of health outcomes across different socioeconomic groups. <span class="hl2">Explanation:</span> This is because, under a private system, access to quality medical care is determined by financial means rather than clinical need, meaning that the poorest citizens are most vulnerable to preventable illness. <span class="hl2">Example:</span> A case in point is the United States, where millions of uninsured individuals delay seeking medical treatment due to cost, resulting in worse long-term health outcomes. <span class="hl2">Analysis:</span> This demonstrates that the absence of universal provision does not merely affect individuals — it imposes substantial costs on the broader economy through lost productivity and increased emergency care spending. <span class="hl2">Link:</span> Such evidence makes a compelling case for viewing universal healthcare not as a financial burden, but as a long-term economic investment.
+</div></div>
+</div>
+<div class="card">
+<div class="card-title">Common cohesion mistakes</div>
+<div class="mistake-row"><div class="m-wrong">Firstly... Secondly... Thirdly... Finally...</div><div class="m-right">The primary reason... A further factor... Perhaps most significantly... Ultimately...</div></div>
+<div class="m-note">Firstly/Secondly = list, not essay. Examiners penalise mechanical use of these.</div>
+<div class="mistake-row"><div class="m-wrong">However, technology is good. However, it can be bad. However, we should use it carefully.</div><div class="m-right">Use: Nevertheless · That said · By contrast · Conversely — never the same connector twice in one paragraph.</div></div>
+<div class="m-note">Repeating the same connector is a Band 5 feature. Vary them every sentence.</div>
+<div class="mistake-row"><div class="m-wrong">This is very important. This shows many things. This is a big problem.</div><div class="m-right">This phenomenon is significant. This evidence suggests that... This challenge demands...</div></div>
+<div class="m-note">"This" alone is vague. Always follow with a specific noun.</div>
+</div>`
+}
+]
+}
+];
+
+const topnav=document.getElementById('topnav');
+const subnav=document.getElementById('subnav');
+const content=document.getElementById('content');
+let curType=0,curSub=0;
+
+function renderSub(ti,si){
+content.innerHTML=data[ti].subs[si].content;
+}
+function renderSubNav(ti){
+subnav.innerHTML='';
+data[ti].subs.forEach((s,j)=>{
+const b=document.createElement('button');
+b.className='sub-btn'+(j===0?' active':'');
+b.textContent=s.label;
+b.onclick=()=>{
+curSub=j;
+document.querySelectorAll('.sub-btn').forEach(x=>x.classList.remove('active'));
+b.classList.add('active');
+renderSub(curType,j);
+};
+subnav.appendChild(b);
+});
+}
+data.forEach((t,i)=>{
+const btn=document.createElement('button');
+btn.className='nav-btn'+(i===0?' active':'');
+btn.textContent=t.label;
+btn.onclick=()=>{
+curType=i;curSub=0;
+document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));
+btn.classList.add('active');
+renderSubNav(i);
+renderSub(i,0);
+};
+topnav.appendChild(btn);
+});
+renderSubNav(0);
+renderSub(0,0);
+</script>

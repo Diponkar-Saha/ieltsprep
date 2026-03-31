@@ -1,0 +1,418 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:20px 0;font-family:var(--font-sans)}
+.top-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.sub-nav{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px;padding:10px 12px;background:var(--color-background-secondary);border-radius:10px;border:0.5px solid var(--color-border-tertiary)}
+.nav-btn{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+.nav-btn.active{background:var(--color-background-info);color:var(--color-text-info);border-color:transparent}
+.sub-btn{font-size:11px;padding:4px 10px;border-radius:16px;border:0.5px solid var(--color-border-tertiary);background:transparent;color:var(--color-text-tertiary);cursor:pointer;transition:all .15s}
+.sub-btn.active{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-secondary)}
+.panel{display:none}.panel.active{display:block}
+.sub-panel{display:none}.sub-panel.active{display:block}
+.card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.card-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500;margin-right:6px}
+.b-blue{background:#E6F1FB;color:#0C447C}
+.b-teal{background:#E1F5EE;color:#085041}
+.b-purple{background:#EEEDFE;color:#3C3489}
+.b-amber{background:#FAEEDA;color:#633806}
+.b-coral{background:#FAECE7;color:#4A1B0C}
+.b-green{background:#EAF3DE;color:#27500A}
+.b-pink{background:#FBEAF0;color:#72243E}
+.b-gray{background:#F1EFE8;color:#444441}
+.block{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.block-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.03em;margin-bottom:5px}
+.template{font-size:13px;color:var(--color-text-primary);line-height:2}
+.slot{background:#EEEDFE;color:#3C3489;border-radius:4px;padding:1px 5px;font-size:12px;font-weight:500}
+.gram{background:#E1F5EE;color:#085041;border-radius:4px;padding:1px 5px;font-size:12px;font-weight:500}
+.ex{font-size:12px;color:var(--color-text-secondary);line-height:1.8;margin-top:7px;padding-top:7px;border-top:0.5px solid var(--color-border-tertiary)}
+.ex strong{color:var(--color-text-primary);font-weight:500}
+.note{font-size:11px;color:var(--color-text-tertiary);margin-top:5px;line-height:1.6;padding-left:2px}
+.warn{background:#FCEBEB;border-radius:8px;padding:8px 12px;font-size:12px;color:#791F1F;line-height:1.7;margin-top:6px}
+.tip{background:#E1F5EE;border-radius:8px;padding:8px 12px;font-size:12px;color:#085041;line-height:1.7;margin-top:6px}
+.b5box{background:#FCEBEB;border-radius:8px;padding:9px 12px;font-size:12px;color:#791F1F;line-height:1.7;margin-bottom:6px}
+.b7box{background:#E1F5EE;border-radius:8px;padding:9px 12px;font-size:12px;color:#085041;line-height:1.7}
+.b5box::before{content:"✗ Band 5  ";font-weight:500}
+.b7box::before{content:"✓ Band 7  ";font-weight:500}
+.full-essay{background:var(--color-background-primary);border:0.5px solid #7F77DD;border-radius:10px;padding:14px 16px;font-size:13px;color:var(--color-text-primary);line-height:2;margin-bottom:8px}
+.hl-g{background:#EEEDFE;color:#3C3489;border-radius:3px;padding:0 3px}
+.hl-v{background:#E1F5EE;color:#085041;border-radius:3px;padding:0 3px}
+.hl-l{background:#FAEEDA;color:#633806;border-radius:3px;padding:0 3px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;font-size:11px;color:var(--color-text-secondary)}
+.ld{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:3px;vertical-align:middle}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:500px){.two{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+<div class="top-nav" id="topnav"></div>
+<div class="sub-nav" id="subnav"></div>
+<div id="panels"></div>
+</div>
+
+<script>
+const types=[
+{
+id:'opinion',label:'Opinion Essay',badge:'b-blue',
+question:'Some people think that university education should be free for all students. To what extent do you agree or disagree?',
+subs:[
+{
+id:'intro',label:'Introduction',
+blocks:[
+{
+label:'Structure formula',
+template:'It is <span class="gram">widely argued that</span> <span class="slot">[paraphrase topic A]</span>. <span class="gram">However, while I accept that</span> <span class="slot">[partial concession]</span>, <span class="gram">I firmly believe that</span> <span class="slot">[your opinion]</span>.',
+ex:'It is <strong>widely argued that</strong> higher education should be provided at no cost to students. <strong>However, while I accept that</strong> education is a fundamental right, <strong>I firmly believe that</strong> a fully free university system is neither practical nor economically sustainable.',
+note:'Grammar: impersonal it-clause · while I accept (concessive clause) · I firmly believe that (opinion noun clause)'
+},
+{
+label:'Alternative formula (stronger opinion)',
+template:'<span class="gram">Although</span> <span class="slot">[opposing view]</span>, <span class="gram">this essay will argue that</span> <span class="slot">[your position]</span> <span class="gram">for the following reasons.</span>',
+ex:'<strong>Although</strong> many argue that free university education promotes equality, <strong>this essay will argue that</strong> the financial burden on governments makes this policy unsustainable <strong>for the following reasons.</strong>',
+note:'Grammar: Although (concessive clause) · this essay will argue (meta-discourse) · for the following reasons (formal signposting)'
+}
+],
+b5:'Nowadays university education is very important. I think university should be free. In this essay I will discuss this topic.',
+b7:'It is widely argued that university education should be available at no cost to students. However, while I accept that affordability is a genuine concern, I firmly believe that free tuition places an unreasonable burden on public finances.'
+},
+{
+id:'body1',label:'Body Para 1 (Support)',
+blocks:[
+{
+label:'Topic sentence + reason + example',
+template:'<span class="gram">The primary reason why</span> <span class="slot">[your opinion]</span> <span class="gram">is that</span> <span class="slot">[reason]</span>. <span class="gram">When</span> <span class="slot">[condition]</span>, <span class="slot">[result]</span>, <span class="gram">which suggests that</span> <span class="slot">[inference]</span>. <span class="gram">For instance,</span> <span class="slot">[specific example]</span>, <span class="gram">demonstrating that</span> <span class="slot">[conclusion]</span>.',
+ex:'<strong>The primary reason why</strong> tuition fees should be maintained <strong>is that</strong> they ensure universities receive adequate funding to deliver high-quality education. <strong>When</strong> governments are solely responsible for financing higher education, resources are often stretched, <strong>which suggests that</strong> academic standards may decline. <strong>For instance,</strong> countries that introduced free tuition in the 1990s subsequently saw a reduction in per-student spending, <strong>demonstrating that</strong> financial sustainability is essential.',
+note:'Grammar: The primary reason why…is that (nominal relative clause) · which suggests that (non-defining relative clause of inference) · demonstrating that (present participle of result)'
+},
+{
+label:'Adding a second supporting point',
+template:'<span class="gram">Furthermore, it should be noted that</span> <span class="slot">[second point]</span>. <span class="gram">This is particularly evident in</span> <span class="slot">[context/example]</span>, <span class="gram">where</span> <span class="slot">[specific detail]</span>.',
+ex:'<strong>Furthermore, it should be noted that</strong> graduate earnings typically increase significantly after a university degree, meaning that graduates are well-positioned to repay loans. <strong>This is particularly evident in</strong> countries such as Australia and the UK, <strong>where</strong> income-contingent loan systems have proven both fair and financially effective.',
+note:'Grammar: it should be noted that (impersonal passive reporting) · meaning that (present participle of consequence) · where (relative clause of place/context)'
+}
+],
+b5:'First, universities need money. If universities are free, they will not have enough money. For example some countries had problems.',
+b7:'The primary reason why tuition fees should be maintained is that they ensure universities receive adequate funding, which directly affects the quality of education available to students.'
+},
+{
+id:'body2',label:'Body Para 2 (Counter + Refute)',
+blocks:[
+{
+label:'Concede + refute structure',
+template:'<span class="gram">Admittedly,</span> <span class="slot">[opposing argument]</span>, <span class="gram">and it is understandable that</span> <span class="slot">[why people hold this view]</span>. <span class="gram">However,</span> <span class="slot">[your counter-argument]</span>, <span class="gram">since</span> <span class="slot">[reason]</span>. <span class="gram">In fact,</span> <span class="slot">[stronger evidence or example]</span>.',
+ex:'<strong>Admittedly,</strong> the cost of tuition can deter students from lower-income families from pursuing higher education, <strong>and it is understandable that</strong> policymakers seek to remove financial barriers. <strong>However,</strong> this concern can be adequately addressed through targeted scholarship programmes and income-based grants, <strong>since</strong> these measures support disadvantaged students without placing the entire financial burden on the state. <strong>In fact,</strong> several Scandinavian nations have successfully combined modest tuition fees with generous bursary systems.',
+note:'Grammar: Admittedly (concessive sentence adverb) · it is understandable that (impersonal adjective + noun clause) · since (formal causal conjunction) · In fact (emphatic connector)'
+}
+],
+b5:'Some people think university should be free. This is because poor students cannot pay. But I think scholarships can help them.',
+b7:'Admittedly, tuition costs can deter students from lower-income families, and it is understandable that governments seek to remove financial barriers. However, this concern can be more effectively addressed through targeted scholarship programmes than through universal free tuition.'
+},
+{
+id:'conc',label:'Conclusion',
+blocks:[
+{
+label:'Conclusion formula',
+template:'<span class="gram">In conclusion,</span> <span class="gram">while</span> <span class="slot">[acknowledge opposing view briefly]</span>, <span class="gram">the evidence suggests that</span> <span class="slot">[restate your opinion differently]</span>. <span class="gram">It is therefore recommended that</span> <span class="slot">[practical suggestion]</span> <span class="gram">rather than</span> <span class="slot">[rejected alternative]</span>.',
+ex:'<strong>In conclusion, while</strong> free university education may seem an attractive ideal, <strong>the evidence suggests that</strong> a fee-based system, supported by robust financial aid, is a more practical and equitable solution. <strong>It is therefore recommended that</strong> governments invest in expanding scholarship access <strong>rather than</strong> eliminating tuition fees entirely.',
+note:'Grammar: while (concessive clause) · the evidence suggests that (impersonal reporting) · It is therefore recommended that (impersonal passive recommendation) · rather than (formal contrast preposition)'
+}
+],
+b5:'In conclusion I think university should not be free. There are many reasons. I hope governments will think about this.',
+b7:'In conclusion, while accessible education is undoubtedly important, the evidence suggests that a well-funded fee-based system with robust financial support mechanisms is more sustainable than universal free tuition.'
+}
+]
+},
+{
+id:'discussion',label:'Discussion Essay',badge:'b-teal',
+question:'Some people believe that technology has made people more isolated. Others argue that it has brought people closer together. Discuss both views and give your own opinion.',
+subs:[
+{
+id:'intro',label:'Introduction',
+blocks:[
+{
+label:'Structure formula',
+template:'<span class="gram">The question of whether</span> <span class="slot">[topic paraphrase]</span> <span class="gram">is one that divides opinion.</span> <span class="gram">While some argue that</span> <span class="slot">[view A]</span>, <span class="gram">others contend that</span> <span class="slot">[view B]</span>. <span class="gram">This essay will examine both perspectives before concluding that</span> <span class="slot">[your view]</span>.',
+ex:'<strong>The question of whether</strong> modern technology fosters connection or isolation among individuals <strong>is one that divides opinion.</strong> <strong>While some argue that</strong> digital platforms erode genuine human interaction, <strong>others contend that</strong> they enable people to maintain relationships across vast distances. <strong>This essay will examine both perspectives before concluding that</strong> technology\'s impact depends largely on how consciously it is used.',
+note:'Grammar: The question of whether (noun clause as subject) · while…others contend (paired contrast clauses) · before concluding that (infinitive sequence phrase)'
+}
+],
+b5:'Some people say technology makes us isolated. Other people say it connects us. I will discuss both views in this essay.',
+b7:'The question of whether technology strengthens or weakens human relationships is one that divides opinion sharply, with compelling arguments existing on both sides.'
+},
+{
+id:'body1',label:'Body Para 1 (View A)',
+blocks:[
+{
+label:'Presenting View A fairly',
+template:'<span class="gram">Those who believe that</span> <span class="slot">[View A]</span> <span class="gram">often point to the fact that</span> <span class="slot">[reason 1]</span>. <span class="gram">As a result,</span> <span class="slot">[consequence]</span>, <span class="gram">which can lead to</span> <span class="slot">[negative outcome]</span>. <span class="gram">This view is supported by</span> <span class="slot">[evidence/example]</span>.',
+ex:'<strong>Those who believe that</strong> technology isolates individuals <strong>often point to the fact that</strong> face-to-face interactions have declined sharply since the advent of social media. <strong>As a result,</strong> many people spend increasing amounts of time interacting through screens rather than in person, <strong>which can lead to</strong> feelings of loneliness and a weakening of social bonds. <strong>This view is supported by</strong> research indicating that heavy social media use correlates with higher rates of anxiety and depression in adolescents.',
+note:'Grammar: Those who believe that (nominal relative clause as subject) · often point to the fact that (noun clause as object) · which can lead to (non-defining relative clause of consequence) · This view is supported by (passive reporting)'
+}
+],
+b5:'Some people say technology makes us isolated. They spend too much time on phones. They do not talk to real people. Studies show this is bad.',
+b7:'Those who believe technology isolates people often point to the fact that face-to-face interaction has declined significantly, which can lead to feelings of loneliness and a gradual erosion of meaningful social bonds.'
+},
+{
+id:'body2',label:'Body Para 2 (View B + Opinion)',
+blocks:[
+{
+label:'Presenting View B + your position',
+template:'<span class="gram">On the other hand, proponents of the view that</span> <span class="slot">[View B]</span> <span class="gram">highlight the role of</span> <span class="slot">[technology/tool]</span> <span class="gram">in enabling</span> <span class="slot">[positive outcome]</span>. <span class="gram">This is particularly true for</span> <span class="slot">[group/context]</span>, <span class="gram">who would otherwise</span> <span class="slot">[negative without tech]</span>. <span class="gram">In my view,</span> <span class="slot">[your nuanced opinion]</span>.',
+ex:'<strong>On the other hand, proponents of the view that</strong> technology strengthens relationships <strong>highlight the role of</strong> video-calling platforms and messaging apps <strong>in enabling</strong> families separated by migration to maintain close bonds. <strong>This is particularly true for</strong> immigrant communities, <strong>who would otherwise</strong> lose regular contact with relatives in their home countries. <strong>In my view,</strong> technology enhances connection when used purposefully, but becomes isolating when it replaces rather than supplements real-world interaction.',
+note:'Grammar: proponents of the view that (noun phrase + noun clause) · in enabling (gerund as object of preposition) · who would otherwise (conditional relative clause) · when used purposefully (reduced adverbial clause)'
+}
+],
+b5:'Other people think technology connects us. Families can video call. Immigrants can talk to family. I think technology is good if used well.',
+b7:'Proponents of this view highlight the role of video-calling technology in enabling immigrant families to maintain close bonds that would otherwise be severed by distance — a benefit that is difficult to dismiss.'
+},
+{
+id:'conc',label:'Conclusion',
+blocks:[
+{
+label:'Balanced conclusion formula',
+template:'<span class="gram">In conclusion, having considered both viewpoints, it is clear that</span> <span class="slot">[nuanced conclusion]</span>. <span class="gram">Although</span> <span class="slot">[valid point from View A]</span>, <span class="gram">the overall evidence suggests that</span> <span class="slot">[your final position]</span>, <span class="gram">provided that</span> <span class="slot">[condition]</span>.',
+ex:'<strong>In conclusion, having considered both viewpoints, it is clear that</strong> technology\'s effect on human connection is not inherently positive or negative. <strong>Although</strong> excessive screen time can undoubtedly lead to social withdrawal, <strong>the overall evidence suggests that</strong> technology strengthens rather than weakens human relationships, <strong>provided that</strong> users engage with it in a deliberate and balanced manner.',
+note:'Grammar: having considered (perfect participle opener) · it is clear that (cleft construction) · provided that (formal conditional conjunction) · strengthens rather than weakens (parallel comparative structure)'
+}
+],
+b5:'In conclusion there are two views. Technology can be bad. But it can also be good. It depends on how you use it.',
+b7:'In conclusion, having considered both perspectives, the evidence suggests that technology strengthens human relationships when used purposefully, though its potential to cause isolation cannot be entirely dismissed.'
+}
+]
+},
+{
+id:'procon',label:'Advantages & Disadvantages',badge:'b-amber',
+question:'The widespread use of private cars has both advantages and disadvantages. Discuss the advantages and disadvantages and give your own opinion.',
+subs:[
+{
+id:'intro',label:'Introduction',
+blocks:[
+{
+label:'Structure formula',
+template:'<span class="gram">The growing prevalence of</span> <span class="slot">[topic]</span> <span class="gram">has prompted considerable debate regarding its merits and drawbacks.</span> <span class="gram">While there are clear benefits associated with</span> <span class="slot">[topic]</span>, <span class="gram">these must be weighed against</span> <span class="slot">[main disadvantage area]</span>. <span class="gram">This essay argues that</span> <span class="slot">[your overall judgment]</span>.',
+ex:'<strong>The growing prevalence of</strong> private car ownership in urban areas <strong>has prompted considerable debate regarding its merits and drawbacks.</strong> <strong>While there are clear benefits associated with</strong> personal mobility and convenience, <strong>these must be weighed against</strong> the serious environmental and social costs. <strong>This essay argues that</strong> the disadvantages of widespread car use ultimately outweigh the benefits.',
+note:'Grammar: has prompted (present perfect — ongoing relevance) · these must be weighed against (passive modal) · ultimately outweigh (adverb + comparative verb phrase)'
+}
+],
+b5:'Cars have advantages and disadvantages. Cars are useful but they also cause problems. I will discuss both in this essay.',
+b7:'The growing prevalence of private car ownership has prompted considerable debate, and while personal mobility offers undeniable convenience, this must be weighed against significant environmental and social costs.'
+},
+{
+id:'body1',label:'Body Para 1 (Advantages)',
+blocks:[
+{
+label:'Two advantages in one paragraph',
+template:'<span class="gram">The most significant advantage of</span> <span class="slot">[topic]</span> <span class="gram">is undoubtedly</span> <span class="slot">[advantage 1]</span>. <span class="gram">This is especially beneficial for</span> <span class="slot">[group]</span>, <span class="gram">who</span> <span class="slot">[specific benefit]</span>. <span class="gram">A further advantage is that</span> <span class="slot">[advantage 2]</span>, <span class="gram">as evidenced by</span> <span class="slot">[example]</span>.',
+ex:'<strong>The most significant advantage of</strong> private car ownership <strong>is undoubtedly</strong> the freedom it provides to travel independently of public transport schedules. <strong>This is especially beneficial for</strong> those living in rural areas, <strong>who</strong> would otherwise face significant barriers to employment and healthcare access. <strong>A further advantage is that</strong> cars stimulate economic activity through manufacturing and service industries, <strong>as evidenced by</strong> the millions of jobs supported globally by the automotive sector.',
+note:'Grammar: undoubtedly (emphasising adverb) · who would otherwise (conditional relative clause) · A further advantage is that (noun clause subject complement) · as evidenced by (passive participle phrase)'
+}
+],
+b5:'Cars have many advantages. People can travel freely. Rural people need cars. Cars also help the economy. Many people work in car industry.',
+b7:'The most significant advantage is undoubtedly the freedom of independent travel, which is especially valuable for people in rural areas who would otherwise face serious barriers to accessing employment and services.'
+},
+{
+id:'body2',label:'Body Para 2 (Disadvantages)',
+blocks:[
+{
+label:'Two disadvantages with evidence',
+template:'<span class="gram">Despite these advantages, the disadvantages of</span> <span class="slot">[topic]</span> <span class="gram">are considerable.</span> <span class="gram">Chief among these is</span> <span class="slot">[main disadvantage]</span>, <span class="gram">which not only</span> <span class="slot">[effect 1]</span> <span class="gram">but also</span> <span class="slot">[effect 2]</span>. <span class="gram">Compounding this,</span> <span class="slot">[second disadvantage]</span>, <span class="gram">with</span> <span class="slot">[statistic or example]</span> <span class="gram">highlighting the scale of the problem.</span>',
+ex:'<strong>Despite these advantages, the disadvantages of</strong> widespread car use <strong>are considerable.</strong> <strong>Chief among these is</strong> the environmental damage caused by vehicle emissions, <strong>which not only</strong> contributes to air pollution in urban centres <strong>but also</strong> accelerates global climate change. <strong>Compounding this,</strong> traffic congestion imposes enormous economic costs on cities, <strong>with</strong> studies estimating that gridlock costs the global economy hundreds of billions of dollars annually, <strong>highlighting the scale of the problem.</strong>',
+note:'Grammar: Despite these advantages (concessive prepositional phrase) · Chief among these is (inverted construction for emphasis) · not only…but also (correlative conjunctions) · with + noun + participle (absolute clause) · Compounding this (present participle connector)'
+}
+],
+b5:'Cars have disadvantages too. They cause pollution. They cause traffic jams. This costs a lot of money every year.',
+b7:'Chief among the disadvantages is the environmental damage caused by emissions, which not only contributes to urban air pollution but also accelerates climate change — a problem that no government can afford to ignore.'
+},
+{
+id:'conc',label:'Conclusion',
+blocks:[
+{
+label:'Conclusion with final judgment',
+template:'<span class="gram">In conclusion, although</span> <span class="slot">[advantage acknowledged]</span>, <span class="gram">the cumulative disadvantages — particularly</span> <span class="slot">[main disadvantage]</span> <span class="gram">— mean that</span> <span class="slot">[final judgment]</span>. <span class="gram">It is therefore essential that</span> <span class="slot">[recommendation]</span> <span class="gram">in order to</span> <span class="slot">[purpose]</span>.',
+ex:'<strong>In conclusion, although</strong> private cars offer genuine convenience, <strong>the cumulative disadvantages — particularly</strong> their environmental impact <strong>— mean that</strong> their widespread use is difficult to justify in an era of climate crisis. <strong>It is therefore essential that</strong> governments invest in sustainable public transport alternatives <strong>in order to</strong> reduce dependence on private vehicles.',
+note:'Grammar: although (concessive clause) · cumulative (formal academic adjective) · dash for emphasis (punctuation) · It is therefore essential that (impersonal + subjunctive mood) · in order to (purpose infinitive)'
+}
+],
+b5:'In conclusion cars have advantages and disadvantages. I think the disadvantages are bigger. Governments should do something about this.',
+b7:'In conclusion, although cars provide genuine convenience, their cumulative environmental and social costs mean that widespread private car use is increasingly difficult to justify, and urgent investment in public transport alternatives is essential.'
+}
+]
+},
+{
+id:'probsol',label:'Problem & Solution',badge:'b-coral',
+question:'In many cities, the level of air pollution is increasing. What are the causes of this problem and what measures could be taken to address it?',
+subs:[
+{
+id:'intro',label:'Introduction',
+blocks:[
+{
+label:'Structure formula',
+template:'<span class="gram">In recent years,</span> <span class="slot">[problem]</span> <span class="gram">has emerged as one of the most pressing challenges facing</span> <span class="slot">[context]</span>. <span class="gram">This essay will examine the principal causes of this phenomenon and propose several measures that</span> <span class="slot">[agents — governments/individuals]</span> <span class="gram">could take to</span> <span class="slot">[desired outcome]</span>.',
+ex:'<strong>In recent years,</strong> deteriorating air quality in urban environments <strong>has emerged as one of the most pressing challenges facing</strong> city planners and public health officials alike. <strong>This essay will examine the principal causes of this phenomenon and propose several measures that</strong> both governments and individuals <strong>could take to</strong> meaningfully reduce pollution levels.',
+note:'Grammar: has emerged as (present perfect — ongoing situation) · one of the most pressing (superlative with partitive) · this phenomenon (academic demonstrative reference) · that…could take to (defining relative clause + modal)'
+}
+],
+b5:'Air pollution is a big problem in cities. There are many causes. In this essay I will talk about causes and solutions.',
+b7:'Deteriorating air quality has emerged as one of the most pressing urban challenges of our time, and this essay will examine its principal causes before proposing targeted measures to address them.'
+},
+{
+id:'body1',label:'Body Para 1 (Causes)',
+blocks:[
+{
+label:'Two causes with explanation',
+template:'<span class="gram">The most significant cause of</span> <span class="slot">[problem]</span> <span class="gram">is</span> <span class="slot">[cause 1]</span>. <span class="gram">As cities expand and</span> <span class="slot">[trend]</span>, <span class="slot">[consequence]</span>, <span class="gram">releasing</span> <span class="slot">[harmful element]</span> <span class="gram">into the atmosphere.</span> <span class="gram">A closely related factor is</span> <span class="slot">[cause 2]</span>, <span class="gram">which contributes to</span> <span class="slot">[problem]</span> <span class="gram">by</span> <span class="slot">[mechanism]</span>.',
+ex:'<strong>The most significant cause of</strong> urban air pollution <strong>is</strong> the over-reliance on fossil-fuel-powered vehicles. <strong>As cities expand and</strong> car ownership rises, traffic volumes increase exponentially, <strong>releasing</strong> large quantities of nitrogen dioxide and particulate matter <strong>into the atmosphere.</strong> <strong>A closely related factor is</strong> industrial manufacturing, <strong>which contributes to</strong> pollution <strong>by</strong> emitting toxic by-products that accumulate in urban air.',
+note:'Grammar: As (temporal/causal conjunction) · releasing (present participle of consequence) · A closely related factor is (formal topic shift) · which contributes to…by (relative clause + gerund phrase)'
+}
+],
+b5:'The main cause is cars. Cars make pollution. Factories also make pollution. They release bad chemicals into the air.',
+b7:'The primary cause is over-reliance on fossil-fuel vehicles, which release nitrogen dioxide and particulate matter into the atmosphere as traffic volumes continue to grow — a trend that shows no sign of reversing without intervention.'
+},
+{
+id:'body2',label:'Body Para 2 (Solutions)',
+blocks:[
+{
+label:'Two solutions with justification',
+template:'<span class="gram">To address this issue effectively, governments could</span> <span class="slot">[solution 1]</span>, <span class="gram">which would</span> <span class="slot">[positive outcome]</span>. <span class="gram">Were such policies implemented,</span> <span class="slot">[expected result]</span>. <span class="gram">In addition, individuals have a role to play by</span> <span class="slot">[solution 2]</span>, <span class="gram">thereby</span> <span class="slot">[positive outcome]</span>.',
+ex:'<strong>To address this issue effectively, governments could</strong> introduce congestion charges and invest heavily in electric public transport, <strong>which would</strong> significantly reduce vehicle emissions in city centres. <strong>Were such policies implemented,</strong> urban air quality could improve dramatically within a decade, as evidenced by London\'s Clean Air Zone initiative. <strong>In addition, individuals have a role to play by</strong> choosing cycling or walking over short car journeys, <strong>thereby</strong> reducing their personal contribution to urban pollution.',
+note:'Grammar: To address this issue (purpose infinitive opener) · which would (non-defining relative clause with modal) · Were such policies implemented (inverted conditional — formal) · thereby (formal result adverb + gerund) · as evidenced by (passive participle)'
+}
+],
+b5:'Governments should make rules about cars. If they do this air will be better. People should also use bikes and walk more.',
+b7:'To address this effectively, governments could introduce congestion charges and expand electric public transport — measures that, were they implemented consistently, could dramatically improve urban air quality within a decade.'
+},
+{
+id:'conc',label:'Conclusion',
+blocks:[
+{
+label:'Conclusion formula',
+template:'<span class="gram">In conclusion, while</span> <span class="slot">[problem]</span> <span class="gram">stems from a combination of</span> <span class="slot">[cause summary]</span>, <span class="gram">it is by no means an insurmountable challenge.</span> <span class="gram">Through a combination of</span> <span class="slot">[solution 1]</span> <span class="gram">and</span> <span class="slot">[solution 2]</span>, <span class="gram">it is entirely possible to</span> <span class="slot">[desired outcome]</span> <span class="gram">and create healthier urban environments.</span>',
+ex:'<strong>In conclusion, while</strong> urban air pollution <strong>stems from a combination of</strong> vehicular emissions and industrial activity, <strong>it is by no means an insurmountable challenge.</strong> <strong>Through a combination of</strong> government policy reform <strong>and</strong> individual behavioural change, <strong>it is entirely possible to</strong> reduce pollution to safe levels <strong>and create healthier urban environments.</strong>',
+note:'Grammar: stems from (formal verb — not "comes from") · by no means (emphatic negative) · Through a combination of (prepositional phrase as fronted adverbial) · it is entirely possible to (impersonal + infinitive)'
+}
+],
+b5:'In conclusion air pollution has many causes. Governments and people can solve this problem. I think we can make cities better.',
+b7:'In conclusion, while urban air pollution stems from multiple interconnected causes, it is by no means insurmountable — targeted government intervention and conscious individual choices could together produce cleaner, healthier cities.'
+}
+]
+},
+{
+id:'twoquestion',label:'Two-Question Essay',badge:'b-green',
+question:'Many young people today are choosing to live alone rather than with family. Why is this happening? Is this a positive or negative development?',
+subs:[
+{
+id:'intro',label:'Introduction',
+blocks:[
+{
+label:'Structure formula — answer BOTH questions briefly',
+template:'<span class="gram">In recent decades, a growing number of</span> <span class="slot">[group]</span> <span class="gram">have chosen to</span> <span class="slot">[trend]</span>. <span class="gram">This shift can be attributed primarily to</span> <span class="slot">[brief reason]</span>, <span class="gram">and while this development carries certain advantages, it is, on balance,</span> <span class="slot">[your judgment — positive/negative/mixed]</span>.',
+ex:'<strong>In recent decades, a growing number of</strong> young adults <strong>have chosen to</strong> live independently rather than remaining in the family home. <strong>This shift can be attributed primarily to</strong> changing social values and increased economic independence among younger generations, <strong>and while this development carries certain advantages, it is, on balance,</strong> a trend with significant social implications that deserve careful consideration.',
+note:'Grammar: have chosen (present perfect — recent trend) · can be attributed to (passive modal) · on balance (formal weighing adverb) · that deserve careful consideration (defining relative clause)'
+}
+],
+b5:'Nowadays many young people live alone. This is because of many reasons. This is good and bad. I will discuss this in my essay.',
+b7:'The growing tendency of young adults to live independently can be attributed to shifting social norms and rising economic autonomy, a development that has both notable advantages and considerable social costs.'
+},
+{
+id:'body1',label:'Body Para 1 (Why — Causes)',
+blocks:[
+{
+label:'Two causes with depth',
+template:'<span class="gram">There are several reasons why</span> <span class="slot">[trend]</span> <span class="gram">has become increasingly common.</span> <span class="gram">Foremost among these is</span> <span class="slot">[cause 1]</span>, <span class="gram">which has meant that</span> <span class="slot">[consequence]</span>. <span class="gram">Alongside this,</span> <span class="slot">[cause 2]</span> <span class="gram">has played a significant role, as</span> <span class="slot">[explanation]</span>.',
+ex:'<strong>There are several reasons why</strong> solo living among young people <strong>has become increasingly common.</strong> <strong>Foremost among these is</strong> the increasing financial independence of young adults, <strong>which has meant that</strong> many are now able to afford their own accommodation without relying on family support. <strong>Alongside this,</strong> a broader cultural shift towards individualism and personal autonomy <strong>has played a significant role, as</strong> younger generations increasingly prioritise self-development over traditional family arrangements.',
+note:'Grammar: There are several reasons why (existential there + nominal relative) · Foremost among these is (fronted superlative inversion) · which has meant that (non-defining relative + noun clause) · Alongside this (formal additive connector)'
+}
+],
+b5:'Young people live alone because they have money. They also want freedom. Society has also changed. Young people want to be independent.',
+b7:'Foremost among the causes is the growing financial independence of young adults, which has meant that many are now fully capable of sustaining their own households without family assistance.'
+},
+{
+id:'body2',label:'Body Para 2 (Positive or Negative)',
+blocks:[
+{
+label:'Give a clear judgment + evidence',
+template:'<span class="gram">As regards whether this is a positive or negative development, I would argue that it is</span> <span class="slot">[your judgment]</span>. <span class="gram">On the one hand,</span> <span class="slot">[positive/benefit]</span>, <span class="gram">which fosters</span> <span class="slot">[positive quality]</span>. <span class="gram">On the other hand, however,</span> <span class="slot">[drawback]</span>, <span class="gram">a trend that</span> <span class="slot">[negative consequence]</span>.',
+ex:'<strong>As regards whether this is a positive or negative development, I would argue that it is</strong> a largely negative one from a societal perspective. <strong>On the one hand,</strong> living alone undoubtedly promotes self-reliance and personal responsibility, <strong>which fosters</strong> maturity and independence in young adults. <strong>On the other hand, however,</strong> the decline of multigenerational households has resulted in increased social isolation among both the young and the elderly, <strong>a trend that</strong> carries serious long-term consequences for community cohesion.',
+note:'Grammar: As regards (formal preposition for topic shift) · I would argue that (hedged opinion with modal) · On the one hand…On the other hand however (paired contrast phrase) · a trend that (appositive noun phrase + defining relative clause)'
+}
+],
+b5:'Living alone is good because people can be independent. But it is also bad because people can feel lonely. Old people also suffer.',
+b7:'While living alone undoubtedly promotes self-reliance, the concurrent decline of multigenerational households has led to increased isolation among both the young and the elderly — a trend with serious long-term consequences for social cohesion.'
+},
+{
+id:'conc',label:'Conclusion',
+blocks:[
+{
+label:'Two-question conclusion',
+template:'<span class="gram">In conclusion,</span> <span class="slot">[trend]</span> <span class="gram">is driven by</span> <span class="slot">[brief cause summary]</span>. <span class="gram">Although</span> <span class="slot">[positive acknowledged]</span>, <span class="gram">the broader social consequences — notably</span> <span class="slot">[main drawback]</span> <span class="gram">— suggest that this is, overall, a</span> <span class="slot">[negative/positive]</span> <span class="gram">development that warrants attention from policymakers.</span>',
+ex:'<strong>In conclusion,</strong> the rise in solo living among young people <strong>is driven by</strong> a combination of economic independence and evolving cultural attitudes. <strong>Although</strong> this lifestyle can cultivate personal autonomy, <strong>the broader social consequences — notably</strong> the rise in isolation and the erosion of community ties <strong>— suggest that this is, overall, a</strong> concerning <strong>development that warrants attention from policymakers.</strong>',
+note:'Grammar: is driven by (passive — formal) · can cultivate (modal + verb — hedged) · notably (parenthetical adverb with dash) · warrants attention from (formal verb phrase — not "needs attention")'
+}
+],
+b5:'In conclusion young people live alone for many reasons. This can be good or bad. I think policymakers should look at this problem.',
+b7:'In conclusion, while solo living reflects genuine shifts in economic capacity and cultural values, the social costs — particularly increased isolation — suggest it is a development that policymakers should address proactively.'
+}
+]
+}
+];
+
+const topnav=document.getElementById('topnav');
+const subnav=document.getElementById('subnav');
+const panels=document.getElementById('panels');
+
+let activeType=0;
+let activeSub=0;
+
+function renderSub(typeIdx,subIdx){
+const t=types[typeIdx];
+const s=t.subs[subIdx];
+const pid='content-area';
+let el=document.getElementById(pid);
+if(!el){el=document.createElement('div');el.id=pid;panels.appendChild(el);}
+
+let html=`<div class="card" style="background:var(--color-background-primary);border:0.5px solid #7F77DD"><div style="font-size:11px;font-weight:500;color:#3C3489;margin-bottom:4px">Question type: ${t.label}</div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;font-style:italic">"${t.question}"</div></div>`;
+
+s.blocks.forEach(b=>{
+html+=`<div class="block"><div class="block-label">${b.label}</div><div class="template">${b.template}</div><div class="ex">${b.ex}</div><div class="note">${b.note}</div></div>`;
+});
+
+html+=`<div class="card"><div class="card-title">Band 5 vs Band 7 — ${s.label}</div><div class="b5box">${s.b5}</div><div class="b7box">${s.b7}</div></div>`;
+
+el.innerHTML=html;
+}
+
+function renderSubNav(typeIdx){
+subnav.innerHTML='';
+types[typeIdx].subs.forEach((s,j)=>{
+const b=document.createElement('button');
+b.className='sub-btn'+(j===0?' active':'');
+b.textContent=s.label;
+b.onclick=()=>{
+activeSub=j;
+document.querySelectorAll('.sub-btn').forEach(x=>x.classList.remove('active'));
+b.classList.add('active');
+renderSub(typeIdx,j);
+};
+subnav.appendChild(b);
+});
+}
+
+types.forEach((t,i)=>{
+const btn=document.createElement('button');
+btn.className='nav-btn'+(i===0?' active':'');
+btn.textContent=t.label;
+btn.onclick=()=>{
+activeType=i;activeSub=0;
+document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));
+btn.classList.add('active');
+renderSubNav(i);
+renderSub(i,0);
+document.querySelectorAll('.sub-btn')[0]&&document.querySelectorAll('.sub-btn')[0].classList.add('active');
+};
+topnav.appendChild(btn);
+});
+
+renderSubNav(0);
+renderSub(0,0);
+</script>
