@@ -1,0 +1,160 @@
+
+<style>
+* { box-sizing: border-box; }
+.root { padding: 1rem 0; font-family: var(--font-sans); }
+h2.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.section { margin-bottom: 20px; }
+.sec-title { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 8px; }
+.qblock { border: 0.5px solid var(--color-border-tertiary); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+.qhead { display: flex; align-items: center; gap: 8px; padding: 0.5rem 1rem; background: var(--color-background-secondary); border-bottom: 0.5px solid var(--color-border-tertiary); }
+.qname { font-size: 13px; font-weight: 500; color: var(--color-text-primary); flex: 1; }
+.qtag { font-size: 10px; font-weight: 500; padding: 2px 9px; border-radius: 999px; }
+.t-ag { background: #EAF3DE; color: #3B6D11; }
+.t-di { background: #E6F1FB; color: #185FA5; }
+.t-ad { background: #FAEEDA; color: #854F0B; }
+.t-pr { background: #FAECE7; color: #993C1D; }
+.t-ca { background: #FBEAF0; color: #993556; }
+.rows { display: flex; flex-direction: column; }
+.row { display: flex; gap: 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.row:last-child { border-bottom: none; }
+.row-label { font-size: 10px; font-weight: 500; padding: 0.55rem 0.7rem; min-width: 88px; color: var(--color-text-tertiary); background: var(--color-background-secondary); border-right: 0.5px solid var(--color-border-tertiary); display: flex; align-items: flex-start; padding-top: 0.65rem; flex-shrink: 0; }
+.lb1 { background: #EEEDFE22; }
+.lb2 { background: #E1F5EE22; }
+.row-content { padding: 0.55rem 0.9rem; font-size: 13px; line-height: 1.7; color: var(--color-text-primary); flex: 1; }
+.formula { font-size: 11.5px; font-family: var(--font-mono); color: var(--color-text-secondary); margin-bottom: 4px; background: var(--color-background-secondary); padding: 2px 7px; border-radius: 4px; display: inline-block; }
+.h1 { color: #534AB7; font-weight: 500; }
+.h2 { color: #0F6E56; font-weight: 500; }
+.hlb { color: #993C1D; font-weight: 500; }
+.divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 1.5rem 0; }
+.mini-table { width: 100%; border-collapse: collapse; font-size: 12.5px; border-radius: 10px; overflow: hidden; border: 0.5px solid var(--color-border-tertiary); }
+.mini-table th { background: var(--color-background-secondary); padding: 0.5rem 0.8rem; text-align: left; font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); border-bottom: 0.5px solid var(--color-border-tertiary); }
+.mini-table td { padding: 0.5rem 0.8rem; border-bottom: 0.5px solid var(--color-border-tertiary); color: var(--color-text-primary); line-height: 1.6; vertical-align: top; }
+.mini-table tr:last-child td { border-bottom: none; }
+.note { font-size: 12px; color: var(--color-text-tertiary); padding: 0.5rem 0.8rem; background: var(--color-background-secondary); border-radius: 8px; margin-top: 8px; }
+.row-label.lbl-link1 { color: #534AB7; }
+.row-label.lbl-link2 { color: #0F6E56; }
+</style>
+<div class="root">
+<h2 class="sr-only">IELTS Task 2 Final Master Note v2 with 4-line body structure</h2>
+
+<!-- INTRODUCTION -->
+<div class="section">
+<div class="sec-title">Introduction — ২টি বাক্য</div>
+<table class="mini-table">
+  <tr><th>Type</th><th>Sentence 1</th><th>Sentence 2</th></tr>
+  <tr><td><span class="qtag t-ag">Opinion</span></td><td>It is often argued that [topic]...</td><td>I completely agree/disagree that... because [কারণ ১] and [কারণ ২].</td></tr>
+  <tr><td><span class="qtag t-di">Discussion</span></td><td>It is often argued that [view 1], while others believe [view 2]...</td><td>In my opinion, [তোমার মত].</td></tr>
+  <tr><td><span class="qtag t-ad">Adv/Disadv</span></td><td>It is often argued that [topic] has transformed [area]...</td><td>This essay will examine both the advantages and disadvantages.</td></tr>
+  <tr><td><span class="qtag t-pr">Problem/Solution</span></td><td>It is often considered that [problem] is a serious issue...</td><td>This essay will examine the primary causes and suggest effective solutions.</td></tr>
+  <tr><td><span class="qtag t-ca">Cause/Effect</span></td><td>It is often thought that [topic] has become a growing concern...</td><td>This essay will explore the main causes and examine their effects.</td></tr>
+</table>
+</div>
+
+<div class="divider"></div>
+
+<!-- BODY -->
+<div class="section">
+<div class="sec-title">Body Paragraph — ৪টি বাক্য (Topic → Explain → Example → Link back)</div>
+
+<div class="qblock">
+  <div class="qhead"><span class="qname">Opinion — Agree/Disagree</span><span class="qtag t-ag">Agree/Disagree</span></div>
+  <div class="rows">
+    <div class="row"><div class="row-label">P1 Topic</div><div class="row-content"><div class="formula">Although [বিপরীত মত], it is clear that [তোমার মত].</div><span class="h1">Although</span> some argue that university degrees guarantee success, <span class="h1">it is clear that</span> practical skills are far more valued by modern employers.</div></div>
+    <div class="row"><div class="row-label">P1 Explain</div><div class="row-content"><div class="formula">This means that [result], as [reason].</div><span class="h1">This means that</span> many talented graduates remain unemployed for years, <span class="h1">as</span> employers prioritise experience and problem-solving ability over academic certificates.</div></div>
+    <div class="row"><div class="row-label">P1 Example</div><div class="row-content"><div class="formula">For example, [case], which clearly shows that [link].</div>For example, a 2022 OECD report found that 40% of graduates work in roles unrelated to their degree, which clearly shows that academic qualifications alone do not determine career outcomes.</div></div>
+    <div class="row lb1"><div class="row-label lbl-link1">P1 Link back</div><div class="row-content"><div class="formula">This highlights that [broader importance — নতুন angle].</div><span class="hlb">This highlights that</span> education systems must urgently adopt more diverse assessment methods to unlock every student's true potential.</div></div>
+    <div class="row"><div class="row-label">P2 Topic</div><div class="row-content"><div class="formula">A particularly serious consequence of this is that [claim], which [result].</div>A particularly serious consequence of this is that students accumulate significant debt, which leaves them financially trapped at the very start of their adult lives.</div></div>
+    <div class="row"><div class="row-label">P2 Explain</div><div class="row-content"><div class="formula">This is because [reason], which ultimately leads to [result].</div><span class="h2">This is because</span> tuition fees continue to rise without guaranteed returns, <span class="h2">which ultimately leads to</span> graduates spending decades repaying loans that severely limit their financial freedom.</div></div>
+    <div class="row"><div class="row-label">P2 Example</div><div class="row-content"><div class="formula">For instance, [case], which further demonstrates that [link].</div>For instance, research revealed that average graduate debt now exceeds $30,000, which further demonstrates that the financial burden of higher education outweighs its benefits for many students.</div></div>
+    <div class="row lb2"><div class="row-label lbl-link2">P2 Link back</div><div class="row-content"><div class="formula">This suggests that [implication or solution].</div><span class="hlb">This suggests that</span> governments must urgently reconsider how higher education is funded before an entire generation is priced out of opportunity.</div></div>
+  </div>
+</div>
+
+<div class="qblock">
+  <div class="qhead"><span class="qname">Discussion — Both Views</span><span class="qtag t-di">Discussion</span></div>
+  <div class="rows">
+    <div class="row"><div class="row-label">P1 Topic</div><div class="row-content"><div class="formula">While [view 1], it is evident that [view 2].</div><span class="h1">While</span> many employees prefer remote work for its flexibility, <span class="h1">it is evident that</span> office environments foster the collaboration and creativity that drive genuine innovation.</div></div>
+    <div class="row"><div class="row-label">P1 Explain</div><div class="row-content"><span class="h1">This means that</span> face-to-face interaction allows teams to solve problems instantly, <span class="h1">as</span> spontaneous discussion produces solutions that no digital platform can fully replicate.</div></div>
+    <div class="row"><div class="row-label">P1 Example</div><div class="row-content">For example, a Harvard Business School study found that office-based teams generated 30% more innovative ideas, which clearly shows that physical proximity remains essential for creative collaboration.</div></div>
+    <div class="row lb1"><div class="row-label lbl-link1">P1 Link back</div><div class="row-content"><span class="hlb">This highlights that</span> organisations which abandon office culture entirely risk sacrificing the creative energy that gives them a long-term competitive advantage.</div></div>
+    <div class="row"><div class="row-label">P2 Topic</div><div class="row-content"><div class="formula">Nevertheless, a particularly strong argument here is that [claim], which [result].</div>Nevertheless, a particularly strong argument here is that remote work eliminates exhausting daily commutes, which gives employees more time and energy to perform at their best.</div></div>
+    <div class="row"><div class="row-label">P2 Explain</div><div class="row-content"><span class="h2">This is because</span> hours previously spent travelling can be redirected toward focused work, <span class="h2">which ultimately leads to</span> higher productivity and significantly improved employee wellbeing.</div></div>
+    <div class="row"><div class="row-label">P2 Example</div><div class="row-content">For instance, a Stanford University survey found that remote workers reported a 20% increase in job satisfaction, which further demonstrates that flexibility is a powerful driver of long-term professional performance.</div></div>
+    <div class="row lb2"><div class="row-label lbl-link2">P2 Link back</div><div class="row-content"><span class="hlb">This suggests that</span> a hybrid model combining the structure of office work with the flexibility of remote arrangements would best serve both employers and employees.</div></div>
+  </div>
+</div>
+
+<div class="qblock">
+  <div class="qhead"><span class="qname">Advantage/Disadvantage</span><span class="qtag t-ad">Adv/Disadv</span></div>
+  <div class="rows">
+    <div class="row"><div class="row-label">P1 Topic</div><div class="row-content"><div class="formula">Although [concern], it is evident that [advantage].</div><span class="h1">Although</span> social media raises serious concerns about privacy, <span class="h1">it is evident that</span> it has fundamentally transformed how communities connect and share knowledge globally.</div></div>
+    <div class="row"><div class="row-label">P1 Explain</div><div class="row-content"><span class="h1">This means that</span> individuals can maintain meaningful relationships across continents, <span class="h1">as</span> instant communication removes the geographical barriers that once made long-distance connection impossible.</div></div>
+    <div class="row"><div class="row-label">P1 Example</div><div class="row-content">For example, a Pew Research survey found that 75% of users feel more connected to distant family members through social media, which clearly shows that it strengthens rather than weakens human social bonds.</div></div>
+    <div class="row lb1"><div class="row-label lbl-link1">P1 Link back</div><div class="row-content"><span class="hlb">This highlights that</span> social media, when used responsibly, has the power to bring people together in ways that previous generations could never have imagined.</div></div>
+    <div class="row"><div class="row-label">P2 Topic</div><div class="row-content"><div class="formula">A particularly serious drawback beyond this is that [claim], which [result].</div>A particularly serious drawback beyond this is that excessive social media use causes chronic anxiety among teenagers, which places enormous pressure on already overstretched mental health services.</div></div>
+    <div class="row"><div class="row-label">P2 Explain</div><div class="row-content"><span class="h2">This is because</span> constant exposure to idealised images creates deep feelings of inadequacy, <span class="h2">which ultimately leads to</span> depression and social withdrawal in young people still developing their sense of identity.</div></div>
+    <div class="row"><div class="row-label">P2 Example</div><div class="row-content">For instance, a 2023 Oxford University study found that teenagers spending over 4 hours daily on social media were 50% more likely to experience depression, which further demonstrates that unrestricted use seriously damages mental health.</div></div>
+    <div class="row lb2"><div class="row-label lbl-link2">P2 Link back</div><div class="row-content"><span class="hlb">This suggests that</span> governments and parents must work together to introduce clear screen time limits before the mental health consequences become irreversible.</div></div>
+  </div>
+</div>
+
+<div class="qblock">
+  <div class="qhead"><span class="qname">Problem/Solution</span><span class="qtag t-pr">Problem/Solution</span></div>
+  <div class="rows">
+    <div class="row"><div class="row-label">P1 Topic</div><div class="row-content"><div class="formula">Although [popular belief], it is clear that [real problem].</div><span class="h1">Although</span> individual recycling is widely promoted, <span class="h1">it is clear that</span> industrial emissions remain the primary driver of dangerous air pollution levels in most major cities.</div></div>
+    <div class="row"><div class="row-label">P1 Explain</div><div class="row-content"><span class="h1">This means that</span> personal lifestyle changes alone can never reverse industrial damage, <span class="h1">as</span> factories release carbon at a rate that individual action cannot meaningfully offset.</div></div>
+    <div class="row"><div class="row-label">P1 Example</div><div class="row-content">For example, a WHO report found that industrial activities contribute 65% of global air pollution, which clearly shows that corporate emissions must be the primary target of any serious environmental policy.</div></div>
+    <div class="row lb1"><div class="row-label lbl-link1">P1 Link back</div><div class="row-content"><span class="hlb">This highlights that</span> without holding corporations legally accountable for their emissions, no meaningful improvement in air quality can realistically be achieved.</div></div>
+    <div class="row"><div class="row-label">P2 Topic</div><div class="row-content"><div class="formula">A particularly effective solution is to [action], which [result].</div>A particularly effective solution is to introduce strict carbon taxes on heavy industries, which financially compels corporations to invest in cleaner production methods.</div></div>
+    <div class="row"><div class="row-label">P2 Explain</div><div class="row-content"><span class="h2">This is because</span> financial penalties create a direct economic incentive for companies to adopt greener technologies, <span class="h2">which ultimately leads to</span> measurable reductions in harmful emissions and improved urban air quality.</div></div>
+    <div class="row"><div class="row-label">P2 Example</div><div class="row-content">For instance, Sweden introduced a carbon tax in 1991 and reduced industrial pollution by 30% within two decades, which further demonstrates that economic policy is one of the most powerful tools for environmental protection.</div></div>
+    <div class="row lb2"><div class="row-label lbl-link2">P2 Link back</div><div class="row-content"><span class="hlb">This suggests that</span> with the right financial incentives in place, governments can drive industrial change far more rapidly than awareness campaigns or voluntary commitments ever could.</div></div>
+  </div>
+</div>
+
+<div class="qblock">
+  <div class="qhead"><span class="qname">Cause/Effect</span><span class="qtag t-ca">Cause/Effect</span></div>
+  <div class="rows">
+    <div class="row"><div class="row-label">P1 Topic</div><div class="row-content"><div class="formula">Although [common belief], research suggests that [real cause].</div><span class="h1">Although</span> financial stress is commonly cited as the leading cause of rising divorce rates, <span class="h1">research strongly suggests that</span> unrealistic expectations shaped by social media play an equally destructive role.</div></div>
+    <div class="row"><div class="row-label">P1 Explain</div><div class="row-content"><span class="h1">This means that</span> couples compare their relationships to idealised online portrayals, <span class="h1">as</span> social media presents a distorted standard that no real relationship can consistently meet.</div></div>
+    <div class="row"><div class="row-label">P1 Example</div><div class="row-content">For example, a 2022 Cambridge University study found that couples who actively use social media are 40% more likely to report relationship dissatisfaction, which clearly shows that digital comparison is a significant driver of marital breakdown.</div></div>
+    <div class="row lb1"><div class="row-label lbl-link1">P1 Link back</div><div class="row-content"><span class="hlb">This highlights that</span> addressing the psychological impact of social media on relationship expectations is just as important as tackling the financial pressures couples face.</div></div>
+    <div class="row"><div class="row-label">P2 Topic</div><div class="row-content"><div class="formula">A particularly worrying effect of this is also that [claim], which [result].</div>A particularly worrying effect of this is also that children from broken families struggle academically and emotionally, which creates cycles of instability extending into the next generation.</div></div>
+    <div class="row"><div class="row-label">P2 Explain</div><div class="row-content"><span class="h2">This is because</span> parental conflict creates a chronically unstable home environment, <span class="h2">which ultimately leads to</span> poor concentration, lower academic achievement and a higher likelihood of repeating dysfunctional relationship patterns in adulthood.</div></div>
+    <div class="row"><div class="row-label">P2 Example</div><div class="row-content">For instance, research from the University of Chicago revealed that children of divorced parents are 60% more likely to drop out of school, which further demonstrates that family instability has profound and lasting consequences for child development.</div></div>
+    <div class="row lb2"><div class="row-label lbl-link2">P2 Link back</div><div class="row-content"><span class="hlb">This suggests that</span> investment in family counselling and early emotional support for children of divorced parents is not a luxury but an urgent social necessity.</div></div>
+  </div>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CONCLUSION -->
+<div class="section">
+<div class="sec-title">Conclusion — ১-২ বাক্য</div>
+<table class="mini-table">
+  <tr><th>Type</th><th>Formula</th><th>Example</th></tr>
+  <tr><td><span class="qtag t-ag">Opinion</span></td><td>To conclude, I strongly agree/disagree that [মত] because [কারণ ১] and [কারণ ২].</td><td>To conclude, I strongly disagree that university education should be free because it burdens taxpayers and devalues qualifications.</td></tr>
+  <tr><td><span class="qtag t-di">Discussion</span></td><td>To conclude, while [view 1], [view 2]. In my opinion, [তোমার মত].</td><td>To conclude, while remote work offers flexibility, offices foster creativity. In my opinion, a hybrid model would be most effective.</td></tr>
+  <tr><td><span class="qtag t-ad">Adv/Disadv</span></td><td>To conclude, although [topic] offers [advantage], its [disadvantage] cannot be ignored.</td><td>To conclude, although social media has revolutionised communication, its damaging effects on mental health cannot be ignored.</td></tr>
+  <tr><td><span class="qtag t-pr">Problem/Solution</span></td><td>To conclude, [problem] is caused by [cause]. However, [solution] can effectively address this.</td><td>To conclude, air pollution is primarily caused by industrial emissions. However, carbon taxes can significantly reduce this problem.</td></tr>
+  <tr><td><span class="qtag t-ca">Cause/Effect</span></td><td>To sum up, [topic] is caused by [cause 1] and [cause 2], which results in [effect 1] and [effect 2].</td><td>To sum up, rising divorce rates are caused by financial stress and social media expectations, which results in emotional trauma for children and long-term family instability.</td></tr>
+</table>
+</div>
+
+<div class="divider"></div>
+
+<!-- MASTER CHEAT SHEET -->
+<div class="section">
+<div class="sec-title">Master Cheat Sheet — ৪ line এক নজরে</div>
+<table class="mini-table">
+  <tr><th>Line</th><th>Para 1</th><th>Para 2</th></tr>
+  <tr><td>1 Topic</td><td>Although... it is clear/evident that...</td><td>A particularly [adj] [noun] is that... which...</td></tr>
+  <tr><td>2 Explain</td><td>This means that... as...</td><td>This is because... which ultimately leads to...</td></tr>
+  <tr><td>3 Example</td><td>For example... which clearly shows that...</td><td>For instance... which further demonstrates that...</td></tr>
+  <tr><td>4 Link back</td><td>This highlights that [broader importance].</td><td>This suggests that [implication or solution].</td></tr>
+</table>
+<div class="note">💡 Link back-এ নতুন angle দাও — Example-এর কথা repeat করো না। P1 → "highlights that" | P2 → "suggests that"</div>
+</div>
+
+</div>
